@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=VideoPlayer
+comment0.text=\n\ Eine\ YouTube-Video-PLayliste.\n
+comment1.params=
+comment1.target=VideoPlayer()
+comment1.text=\n\ Erstellt\ einen\ neuen\ VideoPLayer.\n
+comment2.params=anzahlLikes
+comment2.target=Video\ sucheNachLikes(int)
+comment2.text=\n\ Sucht\ in\ der\ Playlist\ nach\ dem\ Video\ mit\ der\ angegeben\ Anzahl\ Likes.\n
+comment3.params=name
+comment3.target=Video\ sucheNachName(java.lang.String)
+comment3.text=\n\ Sucht\ in\ der\ Playlist\ nach\ dem\ Video\ mit\ dem\ angegeben\ Namen.\n\ \n\ TIPP\:\ mit\ "String\ A".compareTo("String\ B")\ kann\ man\ zwei\ Strings\ vergleichen.\n\ Siehe\ dazu\ auch\:\ http\://docs.oracle.com/javase/8/docs/api/java/lang/String.html\#compareTo-java.lang.String-\n
+numComments=4
