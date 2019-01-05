@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Stack
+comment1.params=
+comment1.target=Stack()
+comment2.params=pContentObject
+comment2.target=void\ push(java.lang.Object)
+comment3.params=
+comment3.target=void\ pop()
+comment4.params=
+comment4.target=java.lang.Object\ top()
+comment4.text=\n\ Liefert\ das\ Inhaltsobjekt\ vom\ obersten\ Knoten\ des\ Stapels\n\ vom\ Typ\ ContentType,\ falls\ die\ Schlange\ nicht\ leer\ ist,\ \n\ ansonsten\ null.\n\ \n\ @return\ Das\ Inhaltsobjekt\ oder\ null.\n
+comment5.params=
+comment5.target=boolean\ isEmpty()
+comment5.text=\n\ Pr\u00FCft,\ ob\ der\ Stapel\ leer\ ist.\n\ \n\ @return\ true,\ wenn\ der\ Stapel\ keine\ Knoten\ enthaelt\n
+numComments=6

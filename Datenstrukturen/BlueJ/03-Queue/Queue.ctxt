@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Queue
+comment1.params=
+comment1.target=Queue()
+comment2.params=pContentObject
+comment2.target=void\ enqueue(java.lang.Object)
+comment3.params=
+comment3.target=void\ dequeue()
+comment4.params=
+comment4.target=java.lang.Object\ front()
+comment4.text=\n\ Liefert\ das\ Inhaltsobjekt\ vom\ ersten\ Knotens\ der\ Schlange\n\ vom\ Typ\ ContentType,\ falls\ die\ Schlange\ nicht\ leer\ ist,\ \n\ ansonsten\ null.\n\ \n\ @return\ Das\ Inhaltsobjekt\ oder\ null.\n
+comment5.params=
+comment5.target=boolean\ isEmpty()
+comment5.text=\n\ Pr\u00FCft,\ ob\ die\ Schlange\ leer\ ist.\n\ \n\ @return\ true,\ wenn\ die\ Schlange\ keine\ Knoten\ enthaelt\n
+numComments=6

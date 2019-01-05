@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Node
+comment1.params=pContentObject
+comment1.target=Node(java.lang.Object)
+comment1.text=\n\ Ein\ neues\ Objekt\ vom\ Typ\ Node<ContentType>\ wird\ erschaffen.\ \n\ Der\ Inhalt\ wird\ per\ Parameter\ gesetzt.\ Der\ Verweis\ ist\ leer.\n\ \n\ @param\ pContentObject\ das\ Inhaltselement\ des\ Knotens\ vom\ Typ\ ContentType\n
+comment2.params=pNext
+comment2.target=void\ setNext(Node)
+comment2.text=\n\ Der\ Verweis\ wird\ auf\ das\ Objekt,\ das\ als\ Parameter\ uebergeben\ wird,\n\ gesetzt.\n\ \n\ @param\ pNext\ der\ Nachfolger\ des\ Knotens\n
+comment3.params=
+comment3.target=Node\ getNext()
+comment3.text=\n\ Liefert\ das\ naechste\ Element\ des\ aktuellen\ Knotens.\n\ \n\ @return\ das\ Objekt\ vom\ Typ\ QueueNode,\ auf\ das\ der\ aktuelle\ Verweis\ zeigt\n
+comment4.params=
+comment4.target=java.lang.Object\ getContent()
+comment4.text=\n\ Liefert\ das\ Inhaltsobjekt\ des\ Knotens\ vom\ Typ\ ContentType.\n\ \n\ @return\ das\ Inhaltsobjekt\ des\ Knotens\n
+numComments=5
