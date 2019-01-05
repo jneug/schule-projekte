@@ -1,0 +1,24 @@
+user1 Mary plays the piano.
+user0 The river stole the gods.
+user2 The waves were crashing on the shore; it was a lovely sight.
+user4 The mysterious diary records the voice.
+user3 It was getting dark, and we weren�t there yet.
+user1 She advised him to come back at once.
+user5 There was no ice cream in the freezer, nor did they have money to go to the store.
+user4 Check back tomorrow; I will see if the book has arrived.
+user2 The shooter says goodbye to his love.
+user8 The lake is a long way from here.
+user7 I think I will buy the red car, or I will lease the blue one.
+user1 Last Friday in three week�s time I saw a spotted striped blue worm shake hands with a legless lizard.
+user3 Two seats were vacant.
+user4 She works two jobs to make ends meet; at least, that was her reason for not having time to join us.
+user1 Hurry!
+user5 I often see the time 11:11 or 12:34 on clocks.
+user6 She always speaks to him in a loud voice.
+user8 A purple pig and a green donkey flew a kite in the middle of the night and ended up sunburnt.
+user9 Abstraction is often one floor above you.
+user1 Joe made the sugar cookies; Susan decorated them.
+user1 The quick brown fox jumps over the lazy dog.
+user2 I want more detailed information.
+user3 I am counting my calories, yet I really want dessert.
+user3 We have a lot of rain in June.

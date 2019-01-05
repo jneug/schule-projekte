@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=pName
+comment0.target=List\ readResource(java.lang.String)
+comment1.params=pRoot
+comment1.target=FileSystem(java.lang.String)
+comment2.params=pFilename
+comment2.target=List\ readLines(java.lang.String)
+comment3.params=pFilename
+comment3.target=java.lang.String\ readFile(java.lang.String)
+numComments=4

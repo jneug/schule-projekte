@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.params=pName\ pPassword
+comment0.target=QwitterUser(java.lang.String,\ java.lang.String)
+comment1.params=
+comment1.target=java.lang.String\ getName()
+comment2.params=
+comment2.target=java.lang.String\ getPassword()
+comment3.params=
+comment3.target=java.lang.String\ getAddress()
+comment4.params=pIp\ pPort
+comment4.target=void\ setAddress(java.lang.String,\ int)
+comment5.params=
+comment5.target=void\ unsetAddress()
+comment6.params=
+comment6.target=boolean\ hasAddress()
+comment7.params=pContent
+comment7.target=boolean\ isGreater(QwitterUser)
+comment8.params=pContent
+comment8.target=boolean\ isEqual(QwitterUser)
+comment9.params=pContent
+comment9.target=boolean\ isLess(QwitterUser)
+numComments=10

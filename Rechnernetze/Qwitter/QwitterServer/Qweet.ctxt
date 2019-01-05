@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=pText\ pUser
+comment0.target=Qweet(java.lang.String,\ QwitterUser)
+comment1.params=pText\ pUser\ pPosted
+comment1.target=Qweet(java.lang.String,\ QwitterUser,\ java.util.Date)
+comment2.params=
+comment2.target=int\ getId()
+comment3.params=
+comment3.target=java.lang.String\ getText()
+comment4.params=
+comment4.target=QwitterUser\ getUser()
+comment5.params=
+comment5.target=java.util.Date\ getPosted()
+numComments=6
