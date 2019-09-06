@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.target=Entscheidung
-comment1.params=
-comment1.target=Entscheidung()
-comment2.params=d
-comment2.target=java.lang.String\ entscheide(Datensatz)
-comment2.text=\n\ F\u00FChrt\ den\ Test\ der\ Entscheidung\ durch.\ Die\ Methode\n\ bekommt\ den\ Datensatz\ als\ Parameter\ und\ gibt\ einen\n\ von\ drei\ Strings\ zur\u00FCck\:\n\ 1.\ "links"\ -\ Folge\ dem\ linken\ Teilbaum\n\ 2.\ "rechts"\ -\ Folge\ dem\ rechten\ Teilbaum\n\ 3.\ Die\ finale\ Entscheidung,\ wenn\ dies\ ein\ Blatt\ des\ Baumes\ \n\ \ \ \ \ \ ist\ (z.B.\ "Ja"\ oder\ "Nein")\n
-numComments=3
