@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Entscheider
+comment1.params=
+comment1.target=Entscheider()
+comment2.params=d
+comment2.target=java.lang.String\ testeDatensatz(Datensatz)
+comment3.params=
+comment3.target=Datensatz[]\ getTestdaten()
+comment4.params=
+comment4.target=void\ testeTestdaten()
+numComments=5

@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Datensatz
+comment1.params=
+comment1.target=Datensatz()
+comment2.params=pVorhersage\ pTemperatur\ pFeuchtigkeit\ pWind
+comment2.target=Datensatz(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+numComments=3
