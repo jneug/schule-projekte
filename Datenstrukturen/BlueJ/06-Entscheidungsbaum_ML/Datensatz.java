@@ -1,20 +1,21 @@
 
-public class Datensatz
-{
-    public String vorhersage;
-    public String temperatur;
-    public String feuchtigkeit;
-    public String wind;
+public class Datensatz {
+    
+    private java.util.HashMap<String, String> daten;
 
+    /**
+     * Konstruktor für Objekte der Klasse Datensatz
+     */
     public Datensatz() {
-        this("sonnig", "heiß", "hoch", "schwach");
+        daten = new java.util.HashMap<String, String>();
     }
-    public Datensatz( String pVorhersage, String pTemperatur, 
-            String pFeuchtigkeit, String pWind )
-    {
-        vorhersage = pVorhersage;
-        temperatur = pTemperatur;
-        feuchtigkeit = pFeuchtigkeit;
-        wind = pWind;
+    
+    public String get( String pAttribut ) {
+        return daten.get(pAttribut);
     }
+    
+    public void set( String pAttribut, String pWert ) {
+        daten.put(pAttribut, pWert);
+    }
+    
 }
