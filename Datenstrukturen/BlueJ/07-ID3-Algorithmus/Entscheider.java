@@ -9,14 +9,25 @@ public class Entscheider {
 
     private int maximaleTiefe;
 
+    private double minimalerInformationsgewinn;
+
     private BinaryTree<Knoten> baum;
 
     public Entscheider() {
-        maximaleTiefe = 3;
+        this(3, 0.25);
     }
 
     public Entscheider( int pMaximaleTiefe ) {
-        maximaleTiefe = pMaximaleTiefe;
+        this(pMaximaleTiefe, 0.0);
+    }
+
+    public Entscheider( double pMinimalerInformationsgewinn ) {
+    		this(Integer.MAX_VALUE, pMinimalerInformationsgewinn);
+    }
+
+    public Entscheider( int pMaximaleTiefe, double pMinimalerInformationsgewinn ) {
+    		maximaleTiefe = pMaximaleTiefe;
+    		minimalerInformationsgewinn = pMinimalerInformationsgewinn;
     }
 
     public void ladeDatenUndErstelleBaum() {
@@ -51,7 +62,7 @@ public class Entscheider {
         // Beispielhafter Aufruf für die Rekursion
         // im linken Teilbaum.
         // baumAusgeben(pBaum.getLeftTree(), pTiefe+1);
-        
+
         String tabs = "";
         if( pTiefe > 0 ) {
             tabs = new String(new char[pTiefe]).replace("\0", "  ");
@@ -175,7 +186,7 @@ public class Entscheider {
         double maxInformation = 0;
         for( int i = 0; i < attribute.length; i++ ) {
             double ig = anteile.informationsgewinn(attribute[i]);
-            if( ig > maxInformation ) {
+            if( ig > maxInformation && ig > minimalerInformationsgewinn ) {
                 bestesAttribut = attribute[i];
                 maxInformation = ig;
             }
