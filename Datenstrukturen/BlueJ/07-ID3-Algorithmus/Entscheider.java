@@ -25,10 +25,10 @@ public class Entscheider {
         baum = erstelleBaum(trainingsdaten);
         System.out.println("Fertig: Entschiedungsbaum erstellt");
     }
-    
+
     public void baumAusgeben() {
         if( baum == null ) {
-            System.out.println("Erst einen Baum erstellen.");
+            System.out.println("Fehler: Noch kein Baum erstellt!");
         } else {
             baumAusgeben(baum, 0);
         }
@@ -38,24 +38,42 @@ public class Entscheider {
      * Gibt den Baum auf der Konsole aus.
      * Der Baum wird von der Wurzel rekursiv druchlaufen.
      * Zuerst wird der aktuelle Knoten ausgegeben, dann die
-     * Knoten des linken Teilbaumes und schließlich die 
+     * Knoten des linken Teilbaumes und schließlich die
      * Knoten des rechten Teilbaumes.
      */
     private void baumAusgeben( BinaryTree<Knoten> pBaum, int pTiefe ) {
         Knoten k = pBaum.getContent();
 
         // Sie können sich mit k.toString() den Inhalt
-        // des Knotens als String holen und mit 
+        // des Knotens als String holen und mit
         // System.out.println() ausgeben.
 
         // Beispielhafter Aufruf für die Rekursion
         // im linken Teilbaum.
         // baumAusgeben(pBaum.getLeftTree(), pTiefe+1);
+        
+        String tabs = "";
+        if( pTiefe > 0 ) {
+            tabs = new String(new char[pTiefe]).replace("\0", "  ");
+        }
+
+        //Knoten k = pBaum.getContent();
+        if( k != null ) {
+            System.out.print(tabs);
+            System.out.println(k.toString());
+        }
+
+        if( pBaum.getLeftTree() != null ) {
+            baumAusgeben(pBaum.getLeftTree(), pTiefe+1);
+        }
+        if( pBaum.getRightTree() != null ) {
+            baumAusgeben(pBaum.getRightTree(), pTiefe+1);
+        }
     }
 
     public void pruefeTestdaten() {
         if( baum == null ) {
-            System.out.println("Noch kein Baum erstellt!");
+            System.out.println("Fehler: Noch kein Baum erstellt!");
         } else {
             List<Passagier> testdaten = ladeTestdaten();
             int fehler = 0, gesamt = 0;
@@ -64,36 +82,32 @@ public class Entscheider {
             while( testdaten.hasAccess() ) {
                 Passagier p = testdaten.getContent();
                 String klasse = pruefePassagier(p);
+                String erwartet = "überlebt";
+                if( p.survived == 0 ) {
+                    erwartet = "verstorben";
+                }
+
                 System.out.printf("%s %s ", p.name, klasse);
 
-                if( klasse.equals("überlebt") ) {
-                    if( p.survived == 1 ) {
-                        System.out.println("(Korrekt)");
-                    } else {
-                        System.out.println("(Fehler)");
-                        fehler++;
-                    }
+                if( !klasse.equals(erwartet) ) {
+                    System.out.println("(Fehler)");
+                    fehler++;
                 } else {
-                    if( p.survived == 0 ) {
-                        System.out.println("(Korrekt)");
-                    } else {
-                        System.out.println("(Fehler)");
-                        fehler++;
-                    }
+                    System.out.println("(Korrekt)");
                 }
 
                 gesamt++;
                 testdaten.next();
             }
-            
-            System.out.printf("\nTest fertig: %s/%s Korrekt, %s/%s Fehler\n", 
-                (gesamt-fehler), gesamt, fehler, gesamt);
+
+            System.out.printf("\nTest fertig: %s von %s Fehler (%s%%)",
+                    fehler, gesamt, Math.round(fehler/gesamt*100));
         }
     }
 
     private String pruefePassagier( Passagier pPassagier ) {
         if( baum == null ) {
-            System.out.println("Noch kein Baum erstellt!");
+            System.out.println("Fehler: Noch kein Baum erstellt!");
             return "- FEHLER -";
         }
 
@@ -105,7 +119,7 @@ public class Entscheider {
                 || antwort.equals("rechts") ) {
             Knoten e = wurzel.getContent();
             antwort = e.entscheide(pPassagier);
-            
+
             if( antwort.equals("links") ) {
                 wurzel = wurzel.getLeftTree();
             } else if( antwort.equals("rechts") ) {
@@ -122,9 +136,9 @@ public class Entscheider {
     private BinaryTree<Knoten> erstelleBaum( List<Passagier> trainingsdaten , int pTiefe ) {
         String bestesAttribut = bestesAttribut(trainingsdaten);
         String[] werte = Passagier.getWerte(bestesAttribut);
-        
-        if( bestesAttribut.equals("") || pTiefe > maximaleTiefe ) {
-            Zaehler anteile = zaehlen(trainingsdaten);
+
+        if( bestesAttribut.equals("") || pTiefe >= maximaleTiefe ) {
+            ID3 anteile = zaehlen(trainingsdaten);
 
             BinaryTree<Knoten> klasse = new BinaryTree<Knoten>();
             if( anteile.anteil(1) >= anteile.anteil(0) ) {
@@ -154,7 +168,7 @@ public class Entscheider {
     }
 
     private String bestesAttribut( List<Passagier> trainingsdaten ) {
-        Zaehler anteile = zaehlen(trainingsdaten);
+        ID3 anteile = zaehlen(trainingsdaten);
 
         String[] attribute = Passagier.getAttribute();
         String bestesAttribut = "";
@@ -170,9 +184,9 @@ public class Entscheider {
         return bestesAttribut;
     }
 
-    private Zaehler zaehlen( List<Passagier> trainingsdaten  ) {
-        Zaehler zaehler = new Zaehler();
-        
+    private ID3 zaehlen( List<Passagier> trainingsdaten  ) {
+        ID3 zaehler = new ID3();
+
         trainingsdaten.toFirst();
         while( trainingsdaten.hasAccess() ) {
             zaehler.zaehlen(trainingsdaten.getContent());
@@ -182,9 +196,16 @@ public class Entscheider {
         return zaehler;
     }
 
+    /**
+     * Filtert die Liste von Passagieren nach einer Attribut/Wert Kombination.
+     * @param pAttribut
+     * @param pWert
+     * @param trainingsdaten
+     * @return
+     */
     private List<Passagier> filtereDaten( String pAttribut, String pWert, List<Passagier> trainingsdaten ) {
         List<Passagier> neueTestdaten = new List<Passagier>();
-        
+
         trainingsdaten.toFirst();
         while( trainingsdaten.hasAccess() ) {
             Passagier p = trainingsdaten.getContent();
@@ -214,26 +235,26 @@ public class Entscheider {
             if(lineData.length < 9) {
                 System.out.println(lines.getContent());
             }
-            
-            Passagier p = new Passagier( lineData[3], 
-                lineData[5], lineData[4], lineData[8], 
-                Integer.valueOf(lineData[1].trim()),
-                Integer.valueOf(lineData[6].trim()), 
-                Integer.valueOf(lineData[7].trim()), 
-                Integer.valueOf(lineData[2].trim()) );
+
+            Passagier p = new Passagier( lineData[3],
+                    lineData[5], lineData[4], lineData[8],
+                    Integer.valueOf(lineData[1].trim()),
+                    Integer.valueOf(lineData[6].trim()),
+                    Integer.valueOf(lineData[7].trim()),
+                    Integer.valueOf(lineData[2].trim()) );
             daten.append(p);
-            
+
             lines.next();
         }
 
         return daten;
     }
-    
+
     public void ladeDatenUndZaehle() {
         List<Passagier> trainingsdaten = ladeTrainingsdaten();
         System.out.println("Fertig: Daten geladen");
-        Zaehler anteile = zaehlen(trainingsdaten);
-        
+        ID3 anteile = zaehlen(trainingsdaten);
+
         System.out.printf("E_gesamt = %s\n", anteile.entropie());
         String[] attrs = Passagier.getAttribute();
         for( int i = 0; i < attrs.length; i++ ) {
