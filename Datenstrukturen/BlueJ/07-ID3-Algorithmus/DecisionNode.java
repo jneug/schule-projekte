@@ -4,11 +4,10 @@
  * rechten Teilbaum weitergesucht werden muss, oder dem Passagier
  * eine Klasse zuweisen (Blattknoten).
  */
-public abstract class Knoten
-{
+public abstract class DecisionNode {
 
-    public abstract String entscheide( Passagier pPassagier );
-    
+    public abstract String decide( Passenger pPassenger );
+
     public abstract String toString();
 
 }

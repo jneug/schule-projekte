@@ -3,7 +3,7 @@
  * Sie enthalten die Attributswerte, nach denen die Entscheidungen
  * im Baum gefällt werden.
  */
-public class Passagier {
+public class Passenger {
 
     /**
      * Klassenmethode die ein String-Arrays der Attributnamen zurück gibt.
@@ -19,7 +19,7 @@ public class Passagier {
      * @param pAttribut
      * @return
      */
-    public static final String[] getWerte( String pAttribut ) {
+    public static final String[] getValues( String pAttribut ) {
         if( pAttribut.equals("clazz") ) {
             return new String[]{"1", "2", "3"};
         } else if( pAttribut.equals("age") ) {
@@ -44,31 +44,31 @@ public class Passagier {
 
     /**
      * Erstellt einen Passagier mit den angegebenen Werten, ohne das Attribut "survived".
-     * @param name
-     * @param age
-     * @param sex
-     * @param embarked
-     * @param clazz
-     * @param sibsp
-     * @param parch
+     * @param name Name des Passagiers.
+     * @param age Alter des Passagiers: "unter 20" oder "über 20".
+     * @param sex Geschlecht des Passagiers: "male" oder "female"
+     * @param embarked Aufbruchsort: "C", "Q" oder "S"
+     * @param clazz Klasse des Passagiers als Zahl: 1, 2 oder 3
+     * @param sibsp Anzahl Geschwister und Lebenspartner an Bord: 0, 1 oder 2
+     * @param parch Anzahl Eltern und Kinder an Bord: 0, 1 oder 2
      */
-    public Passagier( String name, String age, String sex, String embarked,
+    public Passenger( String name, String age, String sex, String embarked,
                       int clazz, int sibsp, int parch ) {
         this(name, age, sex, embarked, clazz, sibsp, parch, 0);
     }
 
     /**
      * Erstellt einen Passagier mit den angegebenen Werten.
-     * @param name
-     * @param age
-     * @param sex
-     * @param embarked
-     * @param clazz
-     * @param sibsp
-     * @param parch
-     * @param survived
+     * @param name Name des Passagiers.
+     * @param age Alter des Passagiers: "unter 20" oder "über 20".
+     * @param sex Geschlecht des Passagiers: "male" oder "female"
+     * @param embarked Aufbruchsort: "C", "Q" oder "S"
+     * @param clazz Klasse des Passagiers als Zahl: 1, 2 oder 3
+     * @param sibsp Anzahl Geschwister und Lebenspartner an Bord: 0, 1 oder 2
+     * @param parch Anzahl Eltern und Kinder an Bord: 0, 1 oder 2
+     * @param survived 0 - verstorben, 1 - überlebt
      */
-    public Passagier( String name, String age, String sex, String embarked,
+    public Passenger( String name, String age, String sex, String embarked,
                       int clazz, int sibsp, int parch, int survived ) {
         this.name = name;
         this.age = age;
@@ -87,7 +87,7 @@ public class Passagier {
      * @param pAttribut
      * @return
      */
-    public String get( String pAttribut ) {
+    public String getValue( String pAttribut ) {
         if( pAttribut.equals("clazz") ) {
             return String.valueOf(clazz);
         } else if( pAttribut.equals("age") ) {
