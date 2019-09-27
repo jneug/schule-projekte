@@ -1,55 +1,72 @@
 
-public class Entscheider
-{
-    private BinaryTree<Knoten> baum;
+public class Entscheider {
 
-    public Entscheider()
-    {
-        /*
-         * Hier den Entscheidungsbaum aufbauen
-         * von den Blättern zur Wurzel!
-         */
-        // z.B.
-        BinaryTree<Knoten> klasseNein = new BinaryTree<Knoten>();
-        klasseNein.setContent(new Klassifikation("nein"));
+    // Wurzel des Entscheidungsbaums
+    private BinaryTree<Knoten> root;
 
-        BinaryTree<Knoten> eWind = new BinaryTree<Knoten>();
-        eWind.setContent(new Entscheidung("wind", "schwach"));
-        eWind.setLeftTree(klasseNein);
+    public Entscheider() {
+        // Vorbereiten der Klassifikationen:
+        Klassifikation klasseJa = new Klassifikation("ja");
+        Klassifikation klasseNein = new Klassifikation("nein");
 
-        // usw ...
+        // Von der Wurzel zu den Blättern.
+        root = new BinaryTree<Knoten>(
+            new Entscheidung("vorhersage", "regnerisch")
+        );
 
-        // bis zur Wurzel.
-        // Die Wurzel des Baumes muss in der Objektvariablen
-        // baum gepeichert werden!
-        baum = new BinaryTree<Knoten>();
-        baum.setContent(new Entscheidung("vorhersage", "sonnig"));
-        baum.setRightTree(eWind);
+
+        // Hier den Entscheidungsbaum aufbauen.
+        // ...
     }
 
+    /**
+     * Schickt die {@link #getTestdaten() Testdaten} durch den Entscheidungsbaum
+     * und gibt die Entscheidungen auf der Kommandozeile aus.
+     * @see #testeDatensatz(Datensatz)
+     */
+    public void testeTestdaten() {
+        Datensatz[] testdaten = getTestdaten();
+        for( int i = 0; i < testdaten.length; i++ ) {
+            Datensatz d = testdaten[i];
+            String result = testeDatensatz(d);
+            System.out.printf("(%s, %s, %s, %s) = %s",
+                d.get("vorhersage"), d.get("temperatur"),
+                d.get("feuchtigkeit"), d.get("wind"),
+                result);
+            System.out.println();
+        }
+    }
 
-    public String testeDatensatz(Datensatz d)
-    {
-        // Bei der Wurzel anfangen
-        BinaryTree<Knoten> knoten = baum;
+    /**
+     * Schickt einen Datensatz durch den Entscheidungsbaum und gibt die
+     * Klasse als String zurück.
+     * @param pDatensatz Der zu testende Datensatz.
+     * @return Die Klasse, der der Datensatz zugeordnet wurde.
+     */
+    public String testeDatensatz(Datensatz pDatensatz) {
+        BinaryTree<Knoten> knoten = root;
 
         String antwort = "";
         while( antwort.equals("") || antwort.equals("links")
-                || antwort.equals("rechts") ) {
+            || antwort.equals("rechts") ) {
             Knoten e = knoten.getContent();
-            antwort = e.entscheide(d);
+            antwort = e.entscheide(pDatensatz);
 
             if( antwort.equals("links") ) {
                 // Im linken Teilbaum weiter
-                // knoten = ...
+                knoten = knoten.getLeftTree();
             } else if( antwort.equals("rechts") ) {
                 // Im rechten Teilbaum weiter
-                // knoten = ...
+                knoten = knoten.getRightTree();
             }
         }
         return antwort;
     }
 
+    /**
+     * Erstellt ein Array mit Test-Datensätzen für den Entscheidungsbaum.
+     * @return
+     */
     public Datensatz[] getTestdaten() {
         String[][] testdaten = new String[][]{
             new String[]{"sonnig", "heiß", "hoch", "schwach"},
@@ -77,18 +94,5 @@ public class Entscheider
         }
 
         return daten;
-    }
-
-    public void testeTestdaten() {
-        Datensatz[] testdaten = getTestdaten();
-        for( int i = 0; i < testdaten.length; i++ ) {
-            Datensatz d = testdaten[i];
-            String play = testeDatensatz(d);
-            System.out.printf("(%s, %s, %s, %s) = %s",
-                d.get("vorhersage"), d.get("temperatur"),
-                d.get("feuchtigkeit"), d.get("wind"),
-                play);
-            System.out.println();
-        }
     }
 }

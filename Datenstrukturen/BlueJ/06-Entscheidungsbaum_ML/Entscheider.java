@@ -1,55 +1,70 @@
 
-public class Entscheider
-{
-	private BinaryTree<Knoten> baum;
+public class Entscheider {
 
-	public Entscheider()
-	{
-		/*
-		 * Hier den Entscheidungsbaum aufbauen
-		 * von den Blättern zur Wurzel!
-		 */
-		BinaryTree<Knoten> klasseJa = new BinaryTree<Knoten>();
-		klasseJa.setContent(new Klassifikation("ja"));
+    // Wurzel des Entscheidungsbaums
+	private BinaryTree<Knoten> root;
 
-		BinaryTree<Knoten> klasseNein = new BinaryTree<Knoten>();
-		klasseNein.setContent(new Klassifikation("nein"));
+	public Entscheider() {
+		// Hier den Entscheidungsbaum aufbauen.
+        // Vorbereiten der Klassifikationen:
+        Klassifikation klasseJa = new Klassifikation("ja");
+        Klassifikation klasseNein = new Klassifikation("nein");
 
-		BinaryTree<Knoten> eWind = new BinaryTree<Knoten>();
-		eWind.setContent(new Entscheidung("wind", "stark"));
-		eWind.setLeftTree(klasseNein);
-		eWind.setRightTree(klasseJa);
+        // Von der Wurzel zu den Blättern.
+        root = new BinaryTree<Knoten>(
+            new Entscheidung("vorhersage", "regnerisch")
+        );
 
-		BinaryTree<Knoten> eFeuchtigkeit = new BinaryTree<Knoten>();
-		eFeuchtigkeit.setContent(new Entscheidung("feuchtigkeit", "hoch"));
-		eFeuchtigkeit.setLeftTree(klasseNein);
-		eFeuchtigkeit.setRightTree(klasseJa);
+        root.getLeftTree().setContent(
+            new Entscheidung("feuchtigkeit", "hoch")
+        );
+        root.getLeftTree().getLeftTree().setContent(klasseNein);
+        root.getLeftTree().getRightTree().setContent(klasseJa);
 
-		BinaryTree<Knoten> eVorhersage2 = new BinaryTree<Knoten>();
-		eVorhersage2.setContent(new Entscheidung("vorhersage", "sonnig"));
-		eVorhersage2.setLeftTree(eWind);
-		eVorhersage2.setRightTree(klasseJa);
+        root.getRightTree().setContent(
+            new Entscheidung("vorhersage", "sonnig")
+        );
+        root.getRightTree().getLeftTree().setContent(
+            new Entscheidung("wind", "stark")
+        );
+        root.getRightTree().getRightTree().setContent(klasseJa);
 
-		BinaryTree<Knoten> eVorhersage1 = new BinaryTree<Knoten>();
-		eVorhersage1.setContent(new Entscheidung("vorhersage", "regnerisch"));
-		eVorhersage1.setLeftTree(eFeuchtigkeit);
-		eVorhersage1.setRightTree(eVorhersage2);
-
-		// bis zur Wurzel.
-		baum = eVorhersage1;
+        root.getRightTree().getLeftTree().getLeftTree().setContent(klasseNein);
+        root.getRightTree().getLeftTree().getRightTree().setContent(klasseJa);
 	}
 
+    /**
+     * Schickt die {@link #getTestdaten() Testdaten} durch den Entscheidungsbaum
+     * und gibt die Entscheidungen auf der Kommandozeile aus.
+     * @see #testeDatensatz(Datensatz)
+     */
+    public void testeTestdaten() {
+        Datensatz[] testdaten = getTestdaten();
+        for( int i = 0; i < testdaten.length; i++ ) {
+            Datensatz d = testdaten[i];
+            String result = testeDatensatz(d);
+            System.out.printf("(%s, %s, %s, %s) = %s",
+                d.get("vorhersage"), d.get("temperatur"),
+                d.get("feuchtigkeit"), d.get("wind"),
+                result);
+            System.out.println();
+        }
+    }
 
-	public String testeDatensatz(Datensatz d)
-	{
-		// Bei der Wurzel anfangen
-		BinaryTree<Knoten> knoten = baum;
+    /**
+     * Schickt einen Datensatz durch den Entscheidungsbaum und gibt die
+     * Klasse als String zurück.
+     * @param pDatensatz Der zu testende Datensatz.
+     * @return Die Klasse, der der Datensatz zugeordnet wurde.
+     */
+	public String testeDatensatz(Datensatz pDatensatz) {
+		BinaryTree<Knoten> knoten = root;
 
 		String antwort = "";
 		while( antwort.equals("") || antwort.equals("links")
 				|| antwort.equals("rechts") ) {
 			Knoten e = knoten.getContent();
-			antwort = e.entscheide(d);
+			antwort = e.entscheide(pDatensatz);
 
 			if( antwort.equals("links") ) {
 				// Im linken Teilbaum weiter
@@ -62,6 +77,10 @@ public class Entscheider
 		return antwort;
 	}
 
+    /**
+     * Erstellt ein Array mit Test-Datensätzen für den Entscheidungsbaum.
+     * @return
+     */
 	public Datensatz[] getTestdaten() {
 		String[][] testdaten = new String[][]{
 			new String[]{"sonnig", "heiß", "hoch", "schwach"},
@@ -89,18 +108,5 @@ public class Entscheider
 		}
 
 		return daten;
-	}
-
-	public void testeTestdaten() {
-		Datensatz[] testdaten = getTestdaten();
-		for( int i = 0; i < testdaten.length; i++ ) {
-			Datensatz d = testdaten[i];
-			String play = testeDatensatz(d);
-			System.out.printf("(%s, %s, %s, %s) = %s",
-				d.get("vorhersage"), d.get("temperatur"),
-				d.get("feuchtigkeit"), d.get("wind"),
-				play);
-			System.out.println();
-		}
 	}
 }
