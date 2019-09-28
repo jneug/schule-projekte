@@ -9,13 +9,7 @@ import java.util.concurrent.Callable;
  * @author J. Neugebauer <schule@neugebauer.cc>
  */
 public class Trees {
-
-
-    public static void main( String[] args ) {
-        BinaryTree<Integer> tree = generateIntegerTree(8,.5,0);
-        printPretty(tree);
-        printPreorder(tree);
-    }
+    
 
     public static <T> void printPretty( BinaryTree<T> pRoot ) {
         printPretty(pRoot, System.out);
