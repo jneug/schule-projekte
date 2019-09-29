@@ -8,30 +8,30 @@
  *  Teilbaum gewählt.
  * </p>
  */
-public class Entscheidung extends Knoten {
+public class Decision extends DecisionNode {
 
     // Name des Attributs
-    private String attribut;
+    private String attribute;
 
     // Wert, bei dem links weitergesucht werden soll
-    private String wertLinks;
+    private String valueLeft;
 
     /**
      * Erstellt eine binäre Entscheidung.
-     * @param pAttribut Name des Attributs.
-     * @param pWertLinks Wert, wann im linken Teilbaum weitergesucht werden muss.
+     * @param pAttribute Name des Attributs.
+     * @param pValueLeft Wert, wann im linken Teilbaum weitergesucht werden muss.
      */
-    public Entscheidung( String pAttribut, String pWertLinks ) {
-        attribut = pAttribut;
-        wertLinks = pWertLinks;
+    public Decision( String pAttribute, String pValueLeft ) {
+        attribute = pAttribute;
+        valueLeft = pValueLeft;
     }
 
     @Override
-    public String entscheide( Datensatz d ) {
-        if( d.get(attribut).equals(wertLinks) ) {
-            return "links";
+    public String decide( Dataset pDataset ) {
+        if( pDataset.get(attribute).equals(valueLeft) ) {
+            return "left";
         } else {
-            return "rechts";
+            return "right";
         }
     }
 

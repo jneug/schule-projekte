@@ -12,7 +12,7 @@ public class DecisionTreeBuilder {
 
     private double minEntropie;
 
-    private BinaryTree<DecisionNode> tree;
+    private BinaryTree<DecisionNode> decisionTree;
 
     public DecisionTreeBuilder() {
         this(3, 0.25, 0.5);
@@ -43,7 +43,7 @@ public class DecisionTreeBuilder {
     public void buildTree( String pFilename ) {
         List<Passenger> trainingsdaten = loadData(pFilename);
         System.out.println("Fertig: Daten geladen");
-        tree = buildTree(trainingsdaten);
+        decisionTree = buildTree(trainingsdaten);
         System.out.println("Fertig: Entschiedungsbaum erstellt");
     }
 
@@ -51,10 +51,10 @@ public class DecisionTreeBuilder {
      * Gibt den Baum als Text auf der Kommandozeile aus.
      */
     public void printTree() {
-        if( tree == null ) {
+        if( decisionTree == null ) {
             System.out.println("Fehler: Noch kein Baum erstellt!");
         } else {
-            printTree(tree, 0);
+            printTree(decisionTree, 0);
         }
     }
 
@@ -113,7 +113,7 @@ public class DecisionTreeBuilder {
      * vorhandenen.
      */
     public void classifyTestdata( String pDatei ) {
-        if( tree == null ) {
+        if( decisionTree == null ) {
             System.out.println("Fehler: Noch kein Baum erstellt!");
         } else {
             List<Passenger> testdata = loadData(pDatei);
@@ -122,7 +122,7 @@ public class DecisionTreeBuilder {
             testdata.toFirst();
             while( testdata.hasAccess() ) {
                 Passenger p = testdata.getContent();
-                String classification = classifyPassenger(p, tree);
+                String classification = classifyPassenger(p, decisionTree);
                 String expected = "überlebt";
                 if( p.survived == 0 ) {
                     expected = "verstorben";
