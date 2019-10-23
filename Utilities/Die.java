@@ -12,6 +12,8 @@ public class Die {
 
     private Random rand;
 
+    private int lastValue;
+
     /**
      * Erzeugt einen normalen, sechsseitigen Würfel.
      */
@@ -37,6 +39,15 @@ public class Die {
         maxValue = pMaxValue;
         minValue = pMinValue;
         rand = new Random();
+        roll();
+    }
+
+    /**
+     * Gibt das Letzte Würfelergebnis zurück.
+     * @return
+     */
+    public int getValue() {
+        return lastValue;
     }
 
     /**
@@ -44,7 +55,8 @@ public class Die {
      * @return Eine zufällige, ganze Zahl im festgelegten Bereich.
      */
     public int roll() {
-        return rand.nextInt(maxValue-minValue+1) + minValue;
+        lastValue = rand.nextInt(maxValue-minValue+1) + minValue;
+        return lastValue;
     }
 
     /**
