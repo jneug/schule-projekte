@@ -1,15 +1,44 @@
+package util;
+
+import com.sun.source.tree.BinaryTree;
+
 import java.io.PrintStream;
 import java.util.Random;
 import java.util.concurrent.Callable;
 
 /**
  * Eine Sammlung von Klassenmethoden, um wiederkehrende
- * Aufgaben mit Bäumen zu vereinfachen.
+ * Aufgaben mit binären Bäumen zu vereinfachen.
  * @version 0.1 (2019-09-13)
  * @author J. Neugebauer <schule@neugebauer.cc>
  */
 public class Trees {
-    
+
+    public static <T> int getMaxDepth( BinaryTree<T> pRoot ) {
+        if( pRoot.isEmpty() ) {
+            return 0;
+        }
+        return 1 + Math.max(
+            getMaxDepth( pRoot.getLeftTree() ),
+            getMaxDepth( pRoot.getRightTree() )
+        );
+    }
+
+    public static <T> int countNodes( BinaryTree<T> pRoot ) {
+        if( pRoot.isEmpty() ) {
+            return 0;
+        }
+        return 1 + countNodes( pRoot.getLeftTree() ) + countNodes( pRoot.getRightTree() );
+    }
+
+    public static <T> int countLeaves( BinaryTree<T> pRoot ) {
+        if( pRoot.isEmpty() ) {
+            return 0;
+        } else if( pRoot.getLeftTree().isEmpty() && pRoot.getRightTree().isEmpty() ) {
+            return 1;
+        }
+        return countLeaves( pRoot.getLeftTree() ) + countLeaves( pRoot.getRightTree() );
+    }
 
     public static <T> void printPretty( BinaryTree<T> pRoot ) {
         printPretty(pRoot, System.out);
@@ -20,7 +49,7 @@ public class Trees {
     }
 
     // Adapted from https://stackoverflow.com/a/27153988/10921408
-    private static <T> StringBuilder printPretty(BinaryTree<T> pRoot, StringBuilder prefix, boolean isTail, StringBuilder sb) {
+    private static <T> StringBuilder printPretty( BinaryTree<T> pRoot, StringBuilder prefix, boolean isTail, StringBuilder sb) {
         if( !pRoot.getRightTree().isEmpty() ) {
             printPretty(pRoot.getRightTree(), new StringBuilder().append(prefix).append(isTail ? "│   " : "    "), false, sb);
         }
@@ -75,6 +104,10 @@ public class Trees {
 
     public static BinaryTree<Integer> generateBalancedIntegerTree( int pNodeCount, int pMinValue, int pMaxValue ) {
         return generateIntegerTree(pNodeCount, pMinValue, pMaxValue, 0.5, 0.0);
+    }
+
+    public static BinaryTree<Integer> generateCompleteIntegerTree( int pDepth, int pMinValue, int pMaxValue ) {
+        return generateBalancedIntegerTree((int)Math.pow(2,pDepth)-1, pMinValue, pMaxValue);
     }
 
     public static BinaryTree<Integer> generateIntegerTree( int pNodeCount, double pWeight, double pUncertainty ) {
