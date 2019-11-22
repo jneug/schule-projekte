@@ -27,7 +27,7 @@ public class Planet extends World
 
         karteLaden("arena"+Utils.zufallsInt(1,3));
 
-        addObject(Referee.getInstance(), 0, 0);
+        addObject(Referee.getInstance().getActor(), 0, 0);
     }
 
     /**

@@ -3,7 +3,7 @@ import java.util.List;
 
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-public class Referee extends Actor {
+public class Referee {
 
     // Arena Regeln
     public static final int COSTS_MOVE = 4;
@@ -33,8 +33,13 @@ public class Referee extends Actor {
 
     private boolean gameRunning = false;
 
+    private World world;
+
+    private ActorDelegate actor;
+
     public Referee() {
         rovers = new HashMap<Rover, RoverState>();
+        actor = new ActorDelegate(this);
     }
 
     public void addRover(Rover pRover) {
@@ -340,9 +345,17 @@ public class Referee extends Actor {
     }
 
     protected void addedToWorld( World world ) {
+        this.world = world;
         gameRunning = true;
     }
 
+    private World getWorld() {
+        return this.world;
+    }
+
+    public Actor getActor() {
+        return this.actor;
+    }
 
     class RoverState {
         public int xPos, yPos, rotation;
@@ -369,8 +382,19 @@ public class Referee extends Actor {
         }
     }
 
-    enum ActionType {
-        MOVE, TURN, ANALYZE, GATHER, CONVERT, DRAIN, SETMARK, DELMARK;
+    private class ActorDelegate extends Actor {
+        Referee ref;
+        public ActorDelegate( Referee ref ) {
+            this.ref = ref;
+        }
+
+        public void act() {
+            this.ref.act();
+        }
+
+        public void addedToWorld(World world) {
+            this.ref.addedToWorld(world);
+        }
     }
 
 }
