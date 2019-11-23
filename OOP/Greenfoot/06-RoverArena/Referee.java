@@ -173,17 +173,19 @@ public class Referee {
     public void entferneMarke( Rover pRover ) {
         if( checkState(pRover) ) {
             RoverState state = getState(pRover);
-            if( pRover.getEnergie() >= COSTS_DELMARK ) {
-                if( pRover.markeVorhanden() ) {
-                    List<Marke> marks = getWorld().getObjectsAt(
-                        pRover.getX(), pRover.getY(), Marke.class);
-                    if( marks.size() > 0 ) {
-                        Marke mark = marks.get(0);
-                        getWorld().removeObject(mark);
-                        state.marks += 1;
+            if( state.marks < MARKS_MAX ) {
+                if( pRover.getEnergie() >= COSTS_DELMARK ) {
+                    if( pRover.markeVorhanden() ) {
+                        List<Marke> marks = getWorld().getObjectsAt(
+                            pRover.getX(), pRover.getY(), Marke.class);
+                        if( marks.size() > 0 ) {
+                            Marke mark = marks.get(0);
+                            getWorld().removeObject(mark);
+                            state.marks += 1;
 
-                        pRover.setEnergie(pRover.getEnergie()-COSTS_DELMARK);
-                        state.didActionThisTurn = true;
+                            pRover.setEnergie(pRover.getEnergie() - COSTS_DELMARK);
+                            state.didActionThisTurn = true;
+                        }
                     }
                 }
             }
