@@ -9,15 +9,19 @@ public class Referee {
     public static final int COSTS_MOVE = 4;
     public static final int COSTS_TURN = 2;
     public static final int COSTS_SETMARK = 1;
-    public static final int COSTS_DELMARK = 1;
+    public static final int COSTS_DELMARK = 2;
     public static final int COSTS_ANALYZE = 4;
     public static final int COSTS_CONVERT_ENERGY = 0;
     public static final int RATE_CONVERT_ENERGY = 1;
     public static final int COSTS_CONVERT_MINERALS = 1;
     public static final int RATE_CONVERT_MINERALS = 2;
 
+    public static final int ENERGY_START = 1000;
     public static final int ENERGY_DRAIN = 10;
     private static final byte TIMEOUT_AFTER_TURNS = 8;
+
+    public static final int MARKS_MAX = 8;
+    public static final int MARKS_START = 5;
 
 
     private static Referee ref;
@@ -404,8 +408,8 @@ public class Referee {
 
     class RoverState {
         public int xPos, yPos, rotation;
-        public int water = 0, energy = 1000, minerals = 0;
-        public int marks = 5;
+        public int water = 0, energy = ENERGY_START, minerals = 0;
+        public int marks = MARKS_START;
 
         public long turn = 0, actionsTotal = 0;
 
