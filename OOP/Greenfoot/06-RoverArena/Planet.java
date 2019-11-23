@@ -11,7 +11,7 @@ import java.io.*;
 
 public class Planet extends World
 {
-    private static int zellenGroesse = 50;
+    private static int zellenGroesse = 30;
 
     /**
      * Erschaffe eine Welt mit 15 * 12 Zellen.
@@ -19,13 +19,18 @@ public class Planet extends World
     public Planet()
     {
         // Initialisierung der Welt
-        super(15, 12, zellenGroesse);
+        super(20, 18, zellenGroesse);
         setBackground("images/boden.png");
-        setPaintOrder(String.class, Rover.class, Marke.class, Gestein.class, Huegel.class);
-        setActOrder(Referee.class, Rover.class, Marke.class, Gestein.class, Huegel.class);
-        Greenfoot.setSpeed(35);
+        setPaintOrder(String.class, Rover.class, Marke.class, Gestein.class, Huegel.class, Referee.ActorDelegate.class);
+        setActOrder(Referee.ActorDelegate.class, Rover.class, Marke.class, Gestein.class, Huegel.class);
+        Greenfoot.setSpeed(40);
 
-        karteLaden("arena"+Utils.zufallsInt(1,3));
+        int arena = Utils.zufallsInt(3);
+        if( arena == 0 ) {
+            zufallskarte();
+        } else {
+            karteLaden("arena" +arena);
+        }
 
         addObject(Referee.getInstance().getActor(), 0, 0);
     }
@@ -216,7 +221,7 @@ public class Planet extends World
     }
 
     /**
-     * L?dt eine Karte aus einer Datei im maps-Ordner
+     * Lädt eine Karte aus einer Datei im maps-Ordner
      */
     public void karteLaden( String pFile ) {
         if( pFile.indexOf(".") < 0 ) {
@@ -293,7 +298,7 @@ public class Planet extends World
         }
 
         // Generate map
-        boolean roverSet = false;
+        boolean roverSet = true;
         char nextChar = '#';
         for( int y = 0; y < maxY; y++ ) {
             for( int x = 0; x < maxX; x++ ) {
@@ -333,7 +338,7 @@ public class Planet extends World
         weltErstellen(map);
 
         // Show seed on map
-        showText(seed+"", 12, 11);
+        //showText(seed+"", getWidth()-3, getHeight()-1);
 
         // Mark feature points on map
         //for( int i = 0; i < points.length; i++ ) {
