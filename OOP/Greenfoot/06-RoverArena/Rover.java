@@ -9,41 +9,35 @@ public class Rover extends Actor {
 
     private int mineralien = 0;
 
-    private String name;
+    protected String name, bild;
 
     public Rover() {
+        roverErstellen();
+    }
+
+    protected void roverErstellen() {
         name = "Rover " + Utils.zufallsInt(50);
+        bild = "images/rover.png";
     }
 
     public void act() {};
 
     /**
      * Der Rover bewegt sich ein Feld in Fahrtrichtung weiter.
-     * Sollte sich in Fahrtrichtung ein Objekt der Klasse Huegel befinden oder er sich an der Grenze der Welt befinden,
-     * dann erscheint eine entsprechende Meldung auf dem Display.
+     * Sollte sich in Fahrtrichtung ein Objekt der Klasse Huegel befinden oder
+     * er sich an der Grenze der Welt befinden, dann bewegt sich der Rover nicht.
      */
     public final void fahre() {
         Referee.getInstance().fahre(this);
     }
 
     /**
-     * Der Rover dreht sich um 90 Grad in die Richtung, die mit richtung (?links? oder ?rechts?) ?bergeben wurde.
-     * Sollte ein anderer Text (String) als "rechts" oder "links" ?bergeben werden, dann erscheint eine entsprechende Meldung auf dem Display.
+     * Der Rover dreht sich um 90 Grad in die Richtung, die mit <var>richtung</var>
+     * (<code>"links"</code> oder <code>"rechts"</code>) übergeben wurde.
+     * Sollte ein anderer Text (String) übergeben werden, dann passiert nichts.
      */
     public final void drehe( String pRichtung ) {
         Referee.getInstance().drehe(this, pRichtung);
-    }
-
-    /**
-     * Der Rover gibt durch einen Wahrheitswert (true oder false )zur?ck, ob sich auf seiner Position ein Objekt der Klasse Gestein befindet.
-     * Eine entsprechende Meldung erscheint auch auf dem Display.
-     */
-    public final boolean gesteinVorhanden() {
-        if( getOneIntersectingObject(Gestein.class) != null ) {
-            return true;
-        }
-
-        return false;
     }
 
     /**
@@ -141,24 +135,28 @@ public class Rover extends Actor {
     }
 
     /**
+     * Der Rover gibt durch einen Wahrheitswert (true oder false )zur?ck, ob sich auf seiner Position ein Objekt der Klasse Gestein befindet.
+     * Eine entsprechende Meldung erscheint auch auf dem Display.
+     */
+    public final boolean gesteinVorhanden() {
+        return (getOneObjectAtOffset(0,0,Gestein.class) != null);
+    }
+
+    /**
      * *Der Rover gibt durch einen Wahrheitswert (true oder false )zur?ck, ob sich auf seiner Position ein Objekt der Marke befindet.
      * Eine entsprechende Meldung erscheint auch auf dem Display.
      */
     public final boolean markeVorhanden() {
-        if( getOneIntersectingObject(Marke.class) != null ) {
-            return true;
-        }
-
-        return false;
+        return (getOneObjectAtOffset(0,0,Marke.class) != null);
     }
 
     public final boolean meineMarkeVorhanden() {
-        Actor m = getOneIntersectingObject(Marke.class);
+        Actor m = getOneObjectAtOffset(0,0,Marke.class);
         if( m != null ) {
             return this.equals( ((Marke)m).getBesitzer() );
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     public final void entferneMarke() {
@@ -166,7 +164,7 @@ public class Rover extends Actor {
     }
 
     protected final void addedToWorld( World world ) {
-        setImage("images/rover.png");
+        setImage(bild);
         Referee.getInstance().addRover(this);
     }
 
