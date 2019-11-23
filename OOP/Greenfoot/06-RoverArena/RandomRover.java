@@ -1,9 +1,14 @@
 public class RandomRover extends Rover {
 
+    protected void roverErstellen() {
+        name = "Susie";
+        bild = "images/roverRed.png";
+    }
+
     public void act() {
         // Der Rover versucht ab und zu zu mogeln!
         // Vielleicht klappt es ja ;-)
-        if( Utils.zufallsInt(0,100) > 80 ) {
+        if( Utils.zufallsInt(0,100) > 95 ) {
             if( Utils.zufallsBool() ) {
                 setLocation(getX()+1,getY()-1);
             } else {
@@ -34,6 +39,16 @@ public class RandomRover extends Rover {
             // sonst fährt er ein Feld weiter
             if( Utils.zufallsBool() ) {
                 drehe("rechts");
+                setzeMarke();
+            } else {
+                fahre();
+            }
+        } else if( !huegelVorhanden("links") ) {
+            // Falls links frei, dreht sich der Rover
+            // zu 50% in diese Richtung und setzt eine Marke,
+            // sonst fährt er ein Feld weiter
+            if( Utils.zufallsBool() ) {
+                drehe("links");
                 setzeMarke();
             } else {
                 fahre();
