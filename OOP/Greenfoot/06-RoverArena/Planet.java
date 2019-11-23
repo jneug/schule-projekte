@@ -25,7 +25,7 @@ public class Planet extends World
         setActOrder(Referee.ActorDelegate.class, Rover.class, Marke.class, Gestein.class, Huegel.class);
         Greenfoot.setSpeed(40);
 
-        int arena = Utils.zufallsInt(3);
+        int arena = Utils.zufallsInt(4);
         if( arena == 0 ) {
             zufallskarte();
         } else {
