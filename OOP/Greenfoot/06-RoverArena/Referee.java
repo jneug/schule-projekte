@@ -17,11 +17,16 @@ public class Referee {
     public static final int RATE_CONVERT_MINERALS = 2;
 
     public static final int ENERGY_START = 1000;
+    public static final int ENERGY_MAX = ENERGY_START;
     public static final int ENERGY_DRAIN = 10;
+
     private static final byte TIMEOUT_AFTER_TURNS = 8;
 
-    public static final int MARKS_MAX = 8;
     public static final int MARKS_START = 5;
+    public static final int MARKS_MAX = 8;
+
+    public static final int WATER_START = 0;
+    public static final int WATER_MAX = 5000;
 
 
     private static Referee ref;
@@ -205,8 +210,12 @@ public class Referee {
                 if( pRover.getWasser() < pMenge ) {
                     pMenge = pRover.getWasser();
                 }
+                if( pRover.getEnergie()+pMenge > ENERGY_MAX ) {
+                    pMenge = ENERGY_MAX-pRover.getEnergie();
+                }
                 pRover.setEnergie(pRover.getEnergie() + (pMenge*RATE_CONVERT_ENERGY));
                 pRover.setWasser(pRover.getWasser()-pMenge);
+                state.didActionThisTurn = true;
             } else if( pProdukt.equals("mineralien") ) {
                 if( pRover.getEnergie() < (pMenge*COSTS_CONVERT_MINERALS) ) {
                     pMenge = (int) (pRover.getEnergie()/COSTS_CONVERT_MINERALS);
@@ -408,7 +417,7 @@ public class Referee {
 
     class RoverState {
         public int xPos, yPos, rotation;
-        public int water = 0, energy = ENERGY_START, minerals = 0;
+        public int water = WATER_START, energy = ENERGY_START, minerals = 0;
         public int marks = MARKS_START;
 
         public long turn = 0, actionsTotal = 0;
