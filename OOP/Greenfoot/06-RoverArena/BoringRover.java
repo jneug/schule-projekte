@@ -2,7 +2,6 @@ public class BoringRover extends Rover {
 
     protected void roverErstellen() {
         name = "Peter";
-        bild = "images/roverOrange.png";
     }
 
     public void act() {

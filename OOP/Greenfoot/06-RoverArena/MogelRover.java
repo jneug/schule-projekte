@@ -2,7 +2,6 @@ public class MogelRover extends Rover {
 
     public void roverErstellen() {
         name = "Mowgli";
-        bild = "images/roverViolet.png";
     }
 
     public void act() {

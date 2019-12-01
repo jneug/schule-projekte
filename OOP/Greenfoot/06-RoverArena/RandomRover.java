@@ -2,7 +2,6 @@ public class RandomRover extends Rover {
 
     protected void roverErstellen() {
         name = "Susie";
-        bild = "images/roverRed.png";
     }
 
     public void act() {

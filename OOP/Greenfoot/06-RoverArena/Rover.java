@@ -12,8 +12,8 @@ public class Rover extends Actor {
     // Mineralien des Rovers
     private int mineralien = 0;
 
-    // Name und Pfad des Bildes des Rovers
-    protected String name, bild;
+    // Name des Rovers
+    protected String name;
 
 
     public Rover() {
@@ -32,7 +32,6 @@ public class Rover extends Actor {
      */
     protected void roverErstellen() {
         name = "Rover " + Utils.zufallsInt(50);
-        bild = "images/rover.png";
     }
 
     public void act() {};
@@ -222,7 +221,6 @@ public class Rover extends Actor {
 
 
     protected final void addedToWorld( World world ) {
-        setImage(bild);
         Referee.getInstance().addRover(this);
     }
 

@@ -16,8 +16,7 @@ public class Planet extends World
     /**
      * Erschaffe eine Welt mit 15 * 12 Zellen.
      */
-    public Planet()
-    {
+    public Planet() {
         // Initialisierung der Welt
         super(20, 18, zellenGroesse);
         setBackground("images/boden.png");
@@ -25,6 +24,10 @@ public class Planet extends World
         setActOrder(Referee.ActorDelegate.class, Rover.class, Marke.class, Gestein.class, Huegel.class);
         Greenfoot.setSpeed(40);
 
+        arenaErstellen();
+    }
+
+    public void arenaErstellen() {
         int arena = Utils.zufallsInt(4);
         if( arena == 0 ) {
             zufallskarte();
@@ -32,6 +35,10 @@ public class Planet extends World
             karteLaden("arena" +arena);
         }
 
+        arenaStarten();
+    }
+
+    public void arenaStarten() {
         addObject(Referee.getInstance().getActor(), 0, 0);
     }
 
