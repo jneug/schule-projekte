@@ -1,7 +1,7 @@
 public class RoverVorlage extends Rover {
 
     protected void roverErstellen() {
-        name = "Mark Wattney";
+        name = "Mark Watney";
     }
 
     public void act() {
