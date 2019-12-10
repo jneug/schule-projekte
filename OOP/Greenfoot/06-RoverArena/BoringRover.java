@@ -28,7 +28,7 @@ public class BoringRover extends Rover {
                 drehe("links");
                 fahre();
             } else {
-                ausgabe("Huegel Ã¼berall, drehe um.");
+                ausgabe("Huegel überall, drehe um.");
                 drehe("links");
                 drehe("links");
             }
