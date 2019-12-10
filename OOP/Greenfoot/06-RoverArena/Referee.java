@@ -1,3 +1,5 @@
+import java.security.MessageDigest;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,7 +20,8 @@ public class Referee {
 
     public static final int ENERGY_START = 1000;
     public static final int ENERGY_MAX = ENERGY_START;
-    public static final int ENERGY_DRAIN = 10;
+    public static final int ENERGY_DRAIN_MIN = 50;
+    public static final int ENERGY_DRAIN_MAX = 250;
 
     private static final byte TIMEOUT_AFTER_TURNS = 8;
 
@@ -44,6 +47,8 @@ public class Referee {
     private boolean gameRunning = false;
 
     private World world;
+
+    private String checksum = "";
 
     private ActorDelegate actor;
 
@@ -89,8 +94,9 @@ public class Referee {
             } else {
                 getWorld().showText("Es gibt keinen Gewinner!", 7, 1);
             }
-            Greenfoot.delay(4);
             Greenfoot.stop();
+            world.removeObjects(world.getObjects(ActorDelegate.class));
+            ref = null;
         } else {
             for( Rover r : rovers.keySet() ) {
                 RoverState state = getState(r);
@@ -100,6 +106,8 @@ public class Referee {
                     getState(r).addTurn();
                 }
             }
+
+            this.checksum = getWorldChecksum();
         }
     }
 
@@ -210,12 +218,14 @@ public class Referee {
                 if( pRover.getWasser() < pMenge ) {
                     pMenge = pRover.getWasser();
                 }
-                if( pRover.getEnergie()+pMenge > ENERGY_MAX ) {
-                    pMenge = ENERGY_MAX-pRover.getEnergie();
+                if( pRover.getEnergie()+(pMenge*RATE_CONVERT_ENERGY) > ENERGY_MAX ) {
+                    pMenge = (int) (ENERGY_MAX-pRover.getEnergie())/RATE_CONVERT_ENERGY;
                 }
-                pRover.setEnergie(pRover.getEnergie() + (pMenge*RATE_CONVERT_ENERGY));
-                pRover.setWasser(pRover.getWasser()-pMenge);
-                state.didActionThisTurn = true;
+                if( pMenge > 0 ) {
+                    pRover.setEnergie(pRover.getEnergie() + (pMenge * RATE_CONVERT_ENERGY));
+                    pRover.setWasser(pRover.getWasser() - pMenge);
+                    state.didActionThisTurn = true;
+                }
             } else if( pProdukt.equals("mineralien") ) {
                 if( pRover.getEnergie() < (pMenge*COSTS_CONVERT_MINERALS) ) {
                     pMenge = (int) (pRover.getEnergie()/COSTS_CONVERT_MINERALS);
@@ -223,10 +233,12 @@ public class Referee {
                 if( pRover.getWasser() < pMenge ) {
                     pMenge = pRover.getWasser();
                 }
-                pRover.setMineralien(pRover.getMineralien() + (pMenge*RATE_CONVERT_MINERALS));
-                pRover.setEnergie(pRover.getEnergie()-(pMenge*COSTS_CONVERT_MINERALS));
-                pRover.setWasser(pRover.getWasser()-pMenge);
-                state.didActionThisTurn = true;
+                if( pMenge > 0 ) {
+                    pRover.setMineralien(pRover.getMineralien() + (pMenge*RATE_CONVERT_MINERALS));
+                    pRover.setEnergie(pRover.getEnergie()-(pMenge*COSTS_CONVERT_MINERALS));
+                    pRover.setWasser(pRover.getWasser()-pMenge);
+                    state.didActionThisTurn = true;
+                }
             }
 
             updateState(pRover);
@@ -234,20 +246,22 @@ public class Referee {
         }
     }
 
-    public void energieAbziehen( Rover pRover ) {
+    public void entzieheEnergie( Rover pRover ) {
         if( checkState(pRover) ) {
             RoverState state = getState(pRover);
             if( pRover.roverVorhanden("vorne") ) {
                 int[] vorne = getFieldAt(pRover, "vorne");
                 Rover otherRover = getOneObjectAt(vorne[0], vorne[1], Rover.class);
                 if( otherRover != null ) {
-                    int drain = Math.min(ENERGY_DRAIN, otherRover.getEnergie());
-                    otherRover.setEnergie(otherRover.getEnergie()-drain);
-                    pRover.setEnergie(pRover.getEnergie()+drain);
+                    int drain = Math.min(Utils.zufallsInt(ENERGY_DRAIN_MIN, ENERGY_DRAIN_MAX), otherRover.getEnergie());
+                    if( drain > 0 ) {
+                        otherRover.setEnergie(Math.max(0,otherRover.getEnergie()-drain));
+                        pRover.setEnergie(Math.min(ENERGY_MAX,pRover.getEnergie()+drain));
+                        state.didActionThisTurn = true;
+                    }
 
                     updateState(otherRover);
                     updateState(pRover);
-                    state.didActionThisTurn = true;
                     state.addAction();
                 }
             }
@@ -328,16 +342,25 @@ public class Referee {
     }
 
     private boolean checkState( Rover pRover ) {
+        //verifyChecksum();
+
         RoverState state = getState(pRover);
         if ( state != null ) {
             // check last known position
-            if( pRover.getX() != state.xPos || pRover.getY() != state.yPos
+            try {
+                if( pRover.getX() != state.xPos || pRover.getY() != state.yPos
                     || pRover.getRotation() != state.rotation ) {
-                pRover.setLocation(state.xPos, state.yPos);
-                pRover.setRotation(state.rotation);
-                state.penalties += 1;
-                state.actionsThisTurn += 1;
-                System.err.println(pRover.getName()+" wurde bestraft für den Versuch, seine Position unerlaubt zu ändern.");
+                    pRover.setLocation(state.xPos, state.yPos);
+                    pRover.setRotation(state.rotation);
+                    state.penalties += 1;
+                    state.actionsThisTurn += 1;
+                    System.err.println(pRover.getName() + " wurde bestraft für den Versuch, seine Position unerlaubt zu ändern.");
+                }
+            } catch( IllegalStateException ex ) {
+                // Rover not in world, remove from game
+                rovers.remove(pRover);
+                System.err.println(pRover.getName() + " wurde aus dem Spiel entfernt!");
+                return false;
             }
 
             if( pRover.getWasser() != state.water || pRover.getEnergie() != state.energy
@@ -393,7 +416,7 @@ public class Referee {
             int maxMinerals = 0;
             for( Rover r: rovers.keySet() ) {
                 checkState(r);
-                if( r.getMineralien() > maxMinerals ) {
+                if( getState(r) != null && r.getMineralien() > maxMinerals ) {
                     maxMinerals = r.getMineralien();
                     winner = r;
                 }
@@ -404,11 +427,51 @@ public class Referee {
 
     protected void addedToWorld( World world ) {
         this.world = world;
+        this.checksum = getWorldChecksum();
         gameRunning = true;
     }
 
     private World getWorld() {
         return this.world;
+    }
+
+    public String getWorldChecksum() {
+        List<Actor> actors = world.getObjects(Actor.class);
+        actors.sort(new Comparator<Actor>() {
+            @Override
+            public int compare( Actor o1, Actor o2 ) {
+                return o1.hashCode() - o2.hashCode();
+            }
+        });
+        String data = "", checksum = "";
+        for( Actor a: actors ) {
+            if( a.getClass().equals(Rover.class) ) {
+                // Add rover state to checksum?
+            } else {
+                data += a.toString() + "\n";
+            }
+        }
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] bytes = digest.digest(data.getBytes("UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++) {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            checksum = sb.toString();
+        } catch(Exception ex) {
+        }
+
+        return checksum;
+    }
+
+    public boolean verifyChecksum() {
+        String newChecksum = getWorldChecksum();
+        if( !newChecksum.equals(checksum) ) {
+            // Welt überprüfen
+            // System.out.println("World checksum not the same as last turn!");
+        }
+        return newChecksum.equals(checksum);
     }
 
     public Actor getActor() {

@@ -69,21 +69,24 @@ public class Rover extends Actor {
 
         if( richtung == "vorne" && rot == 0 || richtung == "rechts" && rot == 270
             || richtung == "links" && rot == 90 ) {
-            if( getOneObjectAtOffset(1, 0, Huegel.class) != null && ((Huegel) getOneObjectAtOffset(1, 0, Huegel.class)).getSteigung() > 30 ) {
+            if( getOneObjectAtOffset(1, 0, Huegel.class) != null ||
+                    getX() == getWorld().getWidth()-1 ) {
                 return true;
             }
         }
 
         if( richtung == "vorne" && rot == 180 || richtung == "rechts" && rot == 90
             || richtung == "links" && rot == 270 ) {
-            if( getOneObjectAtOffset(-1, 0, Huegel.class) != null && ((Huegel) getOneObjectAtOffset(-1, 0, Huegel.class)).getSteigung() > 30 ) {
+            if( getOneObjectAtOffset(-1, 0, Huegel.class) != null ||
+                getX() == 0 ) {
                 return true;
             }
         }
 
         if( richtung == "vorne" && rot == 90 || richtung == "rechts" && rot == 0
             || richtung == "links" && rot == 180 ) {
-            if( getOneObjectAtOffset(0, 1, Huegel.class) != null && ((Huegel) getOneObjectAtOffset(0, 1, Huegel.class)).getSteigung() > 30 ) {
+            if( getOneObjectAtOffset(0, 1, Huegel.class) != null  ||
+                getY() == getWorld().getHeight()-1 ) {
                 return true;
             }
 
@@ -91,7 +94,8 @@ public class Rover extends Actor {
 
         if( richtung == "vorne" && rot == 270 || richtung == "rechts" && rot == 180
             || richtung == "links" && rot == 0 ) {
-            if( getOneObjectAtOffset(0, -1, Huegel.class) != null && ((Huegel) getOneObjectAtOffset(0, -1, Huegel.class)).getSteigung() > 30 ) {
+            if( getOneObjectAtOffset(0, -1, Huegel.class) != null  ||
+                getY() == 0 ) {
                 return true;
             }
 
@@ -121,12 +125,12 @@ public class Rover extends Actor {
 
         if( richtung == "vorne" && rot == 90 || richtung == "rechts" && rot == 0
             || richtung == "links" && rot == 180 ) {
-            return (getOneObjectAtOffset(0, 1, Huegel.class) != null);
+            return (getOneObjectAtOffset(0, 1, Rover.class) != null);
         }
 
         if( richtung == "vorne" && rot == 270 || richtung == "rechts" && rot == 180
             || richtung == "links" && rot == 0 ) {
-            return (getOneObjectAtOffset(0, -1, Huegel.class) != null);
+            return (getOneObjectAtOffset(0, -1, Rover.class) != null);
         }
 
         return false;
@@ -136,8 +140,8 @@ public class Rover extends Actor {
      * Wenn sich auf dem Feld vor dem Rover ein anderer Rover befindet, wird dem
      * anderen Rover ein Teil seiner Energie aus der Batterie abgezogen.
      */
-    public final void energieAbziehen() {
-        Referee.getInstance().energieAbziehen(this);
+    public final void entzieheEnergie() {
+        Referee.getInstance().entzieheEnergie(this);
     }
 
     /**
@@ -195,10 +199,10 @@ public class Rover extends Actor {
      * Marke vorhanden ist, die von einem anderen Rover stammt, kann diese Anfrage mit
      * <code>markeVorhanden()</code> kombiniert werden:
      * <pre>
-     *     if( markeVorhanden() &6 !meineMarkeVorhanden() ) { ... }
+     *     if( markeVorhanden() &6 !eigeneMarkeVorhanden() ) { ... }
      * </pre>
      */
-    public final boolean meineMarkeVorhanden() {
+    public final boolean eigeneMarkeVorhanden() {
         Actor m = getOneObjectAtOffset(0,0,Marke.class);
         if( m != null ) {
             return this.equals( ((Marke)m).getBesitzer() );
