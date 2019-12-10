@@ -30,7 +30,7 @@ public class RandomRover extends Rover {
         // Bewegen (sofern noch Aktionen frei sind)
         if( gesteinVorhanden() ) {
             analysiereGestein();
-        } else if( markeVorhanden() && !meineMarkeVorhanden() ) {
+        } else if( markeVorhanden() && !eigeneMarkeVorhanden() ) {
             entferneMarke();
         } else if( !huegelVorhanden("rechts") ) {
             // Falls rechts frei, dreht sich der Rover
