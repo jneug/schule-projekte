@@ -22,4 +22,8 @@ public class Marke extends Actor {
         return besitzer;
     }
 
+    public String toString() {
+        return super.toString()+"("+super.hashCode()+")["+getX()+"|"+getY()+"]";
+    }
+
 }

@@ -21,5 +21,9 @@ public class Huegel extends Actor
     {
         return steigung;
     }
+
+    public String toString() {
+        return super.toString()+"("+super.hashCode()+")["+getX()+"|"+getY()+"|S"+steigung+"]";
+    }
 }
 

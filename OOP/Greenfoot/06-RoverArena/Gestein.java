@@ -28,4 +28,8 @@ public class Gestein extends Actor {
         return wassergehalt;
     }
 
+    public String toString() {
+        return super.toString()+"("+super.hashCode()+")["+getX()+"|"+getY()+"|W"+wassergehalt+"]";
+    }
+
 }
