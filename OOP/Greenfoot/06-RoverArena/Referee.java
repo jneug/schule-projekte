@@ -31,6 +31,8 @@ public class Referee {
     public static final int WATER_START = 0;
     public static final int WATER_MAX = 5000;
 
+    public static final boolean RANDOM_START = true;
+
 
     private static Referee ref;
 
@@ -59,7 +61,19 @@ public class Referee {
 
     public void addRover(Rover pRover) {
         if( !rovers.containsKey(pRover) ) {
-            // Rover an Startposition setzen ?
+            // Rover an zufällige Startposition setzen
+            if( RANDOM_START ) {
+                int[] pos = new int[2];
+                Huegel h;
+                Gestein g;
+                do {
+                    pos[0] = Utils.zufallsInt(world.getWidth());
+                    pos[1] = Utils.zufallsInt(world.getHeight());
+                    h = getOneObjectAt(pos[0], pos[1], Huegel.class);
+                    g = getOneObjectAt(pos[0], pos[1], Gestein.class);
+                } while( h != null || g != null );
+                pRover.setLocation(pos[0], pos[1]);
+            }
 
             RoverState state = new RoverState();
 
