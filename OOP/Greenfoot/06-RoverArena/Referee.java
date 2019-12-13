@@ -36,6 +36,11 @@ public class Referee {
 
     private static Referee ref;
 
+    public static Referee getNewInstance() {
+        ref = new Referee();
+        return ref;
+    }
+
     public static Referee getInstance() {
         if( ref == null ) {
             ref = new Referee();

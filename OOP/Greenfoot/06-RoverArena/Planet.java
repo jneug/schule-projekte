@@ -39,7 +39,7 @@ public class Planet extends World
     }
 
     public void arenaStarten() {
-        addObject(Referee.getInstance().getActor(), 0, 0);
+        addObject(Referee.getNewInstance().getActor(), 0, 0);
     }
 
     /**
