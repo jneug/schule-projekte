@@ -342,6 +342,11 @@ public class Referee {
     }
 
     private boolean checkState( Rover pRover ) {
+        if( !gameRunning ) {
+            // game over, dont process any more actions for rovers
+            // (will produce NPE otherwise)
+            return false;
+        }
         //verifyChecksum();
 
         RoverState state = getState(pRover);
