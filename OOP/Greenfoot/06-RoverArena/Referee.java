@@ -1,7 +1,5 @@
 import java.security.MessageDigest;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
@@ -31,7 +29,7 @@ public class Referee {
     public static final int WATER_START = 0;
     public static final int WATER_MAX = 5000;
 
-    public static final boolean RANDOM_START = true;
+    public static final boolean RANDOM_START = false;
 
 
     private static Referee ref;
@@ -51,17 +49,61 @@ public class Referee {
 
     private HashMap<Rover, RoverState> rovers;
 
+    private HashMap<Coordinate, List<Actor>> worldCache;
+
     private boolean gameRunning = false;
 
     private World world;
 
-    private String checksum = "";
+    private String checksum = null;
 
     private ActorDelegate actor;
 
     public Referee() {
         rovers = new HashMap<Rover, RoverState>();
+        worldCache = new HashMap<Coordinate, List<Actor>>();
         actor = new ActorDelegate(this);
+    }
+
+    public void act() {
+        if( checksum == null ) {
+            updateWorldChecksum();
+            initWorldCache();
+        }
+
+        Rover winner = checkWinCondition();
+        if( !gameRunning ) {
+            // Game is over
+            // TODO: How to deal with draws?
+            world.removeObjects(world.getObjects(Actor.class));
+            worldCache.clear();
+
+            int midX = (int) world.getWidth()/2;
+            int midY = (int) world.getHeight()/2;
+            if( winner != null ) {
+                world.showText(winner.getName() + " ist der Gewinner!", midX, midY-4);
+                world.showText("Herzlichen Glückwunsch!", midX, midY-2);
+                world.addObject(winner, midX, midY);
+                winner.setRotation(270);
+                world.showText(winner.getMineralien() + " Mineralien gesammelt.", midX, midY+2);
+            } else {
+                world.showText("Es gibt keinen Gewinner!", midX, midY);
+            }
+
+            Greenfoot.stop();
+            ref = null;
+        } else {
+            for( Rover r : rovers.keySet() ) {
+                RoverState state = getState(r);
+                if( !state.immobilized ) {
+                    //updateState(r);
+                    checkState(r);
+                    getState(r).addTurn();
+                }
+            }
+
+            this.checksum = getWorldChecksum();
+        }
     }
 
     public void addRover(Rover pRover) {
@@ -94,39 +136,6 @@ public class Referee {
             pRover.setMineralien(state.minerals);
             pRover.setWasser(state.water);
             pRover.setEnergie(state.energy);
-        }
-    }
-
-    public void act() {
-        Rover winner = checkWinCondition();
-        if( !gameRunning ) {
-            // Game is over
-            // TODO: How to deal with draws?
-            for( Rover r : rovers.keySet() ) {
-                if( !r.equals(winner) ) {
-                    getWorld().removeObject(r);
-                }
-            }
-            if( winner != null ) {
-                getWorld().showText(winner.getName() + " ist der Gewinner!", 7, 1);
-                getWorld().showText("Herzlichen Glückwunsch!", 7, 2);
-            } else {
-                getWorld().showText("Es gibt keinen Gewinner!", 7, 1);
-            }
-            Greenfoot.stop();
-            world.removeObjects(world.getObjects(ActorDelegate.class));
-            ref = null;
-        } else {
-            for( Rover r : rovers.keySet() ) {
-                RoverState state = getState(r);
-                if( !state.immobilized ) {
-                    //updateState(r);
-                    checkState(r);
-                    getState(r).addTurn();
-                }
-            }
-
-            this.checksum = getWorldChecksum();
         }
     }
 
@@ -176,10 +185,12 @@ public class Referee {
 
                         int water = stone.getWassergehalt();
                         pRover.setWasser(pRover.getWasser() + water);
-                        getWorld().removeObject(stone);
+                        removeObject(stone);
 
                         pRover.setEnergie(pRover.getEnergie()-COSTS_ANALYZE);
                         state.didActionThisTurn = true;
+
+                        updateWorldChecksum();
                     }
                 }
             }
@@ -199,8 +210,11 @@ public class Referee {
 
                     pRover.setEnergie(pRover.getEnergie()-COSTS_SETMARK);
                     state.didActionThisTurn = true;
+
+                    updateWorldChecksum();
                 }
             }
+
             updateState(pRover);
             state.addAction();
         }
@@ -216,15 +230,18 @@ public class Referee {
                             pRover.getX(), pRover.getY(), Marke.class);
                         if( marks.size() > 0 ) {
                             Marke mark = marks.get(0);
-                            getWorld().removeObject(mark);
+                            removeObject(mark);
                             state.marks += 1;
 
                             pRover.setEnergie(pRover.getEnergie() - COSTS_DELMARK);
                             state.didActionThisTurn = true;
+
+                            updateWorldChecksum();
                         }
                     }
                 }
             }
+
             updateState(pRover);
             state.addAction();
         }
@@ -356,7 +373,7 @@ public class Referee {
             state.energy = pRover.getEnergie();
             state.minerals = pRover.getMineralien();
         } else {
-            getWorld().removeObject(pRover);
+            world.removeObject(pRover);
         }
     }
 
@@ -366,7 +383,8 @@ public class Referee {
             // (will produce NPE otherwise)
             return false;
         }
-        //verifyChecksum();
+
+        verifyWorldChecksum();
 
         RoverState state = getState(pRover);
         if ( state != null ) {
@@ -451,7 +469,7 @@ public class Referee {
 
     protected void addedToWorld( World world ) {
         this.world = world;
-        this.checksum = getWorldChecksum();
+        //updateWorldChecksum();
         gameRunning = true;
     }
 
@@ -459,7 +477,7 @@ public class Referee {
         return this.world;
     }
 
-    public String getWorldChecksum() {
+    private String getWorldChecksum() {
         List<Actor> actors = world.getObjects(Actor.class);
         actors.sort(new Comparator<Actor>() {
             @Override
@@ -469,9 +487,7 @@ public class Referee {
         });
         String data = "", checksum = "";
         for( Actor a: actors ) {
-            if( a.getClass().equals(Rover.class) ) {
-                // Add rover state to checksum?
-            } else {
+            if( isCachableActor(a) ) {
                 data += a.toString() + "\n";
             }
         }
@@ -489,13 +505,78 @@ public class Referee {
         return checksum;
     }
 
-    public boolean verifyChecksum() {
+    public boolean verifyWorldChecksum() {
         String newChecksum = getWorldChecksum();
         if( !newChecksum.equals(checksum) ) {
             // Welt überprüfen
-            // System.out.println("World checksum not the same as last turn!");
+            System.err.println("Die Welt wurde unerlaubt verändert. Der letzte Zustand wurde wiederhergestellt.");
+            verifyWorldCache();
+            return false;
         }
-        return newChecksum.equals(checksum);
+        return true;
+    }
+
+    public void updateWorldChecksum() {
+        checksum = getWorldChecksum();
+    }
+
+    private void initWorldCache() {
+        List<Actor> actors = world.getObjects(Actor.class);
+        for( Actor a: actors ) {
+            if( isCachableActor(a) ) {
+                Coordinate coord = new Coordinate(a.getX(), a.getY());
+                if( !worldCache.containsKey(coord) ) {
+                    worldCache.put(coord, new ArrayList<Actor>(3));
+                }
+                worldCache.get(coord).add(a);
+            }
+        }
+    }
+
+    private void verifyWorldCache() {
+        for( int x = 0; x < world.getWidth(); x++ ) {
+            for( int y = 0; y < world.getHeight(); y++ ) {
+                Coordinate coord = new Coordinate(x,y);
+                List<Actor> worldActors = world.getObjectsAt(x, y, Actor.class);
+                List<Actor> cacheActors = worldCache.getOrDefault(coord, Collections.EMPTY_LIST);
+
+
+                for( Actor a: worldActors ) {
+                    if( isCachableActor(a) ) {
+                        if( !cacheActors.contains(a) ) {
+                            world.removeObject(a);
+                        }
+                    }
+                }
+                for( Actor a: cacheActors ) {
+                    if( !worldActors.contains(a) ) {
+                        world.addObject(a, x, y);
+                    }
+                }
+            }
+        }
+
+    }
+
+    private static final Class<?>[] cachableClasses = new Class[]{
+        Huegel.class, Gestein.class, Marke.class
+    };
+
+    private boolean isCachableActor( Actor pActor ) {
+        for( Class<?> clazz: cachableClasses ) {
+            if( clazz.isAssignableFrom(pActor.getClass()) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void removeObject( Actor pActor ) {
+        Coordinate coord = new Coordinate(pActor.getX(), pActor.getY());
+        if( worldCache.containsKey(coord) ) {
+            worldCache.get(coord).remove(pActor);
+        }
+        world.removeObject(pActor);
     }
 
     public Actor getActor() {
@@ -546,6 +627,27 @@ public class Referee {
         public void addedToWorld(World world) {
             setImage("images/boden.png");
             this.ref.addedToWorld(world);
+        }
+    }
+
+    class Coordinate {
+        public int x, y;
+        public Coordinate(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+        @Override
+        public boolean equals( Object o ) {
+            try {
+                Coordinate a = (Coordinate)o;
+                return a.x == x && a.y == y;
+            } catch( Exception ex ){
+                return false;
+            }
+        }
+        @Override
+        public int hashCode() {
+            return x*1000 + y;
         }
     }
 
