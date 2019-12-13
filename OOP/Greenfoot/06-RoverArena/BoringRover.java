@@ -42,12 +42,15 @@ public class BoringRover extends Rover {
         Hilfsmethode, um einen Text auszugeben.
      */
     private void ausgabe( String pText ) {
-        // Diesen Wert auf "true" setzen, um Ausgaben zu erhalten!
-        boolean ausgabeEin = false;
-
         if( ausgabeEin ) {
             System.out.println("<"+name+"> sagt: "+pText);
         }
     }
+
+    public void ausgabeAktivieren() {
+        ausgabeEin = true;
+    }
+
+    private boolean ausgabeEin = false;
 
 }
