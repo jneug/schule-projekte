@@ -1,0 +1,6 @@
+tree=Baum
+street=Straße
+computer=Computer
+dog=Hund
+cat=Katze
+fish=Fisch
