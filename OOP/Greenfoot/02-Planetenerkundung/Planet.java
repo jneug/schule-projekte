@@ -29,7 +29,7 @@ public class Planet extends World
 
         // Diese Zeile auskommentieren, um beim Start eine Karte aus dem Maps-Order zu laden
         //karteLaden("empty");
-        
+
         // Diese Zeile auskommentieren, um beim Start eine eigene Karte zu erstellen
         //weltErstellen(".\n.\n....HH.HHH.\n..R..G.GG.G..M\n......HH.HH.H.");
     }
@@ -179,7 +179,7 @@ public class Planet extends World
         if( pX < 0 || pX >= getWidth() || pY < 0 || pY >= getHeight() ) {
             return;
         }
-        
+
         switch( pType ) {
             case 'r':
             case '>':
@@ -189,20 +189,19 @@ public class Planet extends World
             case '^':
                 Rover r1 = new Rover();
                 addObject(r1, pX, pY);
-                r1.drehe("links");
+                r1.setRotation(270);
                 break;
 
             case 'v':
                 Rover r2 = new Rover();
                 addObject(r2, pX, pY);
-                r2.drehe("rechts");
+                r2.setRotation(90);
                 break;
 
             case '<':
                 Rover r3 = new Rover();
                 addObject(r3, pX, pY);
-                r3.drehe("links");
-                r3.drehe("links");
+                r3.setRotation(180);
                 break;
 
             case 'm':
