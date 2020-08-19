@@ -15,19 +15,16 @@ public class MotorrollerTest
     public void testeTanke() {
         Motorroller m = new Motorroller(1000, 25, 10);
         
-        assertEquals("Der Tank sollte 10 Liter enthalten", 10, m.getTankinhalt(), 0.0);
         m.tanke(10);
-        assertEquals("Der Tank sollte 20 Liter enthalten", 20, m.getTankinhalt(), 0.0);
+        assertEquals("Tanke 10L in einen 25L-Tank mit 10L Inhalt", 20, m.getTankinhalt(), 0.0);
         m.tanke(10);
-        assertEquals("Der Tank sollte 25 Liter enthalten", 25, m.getTankinhalt(), 0.0);
-        
+        assertEquals("Tanke 10L in einen 25L-Tank mit 20L Inhalt", 25, m.getTankinhalt(), 0.0);
         
         m = new Motorroller(1000, 25, 10);
-        assertEquals("Der Tank sollte 10 Liter enthalten", 10, m.getTankinhalt(), 0.0);
         m.tanke(-10);
-        assertEquals("Der Tank sollte 0 Liter enthalten", 0, m.getTankinhalt(), 0.0);
+        assertEquals("Tanke -10L in einen 25L-Tank mit 10L Inhalt", 0, m.getTankinhalt(), 0.0);
         m.tanke(-10);
-        assertEquals("Der Tank sollte 0 Liter enthalten", 0, m.getTankinhalt(), 0.0);
+        assertEquals("Tanke -10L in einen 25L-Tank mit 0L Inhalt", 0, m.getTankinhalt(), 0.0);
     }
     
     
