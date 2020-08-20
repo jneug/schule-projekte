@@ -22,15 +22,15 @@ parser.add_argument('-mlc', '--ml-close', dest="ml_close", action="store",
                     help='closeing tag for jml solution comments')
 parser.add_argument('-mls', '--ml-suffix', dest="ml_suffix", action="store", default="ML",
                     help='suffix for the solution version')
-parser.add_argument('-f', '--format', dest="format", action="store", default="{name}_{ver:02d}",
-                    help='format for version names')
+parser.add_argument('-vs', '--ver-sep', dest="sep", action="store", default="_",
+                    help='separator between project name and version number')
 parser.add_argument('-i', '--include', dest="include", action="extend", nargs="+",
 										default=['java'],
                     help='list of file extensions to parse for jml comments')
 parser.add_argument('-e', '--exclude', dest="exclude", action="extend", nargs="+",
 										default=['class','ctxt'],
                     help='list of file extensions to exclude from processing')
-parser.add_argument('-v', '--versions', dest="versions", action="append", type=str,
+parser.add_argument('-v', '--versions', dest="versions", action="extend", type=str,
                     help='list of versions to process')
 parser.add_argument('--preset', dest="preset",
 										choices=['xml', 'de', 'de-xml'],
@@ -92,7 +92,7 @@ def create_version(version, args):
 	if version == 0:
 		ver_name = args.name
 	else:
-		ver_name = args.format.format(name=args.name, ver=version)
+		ver_name = f'{args.name}{args.sep}{version}'
 	outdir = os.path.join(args.outdir, ver_name)
 
 	# prepare output folders
@@ -146,7 +146,7 @@ def create_version(version, args):
 def create_ml(args):
 	versions = set()
 
-	ver_name = args.format.format(name=args.name, ver=args.ml_suffix)
+	ver_name = f'{args.name}{args.sep}{args.ml_suffix}'
 	outdir = os.path.join(args.outdir, ver_name)
 
 	# prepare output folders
