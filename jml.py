@@ -20,6 +20,10 @@ parser.add_argument('-mlo', '--ml-open', dest="ml_open", action="store",
                     help='opening tag for jml comments')
 parser.add_argument('-mlc', '--ml-close', dest="ml_close", action="store",
                     help='closeing tag for jml solution comments')
+parser.add_argument('-mls', '--ml-suffix', dest="ml_suffix", action="store", default="ML",
+                    help='suffix for the solution version')
+parser.add_argument('-f', '--format', dest="format", action="store", default="{name}_{ver:02d}",
+                    help='format for version names')
 parser.add_argument('-i', '--include', dest="include", action="extend", nargs="+",
 										default=['java'],
                     help='list of file extensions to parse for jml comments')
@@ -67,33 +71,28 @@ if not args.ml_close:
 	args.ml_close = args.tag_close
 
 def test_version(version1, version2):
-	"""	Compares two version strings and returns True, if the
-	second version is included in the first. e.g.
-	test_version("2", "2") -> True
-	test_version("2", "3") -> False
-	test_version(">2", "3") -> True
-	test_version("2", "<3") -> True
-	test_version("<2", "3") -> False
-	test_version("<2", "<3") -> True
+	"""	Compares a version with a version string and checks if the first
+	is in the range defined by the second. The second version can be 
+	prefixed by one of =, <, >, >=, <= or != to compare with a range of
+	versions.
 	"""
-	version1 = str(version1)
+	version1 = int(version1)
 	version2 = str(version2)
 
-	ver1 = int(version1.lstrip('<>=!'))
-	op1  = version1.rstrip('0123456789')
+	ver1 = version1
 	ver2 = int(version2.lstrip('<>=!'))
-	op2  = version2.rstrip('0123456789')
+	op   = version2.rstrip('0123456789')
 
-	if len(op2) == 0 or op2 == '=':
+	if len(op) == 0 or op == '=':
 		return ver1 == ver2
 	else:
-		return eval(f'{ver1}{op2}{ver2}')
+		return eval(f'{ver1}{op}{ver2}')
 
 def create_version(version, args):
 	if version == 0:
 		ver_name = args.name
 	else:
-		ver_name = f'{args.name}_{version}'
+		ver_name = args.format.format(name=args.name, ver=version)
 	outdir = os.path.join(args.outdir, ver_name)
 
 	# prepare output folders
@@ -147,7 +146,7 @@ def create_version(version, args):
 def create_ml(args):
 	versions = set()
 
-	ver_name = f'{args.name}_ML'
+	ver_name = args.format.format(name=args.name, ver=args.ml_suffix)
 	outdir = os.path.join(args.outdir, ver_name)
 
 	# prepare output folders
