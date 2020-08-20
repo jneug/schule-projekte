@@ -53,6 +53,9 @@ public class Motorroller
      * Tankt den Roller um die übergebene Menge (in Litern) auf. Dabei kann
      * der Tank nicht voller werden, als durch die Tankgroesse
      * festgelegt ist. Das zuviel getankte Benzin verfällt einfach.
+     * 
+     * Die Methode akzeptiert auch negative Werte (das Benzin wird dann also
+     * abgelassen). Natürlich darf der Tankinhalt nicht negativ werden.
      */
     public void tanke( double pMenge )
     {

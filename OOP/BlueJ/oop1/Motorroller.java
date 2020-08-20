@@ -20,8 +20,7 @@ public class Motorroller
     /**
      * Konstruktor für Objekte der Klasse Motorroller
      */
-    public Motorroller( int pKilometerstand, double pTankgroesse, double pTankinhalt )
-    {
+    public Motorroller( int pKilometerstand, double pTankgroesse, double pTankinhalt ) {
         // Attribute initialisieren
         kilometerstand = Math.max(0,pKilometerstand);
         tankgroesse = pTankgroesse;
@@ -34,18 +33,15 @@ public class Motorroller
         //      unsinniger Werte.
     }
 
-    public int getKilometerstand()
-    {
+    public int getKilometerstand() {
         return kilometerstand;
     }
 
-    public double getTankgroesse()
-    {
+    public double getTankgroesse() {
         return tankgroesse;
     }
 
-    public double getTankinhalt()
-    {
+    public double getTankinhalt() {
         return tankinhalt;
     }
 
@@ -53,9 +49,11 @@ public class Motorroller
      * Tankt den Roller um die übergebene Menge (in Litern) auf. Dabei kann
      * der Tank nicht voller werden, als durch die Tankgroesse
      * festgelegt ist. Das zuviel getankte Benzin verfällt einfach.
+     * 
+     * Die Methode akzeptiert auch negative Werte (das Benzin wird dann also
+     * abgelassen). Natürlich darf der Tankinhalt nicht negativ werden.
      */
-    public void tanke( double pMenge )
-    {
+    public void tanke( double pMenge ) {
         tankinhalt += pMenge; // += rechnet "tankinhalt + pMenge" und weist das Ergebnis "tankinhalt" zu
 
         // TODO:
@@ -71,8 +69,7 @@ public class Motorroller
      * volle Strecke, dann fährt der Roller nur so weit, wie er mit dem verbleibenden
      * Benzin kommt. Der Kilometerstand wird um die gefahrene Strecke hochgezählt.
      */
-    public void fahre( int pStrecke )
-    {
+    public void fahre( int pStrecke ) {
         // TODO:
         // - Diese Methode muss noch nach den Spezifikationen
         //      oben implementiert werden.
