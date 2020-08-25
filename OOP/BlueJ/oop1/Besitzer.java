@@ -71,8 +71,17 @@ public class Besitzer {
      * vom vorhandenen Geld abgezogen werden.
      */
     public void tankeRoller( double pMenge ) {
+        //ml*
+        if( 1.5 * pMenge > geld ) {
+            pMenge = geld/1.5;
+        }
+        if( meinRoller.getTankgroesse() < meinRoller.getTankinhalt() + pMenge ) {
+            pMenge = meinRoller.getTankgroesse() - meinRoller.getTankinhalt();
+        }
+        //*ml
         meinRoller.tanke(pMenge);
         geld = geld - 1.5*pMenge;
+        /*aufg*
 
         // TODO:
         // - Teste die Methode mit verschiedenen Eingaben. Probier
@@ -86,6 +95,7 @@ public class Besitzer {
         //      Welche möglichen Objektzustände werden dort nicht
         //      beachtet?
         // - Ergänze den Kommentar zu einer möglichst exakten Beschreibung.
+        *aufg*/
     }
 
     /**
@@ -95,10 +105,15 @@ public class Besitzer {
      * abschätzt.
      */
     public void fahreRoller( int pStrecke ) {
+        //ml*
+        if( meinRoller.getTankinhalt() >= pStrecke*0.625 ) {
+            meinRoller.fahre(pStrecke);
+        }
+        //*ml
+        /*aufg*
         if( meinRoller.getTankinhalt() >= pStrecke ) {
             meinRoller.fahre(pStrecke);
         }
-
 
         // TODO:
         // - Der Besitzer schätzt nur grob den Verbrauch seines Rollers ab.
@@ -106,5 +121,7 @@ public class Besitzer {
         // - Wie könnten die Klassn sinnvoll ergänzt werden, um eine genauere
         //      Rechnung pro Roller zu ermöglichen?
         // - Implementiere eure Idee.
+        *aufg*/
     }
+
 }

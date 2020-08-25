@@ -5,6 +5,7 @@ dependency1.type=UsesDependency
 dependency2.from=BesitzerTest
 dependency2.to=Besitzer
 dependency2.type=UsesDependency
+<<<<<<< Updated upstream
 dependency3.from=Besitzer
 dependency3.to=Motorroller
 dependency3.type=UsesDependency
@@ -27,6 +28,24 @@ package.frame.height=720
 package.frame.width=638
 package.numDependencies=4
 package.numTargets=5
+=======
+editor.fx.0.height=722
+editor.fx.0.width=954
+editor.fx.0.x=257
+editor.fx.0.y=41
+objectbench.height=101
+objectbench.width=571
+package.divider.horizontal=0.6
+package.divider.vertical=0.7954545454545454
+package.editor.height=413
+package.editor.width=457
+package.editor.x=455
+package.editor.y=0
+package.frame.height=586
+package.frame.width=595
+package.numDependencies=2
+package.numTargets=4
+>>>>>>> Stashed changes
 package.showExtends=true
 package.showUses=true
 project.charset=UTF-8
@@ -38,27 +57,46 @@ readme.y=10
 target1.height=50
 target1.name=BesitzerTest
 target1.showInterface=false
+<<<<<<< Updated upstream
 target1.type=UnitTestTargetJunit4
 target1.width=100
 target1.x=300
 target1.y=30
+=======
+target1.type=ClassTarget
+target1.width=80
+target1.x=210
+target1.y=250
+>>>>>>> Stashed changes
 target2.height=50
 target2.name=Todo
 target2.showInterface=false
 target2.type=ClassTarget
+<<<<<<< Updated upstream
 target2.width=110
 target2.x=50
 target2.y=430
+=======
+target2.width=80
+target2.x=130
+target2.y=50
+>>>>>>> Stashed changes
 target3.height=50
 target3.name=Besitzer
 target3.showInterface=false
 target3.type=ClassTarget
 target3.width=80
+<<<<<<< Updated upstream
 target3.x=70
 target3.y=20
+=======
+target3.x=210
+target3.y=180
+>>>>>>> Stashed changes
 target4.height=50
 target4.name=Motorroller
 target4.showInterface=false
+<<<<<<< Updated upstream
 target4.type=ClassTarget
 target4.width=100
 target4.x=200
@@ -70,3 +108,9 @@ target5.type=UnitTestTargetJunit4
 target5.width=120
 target5.x=320
 target5.y=260
+=======
+target4.type=UnitTestTargetJunit4
+target4.width=110
+target4.x=280
+target4.y=90
+>>>>>>> Stashed changes
