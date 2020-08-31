@@ -43,7 +43,7 @@ parser.add_argument('--project-root', dest="root", action='store',
 #                    help='By default empty files are omitted. This will keep those files in the output.')
 parser.add_argument('--encoding', dest="encoding", action='store', default="utf-8",
                     help='Set the encoding for project files Default: utf-8.')
-parser.add_argument('-z', '--zip', dest="create_zip", action='store_true', default="false",
+parser.add_argument('-z', '--zip', dest="create_zip", action='store_true', default=False,
                     help='Create additional zip files of the output folders.')
 
 args = parser.parse_args()
