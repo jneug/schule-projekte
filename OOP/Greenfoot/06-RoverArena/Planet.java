@@ -4,18 +4,10 @@ import java.lang.Math;
 import java.util.Arrays;
 import java.io.*;
 
-/**
- * Die einzigen aktiven Akteure in der Roboterwelt sind die Roboter.
- * Die Welt besteht aus 15 * 12 Feldern.
- */
-
 public class Planet extends World
 {
     private static int zellenGroesse = 30;
 
-    /**
-     * Erschaffe eine Welt mit 15 * 12 Zellen.
-     */
     public Planet() {
         // Initialisierung der Welt
         super(20, 18, zellenGroesse);
