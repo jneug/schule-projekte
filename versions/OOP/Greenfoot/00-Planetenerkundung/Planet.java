@@ -35,7 +35,7 @@ public class Planet extends World {
     }
 
     /**
-     * Löscht alle Objekte (Rover,Hügel,Gesteine,Markierungen,...) aus der Welt.
+     * LÃ¶scht alle Objekte (Rover,HÃ¼gel,Gesteine,Markierungen,...) aus der Welt.
      */
     public void weltLeeren() {
         removeObjects(getObjects(Actor.class));
@@ -43,7 +43,7 @@ public class Planet extends World {
 
 
     /**
-     * Es werden Rober, Hügel, Gesteine und Markierungen erstellt.
+     * Es werden Rober, HÃ¼gel, Gesteine und Markierungen erstellt.
      * Dazu wird der String Zeilenweise verarbeitet. Jedes Zeichen
      * entspricht einer Zelle in der Welt. Je nachdem, welches
      * Zeichen gelesen wird, werden die verschiedenen Objekte erstellt
@@ -58,21 +58,21 @@ public class Planet extends World {
      * <dt><code>v</code></dt>
      * <dd>Platziert einen Rover mit Blickrichtung unten.</dd>
      * <dt><code>h</code</dt>
-     * <dd>Platziert einen Hügel.</dd>
+     * <dd>Platziert einen HÃ¼gel.</dd>
      * <dt><code>g</code</dt>
      * <dd>Platziert ein Gestein.</dd>
      * <dt><code>m</code</dt>
      * <dd>Platziert eine Marke.</dd>
      * <dt><code>z</code</dt>
-     * <dd>Platziert ein zufälliges Objekt (oder keines).</dd>
+     * <dd>Platziert ein zufÃ¤lliges Objekt (oder keines).</dd>
      * </dl>
      * <p>
      * Die Welt hat normalerweise 15-mal-12 Zellen. Das bedeutet, der
      * Karten-String soltle maximal 12 Zeilen und jede Zeile maximal
-     * 15 Zeichen enthalten. Alle Zeichen darüber hinaus werden ignoriert.
-     * Groß- und Kleinschreibung wird nicht beachtet.
+     * 15 Zeichen enthalten. Alle Zeichen darÃ¼ber hinaus werden ignoriert.
+     * GroÃŸ- und Kleinschreibung wird nicht beachtet.
      * <p>
-     * Beispiel 1: Eine Welt, die von Hügeln umgeben ist, einen Rover mit
+     * Beispiel 1: Eine Welt, die von HÃ¼geln umgeben ist, einen Rover mit
      * Blickrichtung oben platziert, ein Gestein und einige Marken.
      * <pre>
      * hhhhhhhhhhhhhhh
@@ -122,7 +122,7 @@ public class Planet extends World {
     }
 
     /**
-     * Übersetzt eine Zeile einer Text-Karte in eine Reihe in der Welt.
+     * Ãœbersetzt eine Zeile einer Text-Karte in eine Reihe in der Welt.
      * @param pY Zeilennummer / Reihe in der Welt
      * @param pLine Text-Zeile der Karte
      */
@@ -233,7 +233,7 @@ public class Planet extends World {
     }
 
     /**
-     * Lädt eine Karte aus einer Datei im maps-Ordner.
+     * LÃ¤dt eine Karte aus einer Datei im maps-Ordner.
      * @param pFile Dateiname einer Datei im maps-Ordner
      */
     public void karteLaden( String pFile ) {
@@ -370,13 +370,13 @@ public class Planet extends World {
     /**
      * Erstellt eine prozedual generierte  Pseudo-Zufallskarte
      * <p>
-     * Die generierte Karte wird abhänig vom <var>seed</var>
-     * generiert. Dabei wird nicht rein zufällig entschieden,
+     * Die generierte Karte wird abhÃ¤nig vom <var>seed</var>
+     * generiert. Dabei wird nicht rein zufÃ¤llig entschieden,
      * welche Objekte wo platziert werden, sondern es wird versucht
-     * zusammenhängende Hügelketten zu erstellen.
+     * zusammenhÃ¤ngende HÃ¼gelketten zu erstellen.
      * <p>
-     * Bei gleichen Werten für <var>seed</var> werden gleiche
-     * Karten erstellt. Die Objekte sind zufällig verteilt, es
+     * Bei gleichen Werten fÃ¼r <var>seed</var> werden gleiche
+     * Karten erstellt. Die Objekte sind zufÃ¤llig verteilt, es
      * kann aber eine Karte reproduziert werden, wenn derselbe
      * <var>seed</var> wiederverwendet wird.
      * <p>
@@ -462,11 +462,11 @@ public class Planet extends World {
     }
 
     /**
-     * Erstellt eine komplett zufällige Karte
+     * Erstellt eine komplett zufÃ¤llige Karte
      * <p>
-     * Alle Objekte werden rein zufällig platziert und
-     * die Welt rundherum mit einer "Hügelwand" umrandet.
-     * Daher kann die entstehende Karte unter Umständen
+     * Alle Objekte werden rein zufÃ¤llig platziert und
+     * die Welt rundherum mit einer "HÃ¼gelwand" umrandet.
+     * Daher kann die entstehende Karte unter UmstÃ¤nden
      * schlecht nutzbar sein.
      */
     public void zufallswelt2() {

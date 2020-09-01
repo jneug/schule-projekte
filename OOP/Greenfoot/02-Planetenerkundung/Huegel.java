@@ -1,7 +1,7 @@
 import greenfoot.*;
 
 /**
- * Ein Hügel in der Mars-Welt. Ein Hügel ist ein Hindernis für dne Rover, das
+ * Ein HÃ¼gel in der Mars-Welt. Ein HÃ¼gel ist ein Hindernis fÃ¼r dne Rover, das
  * nicht befahren werden kann.
  */
 public class Huegel extends Actor {
@@ -22,10 +22,10 @@ public class Huegel extends Actor {
     }
 
     /**
-     * Act-Methode des Hügels.
+     * Act-Methode des HÃ¼gels.
      */
     public void act() {
-        // Der Hügel hat keine Funktion.
+        // Der HÃ¼gel hat keine Funktion.
     }
 
     public int getSteigung() {

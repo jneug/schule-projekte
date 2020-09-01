@@ -41,8 +41,8 @@ public class Rover extends Actor {
 
     /**
      * Der Rover dreht sich um 90 Grad in die Richtung, die mit <var>richtung</var>
-     * ("links" oder "rechts") übergeben wurde. Sollte ein anderer Text (String)
-     * als "links" oder "rechts" übergeben werden, dann erscheint eine
+     * ("links" oder "rechts") Ã¼bergeben wurde. Sollte ein anderer Text (String)
+     * als "links" oder "rechts" Ã¼bergeben werden, dann erscheint eine
      * entsprechende Meldung auf dem Display.
      * @param richtung "links" oder "rechts"
      */
@@ -58,7 +58,7 @@ public class Rover extends Actor {
 
     /**
      * Der Rover gibt durch einen Wahrheitswert (<code>true</code> oder
-     * <code>false</code>) zurück, ob sich auf seiner Position ein Objekt der
+     * <code>false</code>) zurÃ¼ck, ob sich auf seiner Position ein Objekt der
      * Klasse {@link Gestein} befindet. Eine entsprechende Meldung erscheint
      * auch auf dem Display.
      */
@@ -71,10 +71,10 @@ public class Rover extends Actor {
     }
 
     /**
-     * Der Rover überprüft, ob sich in <var>richtung</var> ("rechts", "links"
+     * Der Rover Ã¼berprÃ¼ft, ob sich in <var>richtung</var> ("rechts", "links"
      * oder "vorne") ein Objekt der Klasse {@link Huegel} befindet.
      * Das Ergebnis wird auf dem Display angezeigt. Sollte ein anderer Text (String)
-     * als "rechts", "links" oder "vorne" übergeben werden, dann erscheint eine
+     * als "rechts", "links" oder "vorne" Ã¼bergeben werden, dann erscheint eine
      * entsprechende Meldung auf dem Display.
      * @param richtung "links", "rechts" oder "vorne"
      */
@@ -138,7 +138,7 @@ public class Rover extends Actor {
 
     /**
      * Der Rover gibt durch einen Wahrheitswert (<code>true</code> oder
-     * <code>false</code>) zurück, ob sich auf seiner Position ein Objekt der
+     * <code>false</code>) zurÃ¼ck, ob sich auf seiner Position ein Objekt der
      * Klasse {@link Marke} befindet.
      * Eine entsprechende Meldung erscheint auch auf dem Display.
      */

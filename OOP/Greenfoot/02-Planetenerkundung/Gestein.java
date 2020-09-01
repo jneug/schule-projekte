@@ -1,7 +1,7 @@
 import greenfoot.*;
 
 /**
- * Ein Gestein in der Mars-Welt. Ein Gestein hat einen zufällig bestimmten
+ * Ein Gestein in der Mars-Welt. Ein Gestein hat einen zufÃ¤llig bestimmten
  * Wassergehalt.
  */
 public class Gestein extends Actor {
