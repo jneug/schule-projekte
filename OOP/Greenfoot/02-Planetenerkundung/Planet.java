@@ -1,5 +1,6 @@
 import greenfoot.*;
 
+import java.util.HashMap;
 import java.util.Random;
 import java.lang.Math;
 import java.io.*;
@@ -107,7 +108,9 @@ public class Planet extends World {
      * Erstellt eine Welt aus einer als Text codierten Karte.
      */
     public void weltAusKarteErstellen( String map ) {
-        String[] lines = map.trim().split("\n");
+        HashMap<String, String> parts = parseParts(map);
+
+        String[] lines = parts.get("map").trim().split("\n");
 
         int y = 0;
         for( String line : lines ) {
@@ -119,6 +122,72 @@ public class Planet extends World {
             parseLine(y, line);
             y += 1;
         }
+    }
+
+    private char[][] splitMap( String mapData ) {
+        String[] lines = mapData.trim().split("\n");
+        int maxX = 0;
+        for( String line: lines ) {
+            maxX = Math.max(maxX, line.length());
+        }
+
+        char[][] map = new char[maxX][lines.length];
+        for( int y = 0; y < lines.length; y++ ) {
+            char[] arr = lines[y].toCharArray();
+            for( int x = 0; x < maxX; x++ ) {
+                if( x < arr.length ) {
+                    map[x][y] = arr[x];
+                } else {
+                    map[x][y] = '.';
+                }
+
+            }
+        }
+        return map;
+    }
+
+    private char[][] copyArea(char[][] from, char[][] to, int x, int y) {
+        int maxY = Math.min(from.length, to.length-x);
+        for(int i = 0; i < maxY; i++) {
+            int maxX = Math.min(from[i].length, to[i].length-y);
+            for(int j = 0; j < maxX; j++) {
+                to[j+x][i+y] = from[j][i];
+            }
+        }
+        return to;
+    }
+
+    private HashMap<String, String> parseParts( String mapData ) {
+        HashMap<String, String> parts = new HashMap<String, String>(12);
+        String currentPart = "map";
+        String part = null;
+
+        String[] lines = mapData.trim().split("\n");
+
+        int y = 0;
+        for( String line : lines ) {
+            line = line.trim();
+            if( line.startsWith("//") || line.isEmpty() ) {
+                continue;
+            }
+
+            // Start of a new map part
+            if( line.matches("^\\{([A-Za-z][A-Za-z0-9-_]*)\\}$") ) {
+                parts.put(currentPart, part);
+
+                currentPart = line.substring(1, line.length()-1);
+                part = null;
+            } else {
+                if( part == null ) {
+                    part = line;
+                } else {
+                    part += "\n" + line;
+                }
+            }
+        }
+        parts.put(currentPart, part);
+
+        return parts;
     }
 
     /**
