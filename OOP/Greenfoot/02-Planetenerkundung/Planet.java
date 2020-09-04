@@ -234,7 +234,7 @@ public class Planet extends World {
                         ArrayList<String> choices = new ArrayList<>(8);
                         StringBuilder s = new StringBuilder();
                         for( char c: map[y][x].substring(1,map[y][x].length()-1).toCharArray() ) {
-                            if( s.charAt(0) == '{' ) {
+                            if( s.length() > 0 && s.charAt(0) == '{' ) {
                                 s.append(c);
                                 if( c == '}' ) {
                                     choices.add(s.toString());
