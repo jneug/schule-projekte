@@ -226,8 +226,8 @@ public class Planet extends World {
                 }
 
                 // Random choices
-                if( map[y][x].equals("Z") ) {
-                    String choices = " hmg";
+                if( map[y][x].equals("z") ) {
+                    String choices = ".hmg";
                     map[y][x] = Character.toString(choices.charAt(r.nextInt(choices.length())));
                 } else if( map[y][x].startsWith("[") ) {
                     if( map[y][x].indexOf('{') >= 0 ) {
