@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public class Planet extends World {
 
-    private static int zellenGroesse = 50;
+    private static final int zellenGroesse = 50;
 
     /**
      * Erschaffe eine Welt mit 15 * 12 Zellen.
@@ -109,46 +109,17 @@ public class Planet extends World {
      * Erstellt eine Welt aus einer als Text codierten Karte.
      */
     public void weltAusKarteErstellen( String map ) {
-        HashMap<String, String> parts = parseParts(map);
+        HashMap<String, String[][]> mapData = this.parseMap(map);
 
-        String[] lines = parts.get("map").trim().split("\n");
-
-        int y = 0;
-        for( String line : lines ) {
-            line = line.trim();
-            if( y >= getHeight() || line.startsWith("//") || line.isEmpty() ) {
-                continue;
-            }
-
-            parseLine(y, line);
-            y += 1;
-        }
-    }
-
-    public void loadMap() {
-        String pFile = "maze.map";
-        String map = "";
-        try {
-            InputStream i = Planet.class.getResourceAsStream("maps/" + pFile);
-            BufferedReader br = new BufferedReader(new InputStreamReader(i));
-            String st;
-            while( (st = br.readLine()) != null ) {
-                map += st + "\n";
-            }
-            i.close();
-        } catch( Exception e ) {
-            System.err.println("Karte " + pFile + " konnte nicht geladen werden.");
-        }
-
-        weltLeeren();
-        createWorld(parseMap(map));
+        // this.weltLeeren();
+        this.createWorld(mapData);
     }
 
     private HashMap<String, String[][]> parseMap( String map ) {
-        HashMap<String, String[][]> parts = new HashMap<String, String[][]>(12);
+        HashMap<String, String[][]> parts = new HashMap<>(12);
 
         String currentPart = "map";
-        ArrayList<String[]> partList = new ArrayList<String[]>(getHeight());
+        ArrayList<String[]> partList = new ArrayList<>(getHeight());
 
         String[] lines = map.trim().split("\n");
 
@@ -187,8 +158,8 @@ public class Planet extends World {
     }
 
     private String[] parseLine( String pLine, boolean fullWidth ) {
-        ArrayList<String> result = new ArrayList<String>();
-        String currentString = null;
+        ArrayList<String> result = new ArrayList<>();
+        StringBuilder currentString = new StringBuilder();
         boolean inParantheses = false;
 
         int x = 0;
@@ -199,11 +170,7 @@ public class Planet extends World {
                 continue;
             }
 
-            if( currentString == null ) {
-                currentString = Character.toString(c);
-            } else {
-                currentString += Character.toString(c);
-            }
+            currentString.append(c);
 
             switch( c ) {
                 case '[':
@@ -229,12 +196,8 @@ public class Planet extends World {
             }
 
             if( !inParantheses ) {
-                if( currentString == null ) {
-                    result.add(".");
-                } else {
-                    result.add(currentString);
-                }
-                currentString = null;
+                result.add(currentString.toString());
+                currentString = new StringBuilder();
                 x += 1;
             }
 
@@ -263,22 +226,22 @@ public class Planet extends World {
                 }
 
                 // Random choices
-                if( map[y][x] == "Z" ) {
+                if( map[y][x].equals("Z") ) {
                     String choices = " hmg";
                     map[y][x] = Character.toString(choices.charAt(r.nextInt(choices.length())));
                 } else if( map[y][x].startsWith("[") ) {
                     if( map[y][x].indexOf('{') >= 0 ) {
                         ArrayList<String> choices = new ArrayList<>(8);
-                        String s = "";
+                        StringBuilder s = new StringBuilder();
                         for( char c: map[y][x].substring(1,map[y][x].length()-1).toCharArray() ) {
-                            if( s.startsWith("{") ) {
-                                s += Character.toString(c);
+                            if( s.charAt(0) == '{' ) {
+                                s.append(c);
                                 if( c == '}' ) {
-                                    choices.add(s);
-                                    s = "";
+                                    choices.add(s.toString());
+                                    s = new StringBuilder();
                                 }
                             } else if( c == '{' ){
-                                s = "{";
+                                s.append(c);
                             } else {
                                 choices.add(Character.toString(c));
                             }
@@ -294,7 +257,7 @@ public class Planet extends World {
                 if( map[y][x].startsWith("{") ) {
                     String partName = map[y][x].substring(1, map[y][x].length()-1);
                     String[][] partMap = mapData.getOrDefault(partName, new String[0][0]);
-                    map = copyArea(partMap, map, x, y);
+                    copyArea(partMap, map, x, y);
                 }
 
                 // Create object(s)
@@ -309,108 +272,13 @@ public class Planet extends World {
         }
     }
 
-    private String[][] copyArea(String[][] from, String[][] to, int x, int y) {
+    private void copyArea(String[][] from, String[][] to, int x, int y) {
         int maxY = Math.min(from.length, to.length-y);
         for(int i = 0; i < maxY; i++) {
             int maxX = Math.min(from[i].length, to[i].length-x);
-            for(int j = 0; j < maxX; j++) {
-                to[i+y][j+x] = from[i][j];
+            if( maxX >= 0 ) {
+                System.arraycopy(from[i], 0, to[i + y], x, maxX);
             }
-        }
-        return to;
-    }
-
-    private HashMap<String, String> parseParts( String mapData ) {
-        HashMap<String, String> parts = new HashMap<String, String>(12);
-        String currentPart = "map";
-        String part = null;
-
-        String[] lines = mapData.trim().split("\n");
-
-        int y = 0;
-        for( String line : lines ) {
-            line = line.trim();
-            if( line.startsWith("//") || line.isEmpty() ) {
-                continue;
-            }
-
-            // Start of a new map part
-            if( line.matches("^\\{([A-Za-z][A-Za-z0-9-_]*)\\}$") ) {
-                parts.put(currentPart, part);
-
-                currentPart = line.substring(1, line.length()-1);
-                part = null;
-            } else {
-                if( part == null ) {
-                    part = line;
-                } else {
-                    part += "\n" + line;
-                }
-            }
-        }
-        parts.put(currentPart, part);
-
-        return parts;
-    }
-
-    /**
-     * Übersetzt eine Zeile einer Text-Karte in eine Reihe in der Welt.
-     * @param pY Zeilennummer / Reihe in der Welt
-     * @param pLine Text-Zeile der Karte
-     */
-    private void parseLine( int pY, String pLine ) {
-        pLine = pLine.trim();
-        if( pY >= getHeight() || pLine.startsWith("//") || pLine.isEmpty() ) {
-            return;
-        }
-
-        char[] chars = pLine.toLowerCase().toCharArray();
-
-        Random r = new Random();
-        int x = 0;
-        for( int i = 0; i < chars.length; i++ ) {
-            // Skip spaces
-            if( chars[i] == ' ' ) {
-                continue;
-            }
-            // Stop after exceeding the world bounds
-            if( x >= getWidth() ) {
-                break;
-            }
-
-            // Random cases first
-            // replace current char with result
-            String choices;
-            switch( chars[i] ) {
-                case 'z':
-                    choices = " hmg";
-                    chars[i] = choices.charAt(r.nextInt(choices.length()));
-                    break;
-
-                case '[':
-                    // parse choices
-                    int j = i;
-                    choices = "";
-                    while( i + 1 < chars.length && chars[i + 1] != ']' ) {
-                        choices += chars[++i];
-                    }
-                    if( i + 1 < chars.length ) {
-                        i += 1;
-                    }
-                    chars[i] = choices.charAt(r.nextInt(choices.length()));
-                    break;
-            }
-
-            // Create object(s)
-            if( chars[i] == '(' ) {
-                while( i + 1 < chars.length && chars[i + 1] != ')' ) {
-                    createObject(x, pY, chars[++i]);
-                }
-                i += 1;
-            } else {
-                createObject(x, pY, chars[i]);
-            }
-            x += 1;
         }
     }
 
@@ -469,17 +337,18 @@ public class Planet extends World {
      * @param pFile Dateiname einer Datei im maps-Ordner
      */
     public void karteLaden( String pFile ) {
-        if( pFile.indexOf(".") < 0 ) {
+        if( !pFile.contains(".") ) {
             pFile += ".map";
         }
 
-        String map = "";
+        StringBuilder map = new StringBuilder();
         try {
             InputStream i = Planet.class.getResourceAsStream("maps/" + pFile);
             BufferedReader br = new BufferedReader(new InputStreamReader(i));
             String st;
             while( (st = br.readLine()) != null ) {
-                map += st + "\n";
+                map.append(st);
+                map.append("\n");
             }
             i.close();
         } catch( Exception e ) {
@@ -487,7 +356,7 @@ public class Planet extends World {
         }
 
         weltLeeren();
-        weltAusKarteErstellen(map);
+        weltAusKarteErstellen(map.toString());
     }
 
     /**
@@ -502,8 +371,7 @@ public class Planet extends World {
             pFile = "";
         }
 
-        String map = "";
-        int w = getWidth(), h = getHeight();
+        StringBuilder map = new StringBuilder();
         for( int i = 0; i < getHeight(); i++ ) {
             for( int j = 0; j < getWidth(); j++ ) {
                 java.util.List<Actor> actors = getObjectsAt(j, i, Actor.class);
@@ -517,62 +385,62 @@ public class Planet extends World {
                     }
                 });
                 if( actors.size() == 0 ) {
-                    map += '.';
+                    map.append('.');
                 } else {
                     if( actors.size() > 1 ) {
-                        map += '(';
+                        map.append('(');
                     }
-                    java.util.Iterator<Actor> it = actors.iterator();
-                    while( it.hasNext() ) {
-                        Actor actor = it.next();
+                    for( Actor actor : actors ) {
                         if( actor.getClass().equals(Huegel.class) ) {
-                            map += 'H';
+                            map.append('H');
                         } else if( actor.getClass().equals(Gestein.class) ) {
-                            map += 'G';
+                            map.append('G');
                         } else if( actor.getClass().equals(Marke.class) ) {
-                            map += 'M';
+                            map.append('M');
                         } else if( actor.getClass().equals(Rover.class) ) {
                             Rover rover = (Rover) actor;
                             switch( rover.getRotation() ) {
                                 case 0:
-                                    map += 'R';
+                                    map.append('R');
                                     break;
                                 case 90:
-                                    map += 'v';
+                                    map.append('v');
                                     break;
                                 case 180:
-                                    map += '<';
+                                    map.append('<');
                                     break;
                                 case 270:
-                                    map += '^';
+                                    map.append('^');
                                     break;
                             }
                         }
                     }
                     if( actors.size() > 1 ) {
-                        map += ')';
+                        map.append(')');
                     }
                 }
             }
-            map += '\n';
+            map.append('\n');
         }
 
+
+        String mapStr = map.toString();
         // Optimize map
         // Remove empty cells at end of lines
-        map = Pattern.compile("\\.*(?=(\n|$))").matcher(map).replaceAll("");
+        mapStr = Pattern.compile("\\.*(?=(\n|$))").matcher(mapStr).replaceAll("");
         // Remove empty lines at and of map
-        map = Pattern.compile("\\n+$").matcher(map).replaceAll("");
+        mapStr = Pattern.compile("\\n+$").matcher(mapStr).replaceAll("");
         // Add one empty cell to empty lines at start of map
-        map = Pattern.compile("\\n(?=(\n|$))").matcher(map).replaceAll("\n.");
-        map = Pattern.compile("^\\n").matcher(map).replaceAll(".\n");
+        mapStr = Pattern.compile("\\n(?=(\n|$))").matcher(mapStr).replaceAll("\n.");
+        mapStr = Pattern.compile("^\\n").matcher(mapStr).replaceAll(".\n");
 
         if( pFile.length() == 0 ) {
             // Replace newline with "\n" (as string) for printing
-            map = Pattern.compile("\\n").matcher(map).replaceAll("\\\\n");
-            System.out.println(map);
+            mapStr = Pattern.compile("\\n").matcher(mapStr).replaceAll("\\\\n");
+            System.out.println(mapStr);
         } else {
             // Create maps file
-            if( pFile.indexOf(".") < 0 ) {
+            if( !pFile.contains(".") ) {
                 pFile += ".map";
             }
             try {
@@ -580,7 +448,7 @@ public class Planet extends World {
                     .getResource("maps/").getPath();
                 PrintWriter i = new PrintWriter(
                     new File(maps_path + pFile));
-                i.print(map);
+                i.print(mapStr);
                 i.flush();
                 i.close();
             } catch( Exception e ) {
@@ -613,10 +481,10 @@ public class Planet extends World {
      * <var>seed</var> wiederverwendet wird.
      * <p>
      * Der aktuelle <var>seed</var> wird unten rechts angezeigt.
-     * @param seed
+     * @param seed Eine Zahl, die als Seed für den Zufallsgenerator genutzt wird
      */
     public void zufallswelt( long seed ) {
-        String map = "";
+        StringBuilder map = new StringBuilder();
 
         // Generate random feature points
         int[][] points = new int[6][2];
@@ -634,8 +502,8 @@ public class Planet extends World {
         for( int y = 0; y < maxY; y++ ) {
             for( int x = 0; x < maxX; x++ ) {
                 double d1 = Integer.MAX_VALUE;
-                for( int i = 0; i < points.length; i++ ) {
-                    double d2 = Math.sqrt(Math.pow(points[i][0] - x, 2.0) + Math.pow(points[i][1] - y, 2.0));
+                for( int[] point : points ) {
+                    double d2 = Math.sqrt(Math.pow(point[0] - x, 2.0) + Math.pow(point[1] - y, 2.0));
                     if( d2 < d1 ) {
                         d1 = d2;
                     }
@@ -646,7 +514,7 @@ public class Planet extends World {
 
         // Generate map
         boolean roverSet = false;
-        char nextChar = '#';
+        char nextChar;
         for( int y = 0; y < maxY; y++ ) {
             for( int x = 0; x < maxX; x++ ) {
                 if( dist[x][y] > 3 ) {
@@ -675,14 +543,14 @@ public class Planet extends World {
                     nextChar = '#';
                 }
 
-                map += nextChar;
+                map.append(nextChar);
             }
-            map += "\n";
+            map.append("\n");
         }
 
         // Display map
         weltLeeren();
-        weltAusKarteErstellen(map);
+        weltAusKarteErstellen(map.toString());
 
         // Show seed on map
         showText(seed + "", 12, 11);
@@ -702,27 +570,27 @@ public class Planet extends World {
      * schlecht nutzbar sein.
      */
     public void zufallswelt2() {
-        String map = "";
+        StringBuilder map = new StringBuilder();
         for( int y = 0; y < getHeight(); y++ ) {
             for( int x = 0; x < getWidth(); x++ ) {
                 if( x == 0 || y == 0 || x == getWidth() - 1 || y == getHeight() - 1 ) {
-                    map += "h";
+                    map.append("h");
                 } else {
                     Random r = new Random();
                     int i = r.nextInt(10);
                     if( i < 5 ) {
-                        map += "#";
+                        map.append("#");
                     } else if( i < 8 ) {
-                        map += "h";
+                        map.append("h");
                     } else {
-                        map += "g";
+                        map.append("g");
                     }
                 }
             }
-            map += "\n";
+            map.append("\n");
         }
         weltLeeren();
-        weltAusKarteErstellen(map);
+        weltAusKarteErstellen(map.toString());
     }
 
     //ml*
@@ -732,7 +600,7 @@ public class Planet extends World {
      */
     public void zufallsweg() {
         int maxX = getWidth(), maxY = getHeight();
-        int halfX = (int) (maxX / 2), halfY = (int) (maxY / 2);
+        int halfX = maxX / 2;
 
         char[][] map = new char[maxX][maxY];
         for( int y = 0; y < maxY; y++ ) {
@@ -768,22 +636,22 @@ public class Planet extends World {
 
         // print(map);
 
-        String m = "";
+        StringBuilder m = new StringBuilder();
         for( int y = 0; y < maxY; y++ ) {
             for( int x = 0; x < maxX; x++ ) {
-                m += map[x][y];
+                m.append(map[x][y]);
             }
-            m += "\n";
+            m.append("\n");
         }
         // Display map
         weltLeeren();
-        weltAusKarteErstellen(m);
+        weltAusKarteErstellen(m.toString());
     }
 
     private boolean finished( int[][] arr ) {
         for( int y = 0; y < arr[0].length; y++ ) {
-            for( int x = 0; x < arr.length; x++ ) {
-                if( arr[x][y] != 2 && arr[x][y] != 0 ) {
+            for( int[] ints : arr ) {
+                if( ints[y] != 2 && ints[y] != 0 ) {
                     return false;
                 }
             }
@@ -793,8 +661,8 @@ public class Planet extends World {
 
     private void print( int[][] arr ) {
         for( int y = 0; y < arr[0].length; y++ ) {
-            for( int x = 0; x < arr.length; x++ ) {
-                System.out.print(arr[x][y]);
+            for( int[] ints : arr ) {
+                System.out.print(ints[y]);
                 System.out.print(" ");
             }
             System.out.println();
@@ -804,8 +672,8 @@ public class Planet extends World {
 
     private void print( char[][] arr ) {
         for( int y = 0; y < arr[0].length; y++ ) {
-            for( int x = 0; x < arr.length; x++ ) {
-                System.out.print(arr[x][y]);
+            for( char[] chars : arr ) {
+                System.out.print(chars[y]);
                 System.out.print(" ");
             }
             System.out.println();
