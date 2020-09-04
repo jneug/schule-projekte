@@ -24,7 +24,7 @@ public class Planet extends World {
         super(15, 12, zellenGroesse);
         setBackground("images/boden.png");
         setPaintOrder(String.class, Rover.Display.class, Rover.class, Marke.class, Gestein.class, Huegel.class);
-        Greenfoot.setSpeed(20);
+        Greenfoot.setSpeed(50);
 
         // Diese Zeile auskommentieren, um beim Start eine Zufallskarte zu erstellen.
         //zufallskarte();
