@@ -1,5 +1,6 @@
 import greenfoot.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.lang.Math;
@@ -124,34 +125,196 @@ public class Planet extends World {
         }
     }
 
-    private char[][] splitMap( String mapData ) {
-        String[] lines = mapData.trim().split("\n");
-        int maxX = 0;
-        for( String line: lines ) {
-            maxX = Math.max(maxX, line.length());
-        }
-
-        char[][] map = new char[maxX][lines.length];
-        for( int y = 0; y < lines.length; y++ ) {
-            char[] arr = lines[y].toCharArray();
-            for( int x = 0; x < maxX; x++ ) {
-                if( x < arr.length ) {
-                    map[x][y] = arr[x];
-                } else {
-                    map[x][y] = '.';
-                }
-
+    public void loadMap() {
+        String pFile = "maze.map";
+        String map = "";
+        try {
+            InputStream i = Planet.class.getResourceAsStream("maps/" + pFile);
+            BufferedReader br = new BufferedReader(new InputStreamReader(i));
+            String st;
+            while( (st = br.readLine()) != null ) {
+                map += st + "\n";
             }
+            i.close();
+        } catch( Exception e ) {
+            System.err.println("Karte " + pFile + " konnte nicht geladen werden.");
         }
-        return map;
+
+        weltLeeren();
+        createWorld(parseMap(map));
     }
 
-    private char[][] copyArea(char[][] from, char[][] to, int x, int y) {
-        int maxY = Math.min(from.length, to.length-x);
+    private HashMap<String, String[][]> parseMap( String map ) {
+        HashMap<String, String[][]> parts = new HashMap<String, String[][]>(12);
+
+        String currentPart = "map";
+        ArrayList<String[]> partList = new ArrayList<String[]>(getHeight());
+
+        String[] lines = map.trim().split("\n");
+
+        for( String line: lines ) {
+            line = line.toLowerCase().trim();
+
+            if( line.startsWith("//") || line.isEmpty() ) {
+                continue;
+            }
+
+            // Start of a new map part
+            if( line.matches("^\\{([A-Za-z][A-Za-z0-9-_]*)\\}$") ) {
+                if( currentPart.equals("map") ) {
+                    String[][] fullMap = partList.toArray(new String[getHeight()][0]);
+                    // TODO: Why are there null elements in the full map array???
+                    // Is there a better way to do this?
+                    for( int k = 0; k < fullMap.length; k++ ) {
+                        if( fullMap[k] == null || fullMap[k].length < getWidth() ) {
+                            fullMap[k] = new String[getWidth()];
+                        }
+                    }
+                    parts.put(currentPart, fullMap);
+                } else {
+                    parts.put(currentPart, partList.toArray(new String[0][0]));
+                }
+
+                currentPart = line.substring(1, line.length()-1);
+                partList.clear();
+            } else {
+                partList.add(parseLine(line, currentPart.equals("map")));
+            }
+        }
+        parts.put(currentPart, partList.toArray(new String[0][0]));
+
+        return parts;
+    }
+
+    private String[] parseLine( String pLine, boolean fullWidth ) {
+        ArrayList<String> result = new ArrayList<String>();
+        String currentString = null;
+        boolean inParantheses = false;
+
+        int x = 0;
+        for( int i = 0; i < pLine.length(); i++ ) {
+            char c = pLine.charAt(i);
+            // Skip spaces
+            if( Character.isWhitespace(c) ) {
+                continue;
+            }
+
+            if( currentString == null ) {
+                currentString = Character.toString(c);
+            } else {
+                currentString += Character.toString(c);
+            }
+
+            switch( c ) {
+                case '[':
+                case '(':
+                case '{':
+                    inParantheses = true;
+                    break;
+                case ')':
+                    if( inParantheses && currentString.charAt(0) == '(') {
+                        inParantheses = false;
+                    }
+                    break;
+                case '}':
+                    if( inParantheses && currentString.charAt(0) == '{') {
+                        inParantheses = false;
+                    }
+                    break;
+                case ']':
+                    if( inParantheses && currentString.charAt(0) == '[') {
+                        inParantheses = false;
+                    }
+                    break;
+            }
+
+            if( !inParantheses ) {
+                if( currentString == null ) {
+                    result.add(".");
+                } else {
+                    result.add(currentString);
+                }
+                currentString = null;
+                x += 1;
+            }
+
+            // Stop after exceeding the world bounds
+            if( x >= getWidth() ) {
+                break;
+            }
+        }
+
+        if( fullWidth ) {
+            return result.toArray(new String[getWidth()]);
+        } else {
+            return result.toArray(new String[0]);
+        }
+    }
+
+    private void createWorld( HashMap<String, String[][]> mapData ) {
+        String[][] map = mapData.get("map");
+
+        Random r = new Random();
+
+        for( int y = 0; y < map.length; y++ ) {
+            for( int x = 0; x < map[y].length; x++ ) {
+                if( map[y][x] == null ) {
+                    continue;
+                }
+
+                // Random choices
+                if( map[y][x] == "Z" ) {
+                    String choices = " hmg";
+                    map[y][x] = Character.toString(choices.charAt(r.nextInt(choices.length())));
+                } else if( map[y][x].startsWith("[") ) {
+                    if( map[y][x].indexOf('{') >= 0 ) {
+                        ArrayList<String> choices = new ArrayList<>(8);
+                        String s = "";
+                        for( char c: map[y][x].substring(1,map[y][x].length()-1).toCharArray() ) {
+                            if( s.startsWith("{") ) {
+                                s += Character.toString(c);
+                                if( c == '}' ) {
+                                    choices.add(s);
+                                    s = "";
+                                }
+                            } else if( c == '{' ){
+                                s = "{";
+                            } else {
+                                choices.add(Character.toString(c));
+                            }
+                        }
+                        map[y][x] = choices.get(r.nextInt(choices.size()));
+                    } else {
+                        String choices = map[y][x].substring(1, map[y][x].length() - 1);
+                        map[y][x] = Character.toString(choices.charAt(r.nextInt(choices.length())));
+                    }
+                }
+
+                // Replace parts before parsing real cell content
+                if( map[y][x].startsWith("{") ) {
+                    String partName = map[y][x].substring(1, map[y][x].length()-1);
+                    String[][] partMap = mapData.getOrDefault(partName, new String[0][0]);
+                    map = copyArea(partMap, map, x, y);
+                }
+
+                // Create object(s)
+                if( map[y][x].startsWith("(")  ) {
+                    for( char type: map[y][x].toCharArray() ) {
+                        createObject(x, y, type);
+                    }
+                } else {
+                    createObject(x, y, map[y][x].charAt(0));
+                }
+            }
+        }
+    }
+
+    private String[][] copyArea(String[][] from, String[][] to, int x, int y) {
+        int maxY = Math.min(from.length, to.length-y);
         for(int i = 0; i < maxY; i++) {
-            int maxX = Math.min(from[i].length, to[i].length-y);
+            int maxX = Math.min(from[i].length, to[i].length-x);
             for(int j = 0; j < maxX; j++) {
-                to[j+x][i+y] = from[j][i];
+                to[i+y][j+x] = from[i][j];
             }
         }
         return to;

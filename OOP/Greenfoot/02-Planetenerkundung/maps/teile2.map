@@ -1,8 +1,8 @@
-{top-left}...{top-right-1}
+{top-left}...[{top-right-1}{top-right-2}]
 .
 .
 .
-{bottom-left-1}...{bottom-right}
+[{bottom-left-1}{bottom-right-1}]...{bottom-right}
 
 {top-left}
 hhhh
@@ -11,10 +11,10 @@ h.R.
 h...
 
 {top-right-1}
-hhhh
-...h
-...h
-...h
+gggg
+...g
+...g
+...g
 
 {top-right-2}
 hhhh
@@ -35,7 +35,7 @@ hmmm
 hhhh
 
 {bottom-left-2}
-hhhh
-hhhh
-hhhh
-hhhh
+mhhh
+mhhh
+mhhh
+mmmm
