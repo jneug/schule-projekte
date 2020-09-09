@@ -1,0 +1,14 @@
+isz | 2
+jmp | 4
+jmp | 6
+dec | 2
+jmp | 1
+isz | 1
+jmp | 9
+stp |  
+dec | 1
+inc | 2
+inc | 2
+jmp | 6
+  |  
+  |  
