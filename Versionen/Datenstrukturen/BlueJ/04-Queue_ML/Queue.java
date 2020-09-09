@@ -9,10 +9,6 @@ public class Queue<ContentType> {
     }
 
     public void enqueue( ContentType pContentObject ) {
-        /*aufg*
-        // TODO: Implementiere enqueue
-        *aufg*/
-        //ml*
         QueueNode<ContentType> n = new QueueNode<ContentType>(pContentObject);
         if( isEmpty() ) {
             head = n;
@@ -21,21 +17,15 @@ public class Queue<ContentType> {
             tail.setNext(n);
             tail = n;
         }
-        //*ml
     }
 
     public void dequeue() {
-        /*aufg*
-        // TODO: Implementiere dequeue
-        *aufg*/
-        //ml*
         if( head != tail ) {
             head = head.getNext();
         } else if( !isEmpty() ) {
             head = null;
             tail = null;
         }
-        //*ml
     }
 
     /**

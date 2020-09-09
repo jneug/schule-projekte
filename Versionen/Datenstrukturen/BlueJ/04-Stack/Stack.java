@@ -8,28 +8,14 @@ public class Stack<ContentType> {
 
 
     public void push( ContentType pContentObject ) {
-        /*aufg*
         // TODO: Implementiere push
-        *aufg*/
-        //ml*
-        StackNode<ContentType> n = new StackNode<ContentType>(pContentObject);
-        if( head == null ) {
-            head = n;
-        } else {
-            n.setNext(head);
-            head = n;
-        }
-        //*ml
     }
 
     public void pop() {
-        /*aufg*
         // TODO: Implementiere pop
-        *aufg*/
         if( head != null ) {
             head = head.getNext();
         }
-        //*ml
     }
 
     /**
