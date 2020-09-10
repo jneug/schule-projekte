@@ -23,7 +23,7 @@ public class Planet extends World {
         // Initialisierung der Welt
         super(15, 12, zellenGroesse);
         setBackground("images/gras.png");
-        setPaintOrder(String.class, Rover.Display.class, Rover.class, Marke.class, Gestein.class, Huegel.class);
+        setPaintOrder(String.class, Rover.class, Alarm.class, Feuer.class, Gestein.class, Huegel.class);
         Greenfoot.setSpeed(50);
 
         // Diese Zeile auskommentieren, um beim Start eine Zufallskarte zu erstellen.
@@ -318,8 +318,8 @@ public class Planet extends World {
                 r3.setRotation(180);
                 break;
 
-            case 'm':
-                addObject(new Marke(), pX, pY);
+            case 'a':
+                addObject(new Alarm(), pX, pY);
                 break;
 
             case 'h':
@@ -380,7 +380,7 @@ public class Planet extends World {
                     public boolean test( Actor actor ) {
                         return !(actor.getClass().equals(Huegel.class) ||
                             actor.getClass().equals(Gestein.class) ||
-                            actor.getClass().equals(Marke.class) ||
+                            actor.getClass().equals(Alarm.class) ||
                             actor.getClass().equals(Rover.class));
                     }
                 });
@@ -395,7 +395,7 @@ public class Planet extends World {
                             map.append('H');
                         } else if( actor.getClass().equals(Gestein.class) ) {
                             map.append('G');
-                        } else if( actor.getClass().equals(Marke.class) ) {
+                        } else if( actor.getClass().equals(Alarm.class) ) {
                             map.append('M');
                         } else if( actor.getClass().equals(Rover.class) ) {
                             Rover rover = (Rover) actor;

@@ -5,19 +5,49 @@ import greenfoot.*;
  */
 public class Rover extends Actor {
 
-    private Display anzeige;
-
     /**
      * Act-Methode des Rovers. Programmiere hier deinen Algorithmus und starte
      * ihn mit dem "Act"-Button in Greenfoot.
      */
     public void act() {
-
+        if( !baumVorhanden("vorne") && !felsenVorhanden("vorne") ) {
+            laufe();
+            if( alarmVorhanden() ) {
+                entferneAlarm();
+            } else {
+                setzeAlarm();
+            }
+            
+            if( feuerVorhanden() ) {
+                loescheFeuer();
+            }
+        } else if( baumVorhanden("vorne") ) {
+            benutzeBeil();
+        }
     }
     
-    public void hackeBaum() {
-        if( huegelVorhanden("vorne") ) {
-            removeTouching(Huegel.class);
+    public void benutzeBeil() {
+        int rot = getRotation();
+        Huegel h = null;
+        if( rot == 0 ) {
+            h = (Huegel) getOneObjectAtOffset(1, 0, Huegel.class);
+        }
+
+        if( rot == 180 ) {
+            h = (Huegel) getOneObjectAtOffset(-1, 0, Huegel.class);
+        }
+
+        if( rot == 90 ) {
+            h = (Huegel) getOneObjectAtOffset(0, 1, Huegel.class);
+
+        }
+
+        if( rot == 270 ) {
+            h = (Huegel) getOneObjectAtOffset(0, -1, Huegel.class);
+        }
+        
+        if( h != null ) {
+            getWorld().removeObject(h);
         }
     }
 
@@ -27,21 +57,10 @@ public class Rover extends Actor {
      * er sich an der Grenze der Welt befinden, dann erscheint eine
      * entsprechende Meldung auf dem Display.
      */
-    public void fahre() {
-        int posX = getX();
-        int posY = getY();
-
-        if( huegelVorhanden("vorne") ) {
-            nachricht("Zu steil!");
-        } else if( getRotation() == 270 && getY() == 1 ) {
-            nachricht("Ich kann mich nicht bewegen");
-        } else {
+    public void laufe() {
+        if( !baumVorhanden("vorne") && !felsenVorhanden("vorne") ) {
             move(1);
             Greenfoot.delay(1);
-        }
-
-        if( posX == getX() && posY == getY() && !huegelVorhanden("vorne") ) {
-            nachricht("Ich kann mich nicht bewegen");
         }
     }
 
@@ -57,8 +76,6 @@ public class Rover extends Actor {
             setRotation(getRotation() + 90);
         } else if( richtung == "links" ) {
             setRotation(getRotation() - 90);
-        } else {
-            nachricht("Befehl nicht korrekt!");
         }
     }
 
@@ -68,9 +85,8 @@ public class Rover extends Actor {
      * Klasse {@link Gestein} befindet. Eine entsprechende Meldung erscheint
      * auch auf dem Display.
      */
-    public boolean gesteinVorhanden() {
-        if( getOneIntersectingObject(Gestein.class) != null ) {
-            nachricht("Gestein gefunden!");
+    public boolean feuerVorhanden() {
+        if( getOneIntersectingObject(Feuer.class) != null ) {
             return true;
         }
         return false;
@@ -84,7 +100,7 @@ public class Rover extends Actor {
      * entsprechende Meldung auf dem Display.
      * @param richtung "links", "rechts" oder "vorne"
      */
-    public boolean huegelVorhanden( String richtung ) {
+    public boolean baumVorhanden( String richtung ) {
         int rot = getRotation();
 
         if( richtung == "vorne" && rot == 0 || richtung == "rechts" && rot == 270 || richtung == "links" && rot == 90 ) {
@@ -114,7 +130,43 @@ public class Rover extends Actor {
         }
 
         if( richtung != "vorne" && richtung != "links" && richtung != "rechts" ) {
-            nachricht("Befehl nicht korrekt!");
+            
+        }
+
+        return false;
+    }
+    
+    public boolean felsenVorhanden( String richtung ) {
+        int rot = getRotation();
+
+        if( richtung == "vorne" && rot == 0 || richtung == "rechts" && rot == 270 || richtung == "links" && rot == 90 ) {
+            if( getOneObjectAtOffset(1, 0, Gestein.class) != null  ) {
+                return true;
+            }
+        }
+
+        if( richtung == "vorne" && rot == 180 || richtung == "rechts" && rot == 90 || richtung == "links" && rot == 270 ) {
+            if( getOneObjectAtOffset(-1, 0, Gestein.class) != null  ) {
+                return true;
+            }
+        }
+
+        if( richtung == "vorne" && rot == 90 || richtung == "rechts" && rot == 0 || richtung == "links" && rot == 180 ) {
+            if( getOneObjectAtOffset(0, 1, Gestein.class) != null ) {
+                return true;
+            }
+
+        }
+
+        if( richtung == "vorne" && rot == 270 || richtung == "rechts" && rot == 180 || richtung == "links" && rot == 0 ) {
+            if( getOneObjectAtOffset(0, -1, Gestein.class) != null ) {
+                return true;
+            }
+
+        }
+
+        if( richtung != "vorne" && richtung != "links" && richtung != "rechts" ) {
+            
         }
 
         return false;
@@ -125,21 +177,18 @@ public class Rover extends Actor {
      * gibt diesen auf dem Display aus. Sollte kein Objekt der Klasse {@link Gestein}
      * vorhanden sein, dann erscheint eine entsprechende Meldung auf dem Display.
      */
-    public void analysiereGestein() {
-        if( gesteinVorhanden() ) {
-            nachricht("Gestein untersucht! Wassergehalt ist " + ((Gestein) getOneIntersectingObject(Gestein.class)).getWassergehalt() + "%.");
+    public void loescheFeuer() {
+        if( feuerVorhanden() ) {
             Greenfoot.delay(1);
-            removeTouching(Gestein.class);
-        } else {
-            nachricht("Hier ist kein Gestein");
+            removeTouching(Feuer.class);
         }
     }
 
     /**
      * Der Rover erzeugt ein Objekt der Klasse {@link Marke} auf seiner Position.
      */
-    public void setzeMarke() {
-        getWorld().addObject(new Marke(), getX(), getY());
+    public void setzeAlarm() {
+        getWorld().addObject(new Alarm(), getX(), getY());
     }
 
     /**
@@ -148,8 +197,8 @@ public class Rover extends Actor {
      * Klasse {@link Marke} befindet.
      * Eine entsprechende Meldung erscheint auch auf dem Display.
      */
-    public boolean markeVorhanden() {
-        if( getOneIntersectingObject(Marke.class) != null ) {
+    public boolean alarmVorhanden() {
+        if( getOneIntersectingObject(Alarm.class) != null ) {
             return true;
         }
 
@@ -162,74 +211,20 @@ public class Rover extends Actor {
      * Marke vorhanden sein, dann erscheint eine entsprechende Meldung auf dem
      * Display.
      */
-    public void entferneMarke() {
-        if( markeVorhanden() ) {
-            removeTouching(Marke.class);
-        } else {
-            nachricht("Hier ist keine Marke");
+    public void entferneAlarm() {
+        if( alarmVorhanden() ) {
+            removeTouching(Alarm.class);
         }
-    }
-
-    /**
-     * Interne Mathode, um eine Nachricht auf dem Display anzuzeigen.
-     * @param pText Eine Zeile Text
-     */
-    private void nachricht( String pText ) {
-        if( anzeige != null ) {
-            anzeige.anzeigen(pText);
-            Greenfoot.delay(1);
-            anzeige.loeschen();
-        }
-    }
-
-    /**
-     * Versteckt das Display des Rovers.
-     */
-    private void displayAusschalten() {
-        getWorld().removeObject(anzeige);
-
     }
 
     @Override
     protected void addedToWorld( World world ) {
-        setImage("images/rover.png");
+        if( Greenfoot.getRandomNumber(2) == 0 ) {
+            setImage("images/brenndon.png");
+        } else {
+            setImage("images/brennda.png");
+        }
         world = getWorld();
-        anzeige = new Display();
-        anzeige.setImage("images/nachricht.png");
-        //world.addObject(anzeige, 7, 0);
-        //if( getY() == 0 ) {
-        //    setLocation(getX(), 1);
-        //}
-        anzeige.anzeigen("Ich bin bereit");
-
-    }
-
-    /**
-     * Interne Klasse, um eine Text-Display in der Welt anzuzeigen.
-     */
-    class Display extends Actor {
-
-        GreenfootImage bild;
-
-        public Display() {
-            bild = getImage();
-        }
-
-        public void act() {
-
-        }
-
-        public void anzeigen( String pText ) {
-            loeschen();
-            getImage().drawImage(new GreenfootImage(pText, 25, Color.BLACK, new Color(0, 0, 0, 0)), 10, 10);
-
-        }
-
-        public void loeschen() {
-            getImage().clear();
-            setImage("images/nachricht.png");
-        }
-
     }
 
 }

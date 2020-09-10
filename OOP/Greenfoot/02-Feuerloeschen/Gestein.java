@@ -20,7 +20,6 @@ public class Gestein extends Actor {
         } else {
             wassergehalt = pWassergehalt;
         }
-
         setImage("images/felsen.png");
     }
 
