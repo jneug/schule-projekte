@@ -123,3 +123,27 @@ Exception in thread "JavaFX Application Thread" java.lang.NullPointerException
 	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
 	at com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:174)
 	at java.base/java.lang.Thread.run(Thread.java:834)
+====
+
+====
+Greenfoot run started: Thu Sep 10 11:55:09 CEST 2020
+Greenfoot version: 3.6.1
+Java version 11.0.2
+JavaFX version 11.0.2+1
+Virtual machine: OpenJDK 64-Bit Server VM 11.0.2+9 (Oracle Corporation)
+Running on: Windows 7 6.1 (amd64)
+Java Home: C:\Program Files\Greenfoot\jdk
+----
+Opening project: H:\Dokumente\01-Informatik\Git\schule-projekte\OOP\Greenfoot\02-Feuerloeschen
+1599731713699: Listening for JDWP connection on address: javadebug
+Connected to debug VM via dt_shmem transport...
+Communication with debug VM fully established.
+Exception in thread "JavaFX Application Thread" java.lang.NullPointerException
+	at java.desktop/java.awt.EventQueue$4$1.run(EventQueue.java:726)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:428)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:427)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:174)
+	at java.base/java.lang.Thread.run(Thread.java:834)

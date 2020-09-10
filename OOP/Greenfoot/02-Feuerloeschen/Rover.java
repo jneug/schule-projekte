@@ -10,44 +10,30 @@ public class Rover extends Actor {
      * ihn mit dem "Act"-Button in Greenfoot.
      */
     public void act() {
-        if( !baumVorhanden("vorne") && !felsenVorhanden("vorne") ) {
-            laufe();
-            if( alarmVorhanden() ) {
-                entferneAlarm();
-            } else {
-                setzeAlarm();
-            }
-            
-            if( feuerVorhanden() ) {
-                loescheFeuer();
-            }
-        } else if( baumVorhanden("vorne") ) {
-            benutzeBeil();
-        }
     }
-    
+
     public void benutzeBeil() {
-        int rot = getRotation();
-        Huegel h = null;
-        if( rot == 0 ) {
-            h = (Huegel) getOneObjectAtOffset(1, 0, Huegel.class);
+        Pflanze h = null;
+
+        switch( getRotation() ) {
+            case 0:
+            h = (Pflanze) getOneObjectAtOffset(1, 0, Pflanze.class);
+            break;
+            case 90:
+            h = (Pflanze) getOneObjectAtOffset(0, 1, Pflanze.class);
+            break;
+            case 180:
+            h = (Pflanze) getOneObjectAtOffset(-1, 0, Pflanze.class);
+            break;
+            case 270:
+            h = (Pflanze) getOneObjectAtOffset(0, -1, Pflanze.class);
+            break;
         }
 
-        if( rot == 180 ) {
-            h = (Huegel) getOneObjectAtOffset(-1, 0, Huegel.class);
-        }
-
-        if( rot == 90 ) {
-            h = (Huegel) getOneObjectAtOffset(0, 1, Huegel.class);
-
-        }
-
-        if( rot == 270 ) {
-            h = (Huegel) getOneObjectAtOffset(0, -1, Huegel.class);
-        }
-        
         if( h != null ) {
             getWorld().removeObject(h);
+        } else {
+            denke("Da ist keine Pflanze.");
         }
     }
 
@@ -58,9 +44,11 @@ public class Rover extends Actor {
      * entsprechende Meldung auf dem Display.
      */
     public void laufe() {
-        if( !baumVorhanden("vorne") && !felsenVorhanden("vorne") ) {
+        if( !pflanzeVorhanden("vorne") && !steinVorhanden("vorne") ) {
             move(1);
             Greenfoot.delay(1);
+        } else {
+            denke("Da ist ein Hindernis.");
         }
     }
 
@@ -76,6 +64,8 @@ public class Rover extends Actor {
             setRotation(getRotation() + 90);
         } else if( richtung == "links" ) {
             setRotation(getRotation() - 90);
+        } else {
+            denke("Das verstehe ich nicht.");
         }
     }
 
@@ -100,73 +90,62 @@ public class Rover extends Actor {
      * entsprechende Meldung auf dem Display.
      * @param richtung "links", "rechts" oder "vorne"
      */
-    public boolean baumVorhanden( String richtung ) {
+    public boolean pflanzeVorhanden( String richtung ) {
         int rot = getRotation();
 
         if( richtung == "vorne" && rot == 0 || richtung == "rechts" && rot == 270 || richtung == "links" && rot == 90 ) {
-            if( getOneObjectAtOffset(1, 0, Huegel.class) != null && ((Huegel) getOneObjectAtOffset(1, 0, Huegel.class)).getSteigung() > 30 ) {
+            if( getOneObjectAtOffset(1, 0, Pflanze.class) != null ) {
                 return true;
             }
         }
-
-        if( richtung == "vorne" && rot == 180 || richtung == "rechts" && rot == 90 || richtung == "links" && rot == 270 ) {
-            if( getOneObjectAtOffset(-1, 0, Huegel.class) != null && ((Huegel) getOneObjectAtOffset(-1, 0, Huegel.class)).getSteigung() > 30 ) {
+        else if( richtung == "vorne" && rot == 180 || richtung == "rechts" && rot == 90 || richtung == "links" && rot == 270 ) {
+            if( getOneObjectAtOffset(-1, 0, Pflanze.class) != null ) {
                 return true;
             }
         }
-
-        if( richtung == "vorne" && rot == 90 || richtung == "rechts" && rot == 0 || richtung == "links" && rot == 180 ) {
-            if( getOneObjectAtOffset(0, 1, Huegel.class) != null && ((Huegel) getOneObjectAtOffset(0, 1, Huegel.class)).getSteigung() > 30 ) {
-                return true;
-            }
-
-        }
-
-        if( richtung == "vorne" && rot == 270 || richtung == "rechts" && rot == 180 || richtung == "links" && rot == 0 ) {
-            if( getOneObjectAtOffset(0, -1, Huegel.class) != null && ((Huegel) getOneObjectAtOffset(0, -1, Huegel.class)).getSteigung() > 30 ) {
+        else if( richtung == "vorne" && rot == 90 || richtung == "rechts" && rot == 0 || richtung == "links" && rot == 180 ) {
+            if( getOneObjectAtOffset(0, 1, Pflanze.class) != null ) {
                 return true;
             }
 
         }
+        else if( richtung == "vorne" && rot == 270 || richtung == "rechts" && rot == 180 || richtung == "links" && rot == 0 ) {
+            if( getOneObjectAtOffset(0, -1, Pflanze.class) != null ) {
+                return true;
+            }
 
-        if( richtung != "vorne" && richtung != "links" && richtung != "rechts" ) {
-            
         }
 
         return false;
     }
-    
-    public boolean felsenVorhanden( String richtung ) {
+
+    public boolean steinVorhanden( String richtung ) {
         int rot = getRotation();
 
         if( richtung == "vorne" && rot == 0 || richtung == "rechts" && rot == 270 || richtung == "links" && rot == 90 ) {
-            if( getOneObjectAtOffset(1, 0, Gestein.class) != null  ) {
+            if( getOneObjectAtOffset(1, 0, Stein.class) != null  ) {
                 return true;
             }
         }
 
-        if( richtung == "vorne" && rot == 180 || richtung == "rechts" && rot == 90 || richtung == "links" && rot == 270 ) {
-            if( getOneObjectAtOffset(-1, 0, Gestein.class) != null  ) {
+        else if( richtung == "vorne" && rot == 180 || richtung == "rechts" && rot == 90 || richtung == "links" && rot == 270 ) {
+            if( getOneObjectAtOffset(-1, 0, Stein.class) != null  ) {
                 return true;
             }
         }
 
-        if( richtung == "vorne" && rot == 90 || richtung == "rechts" && rot == 0 || richtung == "links" && rot == 180 ) {
-            if( getOneObjectAtOffset(0, 1, Gestein.class) != null ) {
-                return true;
-            }
-
-        }
-
-        if( richtung == "vorne" && rot == 270 || richtung == "rechts" && rot == 180 || richtung == "links" && rot == 0 ) {
-            if( getOneObjectAtOffset(0, -1, Gestein.class) != null ) {
+        else if( richtung == "vorne" && rot == 90 || richtung == "rechts" && rot == 0 || richtung == "links" && rot == 180 ) {
+            if( getOneObjectAtOffset(0, 1, Stein.class) != null ) {
                 return true;
             }
 
         }
 
-        if( richtung != "vorne" && richtung != "links" && richtung != "rechts" ) {
-            
+        else if( richtung == "vorne" && rot == 270 || richtung == "rechts" && rot == 180 || richtung == "links" && rot == 0 ) {
+            if( getOneObjectAtOffset(0, -1, Stein.class) != null ) {
+                return true;
+            }
+
         }
 
         return false;
@@ -181,6 +160,8 @@ public class Rover extends Actor {
         if( feuerVorhanden() ) {
             Greenfoot.delay(1);
             removeTouching(Feuer.class);
+        } else {
+            denke("Hier brennt nichts.");
         }
     }
 
@@ -200,9 +181,9 @@ public class Rover extends Actor {
     public boolean alarmVorhanden() {
         if( getOneIntersectingObject(Alarm.class) != null ) {
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     /**
@@ -214,6 +195,8 @@ public class Rover extends Actor {
     public void entferneAlarm() {
         if( alarmVorhanden() ) {
             removeTouching(Alarm.class);
+        } else {
+            denke("Hier ist kein Alarm.");
         }
     }
 
@@ -225,6 +208,29 @@ public class Rover extends Actor {
             setImage("images/brennda.png");
         }
         world = getWorld();
+        gedanke = new Gedanke();
+    }
+
+    public void denke( String text ) {
+        gedanke.denke(text);
+        if( getY() == 0 ) {
+            getWorld().addObject(gedanke, getX(), getY()+1);
+        } else {
+            getWorld().addObject(gedanke, getX(), getY()-1);
+        }
+        Greenfoot.delay(50);
+        getWorld().removeObject(gedanke);
+    }
+
+    private Gedanke gedanke;
+
+    private class Gedanke extends Actor {
+        private GreenfootImage nachricht;
+
+        public void denke( String text ) {
+            nachricht = new GreenfootImage(text, 25, Color.BLACK, new Color(255,255,255,80), Color.BLACK);
+            this.setImage(nachricht);
+        }
     }
 
 }

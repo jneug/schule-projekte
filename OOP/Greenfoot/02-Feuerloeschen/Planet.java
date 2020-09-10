@@ -23,7 +23,7 @@ public class Planet extends World {
         // Initialisierung der Welt
         super(15, 12, zellenGroesse);
         setBackground("images/gras.png");
-        setPaintOrder(String.class, Rover.class, Alarm.class, Feuer.class, Gestein.class, Huegel.class);
+        setPaintOrder(String.class, Rover.class, Alarm.class, Feuer.class, Pflanze.class, Stein.class);
         Greenfoot.setSpeed(50);
 
         // Diese Zeile auskommentieren, um beim Start eine Zufallskarte zu erstellen.
@@ -227,7 +227,7 @@ public class Planet extends World {
 
                 // Random choices
                 if( map[y][x].equals("z") ) {
-                    String choices = ".hmg";
+                    String choices = ".pasf";
                     map[y][x] = Character.toString(choices.charAt(r.nextInt(choices.length())));
                 } else if( map[y][x].startsWith("[") ) {
                     if( map[y][x].indexOf('{') >= 0 ) {
@@ -295,7 +295,7 @@ public class Planet extends World {
         }
 
         switch( pType ) {
-            case 'r':
+            case 'b':
             case '>':
                 addObject(new Rover(), pX, pY);
                 break;
@@ -322,12 +322,16 @@ public class Planet extends World {
                 addObject(new Alarm(), pX, pY);
                 break;
 
-            case 'h':
-                addObject(new Huegel(), pX, pY);
+            case 'p':
+                addObject(new Pflanze(), pX, pY);
                 break;
 
-            case 'g':
-                addObject(new Gestein(), pX, pY);
+            case 's':
+                addObject(new Stein(), pX, pY);
+                break;
+
+            case 'f':
+                addObject(new Feuer(), pX, pY);
                 break;
         }
     }
@@ -378,10 +382,11 @@ public class Planet extends World {
                 actors.removeIf(new Predicate<Actor>() {
                     @Override
                     public boolean test( Actor actor ) {
-                        return !(actor.getClass().equals(Huegel.class) ||
-                            actor.getClass().equals(Gestein.class) ||
+                        return !(actor.getClass().equals(Pflanze.class) ||
+                            actor.getClass().equals(Stein.class) ||
                             actor.getClass().equals(Alarm.class) ||
-                            actor.getClass().equals(Rover.class));
+                            actor.getClass().equals(Rover.class) ||
+                            actor.getClass().equals(Feuer.class));
                     }
                 });
                 if( actors.size() == 0 ) {
@@ -391,17 +396,19 @@ public class Planet extends World {
                         map.append('(');
                     }
                     for( Actor actor : actors ) {
-                        if( actor.getClass().equals(Huegel.class) ) {
-                            map.append('H');
-                        } else if( actor.getClass().equals(Gestein.class) ) {
-                            map.append('G');
+                        if( actor.getClass().equals(Pflanze.class) ) {
+                            map.append('P');
+                        } else if( actor.getClass().equals(Stein.class) ) {
+                            map.append('S');
                         } else if( actor.getClass().equals(Alarm.class) ) {
-                            map.append('M');
+                            map.append('A');
+                        } else if( actor.getClass().equals(Feuer.class) ) {
+                            map.append('F');
                         } else if( actor.getClass().equals(Rover.class) ) {
                             Rover rover = (Rover) actor;
                             switch( rover.getRotation() ) {
                                 case 0:
-                                    map.append('R');
+                                    map.append('B');
                                     break;
                                 case 90:
                                     map.append('v');
@@ -519,28 +526,32 @@ public class Planet extends World {
             for( int x = 0; x < maxX; x++ ) {
                 if( dist[x][y] > 3 ) {
                     int rand = r.nextInt(100);
-                    if( rand <= 35 ) {
-                        nextChar = 'g';
-                    } else if( rand <= 40 ) {
-                        nextChar = 'm';
+                    if( rand <= 15 ) {
+                        nextChar = 's';
+                    } else if( rand <= 50 ) {
+                        nextChar = 'p';
+                    } else if( rand <= 58 ) {
+                        nextChar = 'a';
+                    } else if( rand <= 65 ) {
+                        nextChar = 'f';
                     } else {
-                        nextChar = '#';
+                        nextChar = '.';
                     }
-                    if( !roverSet && rand <= 15 ) {
+                    if( !roverSet && nextChar != 's' && nextChar != 'p' && rand <= 15 ) {
                         char[] positions = new char[]{'>', '<', '^', 'v'};
                         nextChar = positions[r.nextInt(4)];
                         roverSet = true;
                     }
                 } else if( dist[x][y] < 2 ) {
-                    nextChar = 'h';
+                    nextChar = 'p';
                 } else if( dist[x][y] == 2 ) {
                     if( r.nextInt(100) <= 60 ) {
-                        nextChar = 'h';
+                        nextChar = 's';
                     } else {
-                        nextChar = '#';
+                        nextChar = '.';
                     }
                 } else {
-                    nextChar = '#';
+                    nextChar = '.';
                 }
 
                 map.append(nextChar);
@@ -574,16 +585,18 @@ public class Planet extends World {
         for( int y = 0; y < getHeight(); y++ ) {
             for( int x = 0; x < getWidth(); x++ ) {
                 if( x == 0 || y == 0 || x == getWidth() - 1 || y == getHeight() - 1 ) {
-                    map.append("h");
+                    map.append("p");
                 } else {
                     Random r = new Random();
                     int i = r.nextInt(10);
-                    if( i < 5 ) {
-                        map.append("#");
-                    } else if( i < 8 ) {
-                        map.append("h");
+                    if( i < 3 ) {
+                        map.append(".");
+                    } else if( i < 6 ) {
+                        map.append("p");
+                    } else if( i < 9 ) {
+                        map.append("s");
                     } else {
-                        map.append("g");
+                        map.append("f");
                     }
                 }
             }
