@@ -9,21 +9,23 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 /**
- * Die einzigen aktiven Akteure in der Roboterwelt sind die Rover.
+ * Die einzigen aktiven Akteure im Wald sind die Feuerbots.
  * Die Welt besteht aus 15 * 12 Feldern.
  */
-public class Planet extends World {
+public class Wald extends World {
 
+    private static final int breite = 15;
+    private static final int hoehe = 12;
     private static final int zellenGroesse = 50;
 
     /**
      * Erschaffe eine Welt mit 15 * 12 Zellen.
      */
-    public Planet() {
+    public Wald() {
         // Initialisierung der Welt
-        super(15, 12, zellenGroesse);
+        super(breite, hoehe, zellenGroesse);
         setBackground("images/gras.png");
-        setPaintOrder(String.class, Rover.class, Alarm.class, Feuer.class, Pflanze.class, Stein.class);
+        setPaintOrder(String.class, Feuerbot.class, Alarm.class, Feuer.class, Pflanze.class, Stein.class);
         Greenfoot.setSpeed(50);
 
         // Diese Zeile auskommentieren, um beim Start eine Zufallskarte zu erstellen.
@@ -42,7 +44,6 @@ public class Planet extends World {
     public void weltLeeren() {
         removeObjects(getObjects(Actor.class));
     }
-
 
     /**
      * Es werden Rober, Hügel, Gesteine und Markierungen erstellt.
@@ -297,23 +298,23 @@ public class Planet extends World {
         switch( pType ) {
             case 'b':
             case '>':
-                addObject(new Rover(), pX, pY);
+                addObject(new Feuerbot(), pX, pY);
                 break;
 
             case '^':
-                Rover r1 = new Rover();
+                Feuerbot r1 = new Feuerbot();
                 addObject(r1, pX, pY);
                 r1.setRotation(270);
                 break;
 
             case 'v':
-                Rover r2 = new Rover();
+                Feuerbot r2 = new Feuerbot();
                 addObject(r2, pX, pY);
                 r2.setRotation(90);
                 break;
 
             case '<':
-                Rover r3 = new Rover();
+                Feuerbot r3 = new Feuerbot();
                 addObject(r3, pX, pY);
                 r3.setRotation(180);
                 break;
@@ -347,7 +348,7 @@ public class Planet extends World {
 
         StringBuilder map = new StringBuilder();
         try {
-            InputStream i = Planet.class.getResourceAsStream("maps/" + pFile);
+            InputStream i = Wald.class.getResourceAsStream("maps/" + pFile);
             BufferedReader br = new BufferedReader(new InputStreamReader(i));
             String st;
             while( (st = br.readLine()) != null ) {
@@ -385,7 +386,7 @@ public class Planet extends World {
                         return !(actor.getClass().equals(Pflanze.class) ||
                             actor.getClass().equals(Stein.class) ||
                             actor.getClass().equals(Alarm.class) ||
-                            actor.getClass().equals(Rover.class) ||
+                            actor.getClass().equals(Feuerbot.class) ||
                             actor.getClass().equals(Feuer.class));
                     }
                 });
@@ -404,9 +405,9 @@ public class Planet extends World {
                             map.append('A');
                         } else if( actor.getClass().equals(Feuer.class) ) {
                             map.append('F');
-                        } else if( actor.getClass().equals(Rover.class) ) {
-                            Rover rover = (Rover) actor;
-                            switch( rover.getRotation() ) {
+                        } else if( actor.getClass().equals(Feuerbot.class) ) {
+                            Feuerbot feuerbot = (Feuerbot) actor;
+                            switch( feuerbot.getRotation() ) {
                                 case 0:
                                     map.append('B');
                                     break;
@@ -451,7 +452,7 @@ public class Planet extends World {
                 pFile += ".map";
             }
             try {
-                String maps_path = Planet.class
+                String maps_path = Wald.class
                     .getResource("maps/").getPath();
                 PrintWriter i = new PrintWriter(
                     new File(maps_path + pFile));
@@ -537,7 +538,7 @@ public class Planet extends World {
                     } else {
                         nextChar = '.';
                     }
-                    if( !roverSet && nextChar != 's' && nextChar != 'p' && rand <= 15 ) {
+                    if( !roverSet && rand <= 15 ) {
                         char[] positions = new char[]{'>', '<', '^', 'v'};
                         nextChar = positions[r.nextInt(4)];
                         roverSet = true;
@@ -585,18 +586,20 @@ public class Planet extends World {
         for( int y = 0; y < getHeight(); y++ ) {
             for( int x = 0; x < getWidth(); x++ ) {
                 if( x == 0 || y == 0 || x == getWidth() - 1 || y == getHeight() - 1 ) {
-                    map.append("p");
+                    map.append("s");
                 } else {
                     Random r = new Random();
-                    int i = r.nextInt(10);
-                    if( i < 3 ) {
-                        map.append(".");
-                    } else if( i < 6 ) {
-                        map.append("p");
-                    } else if( i < 9 ) {
-                        map.append("s");
-                    } else {
+                    int i = r.nextInt(100);
+                    if( i < 5 ) {
                         map.append("f");
+                    } else if( i < 10 ) {
+                        map.append("a");
+                    } else if( i < 45 ) {
+                        map.append("s");
+                    } else if( i < 80 ) {
+                        map.append("p");
+                    } else {
+                        map.append(".");
                     }
                 }
             }
@@ -618,7 +621,7 @@ public class Planet extends World {
         char[][] map = new char[maxX][maxY];
         for( int y = 0; y < maxY; y++ ) {
             for( int x = 0; x < maxX; x++ ) {
-                map[x][y] = 'H';
+                map[x][y] = 's';
             }
         }
 
@@ -636,14 +639,14 @@ public class Planet extends World {
         // Generate path
         //int startX = p1[0]+3, startY = p1[1];
 
-        map[p1[0]][p1[1]] = 'M';
-        map[p2[0]][p2[1]] = 'M';
+        map[p1[0]][p1[1]] = 'a';
+        map[p2[0]][p2[1]] = 'a';
 
         while( p1[0] != p2[0] || p1[1] != p2[1] ) {
             int q = r.nextInt(2);
             if( p1[q] != p2[q] ) {
                 p1[q] -= Math.signum(p1[q] - p2[q]);
-                map[p1[0]][p1[1]] = '#';
+                map[p1[0]][p1[1]] = '.';
             }
         }
 

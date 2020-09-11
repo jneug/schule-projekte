@@ -1,44 +1,44 @@
 import greenfoot.*;
 
 /**
- * Rover sind die einzigen aktiven Akteure in der Mars-Welt.
+ * Feuerbots sind die einzigen aktiven Akteure in der Welt.
  */
-public class Rover extends Actor {
+public class Feuerbot extends Actor {
 
     /**
-     * Act-Methode des Rovers. Programmiere hier deinen Algorithmus und starte
+     * Act-Methode des Feuerbots. Programmiere hier deinen Algorithmus und starte
      * ihn mit dem "Act"-Button in Greenfoot.
      */
     public void act() {
     }
 
     public void benutzeBeil() {
-        Pflanze h = null;
+        Pflanze p = null;
 
         switch( getRotation() ) {
             case 0:
-            h = (Pflanze) getOneObjectAtOffset(1, 0, Pflanze.class);
+            p = (Pflanze) getOneObjectAtOffset(1, 0, Pflanze.class);
             break;
             case 90:
-            h = (Pflanze) getOneObjectAtOffset(0, 1, Pflanze.class);
+            p = (Pflanze) getOneObjectAtOffset(0, 1, Pflanze.class);
             break;
             case 180:
-            h = (Pflanze) getOneObjectAtOffset(-1, 0, Pflanze.class);
+            p = (Pflanze) getOneObjectAtOffset(-1, 0, Pflanze.class);
             break;
             case 270:
-            h = (Pflanze) getOneObjectAtOffset(0, -1, Pflanze.class);
+            p = (Pflanze) getOneObjectAtOffset(0, -1, Pflanze.class);
             break;
         }
 
-        if( h != null ) {
-            getWorld().removeObject(h);
+        if( p != null ) {
+            getWorld().removeObject(p);
         } else {
             denke("Da ist keine Pflanze.");
         }
     }
 
     /**
-     * Der Rover bewegt sich ein Feld in Fahrtrichtung weiter.
+     * Der Feuerbot bewegt sich ein Feld in Fahrtrichtung weiter.
      * Sollte sich in Fahrtrichtung ein Objekt der Klasse Huegel befinden oder
      * er sich an der Grenze der Welt befinden, dann erscheint eine
      * entsprechende Meldung auf dem Display.
@@ -53,7 +53,7 @@ public class Rover extends Actor {
     }
 
     /**
-     * Der Rover dreht sich um 90 Grad in die Richtung, die mit <var>richtung</var>
+     * Der Feuerbot dreht sich um 90 Grad in die Richtung, die mit <var>richtung</var>
      * ("links" oder "rechts") übergeben wurde. Sollte ein anderer Text (String)
      * als "links" oder "rechts" übergeben werden, dann erscheint eine
      * entsprechende Meldung auf dem Display.
@@ -70,7 +70,7 @@ public class Rover extends Actor {
     }
 
     /**
-     * Der Rover gibt durch einen Wahrheitswert (<code>true</code> oder
+     * Der Feuerbot gibt durch einen Wahrheitswert (<code>true</code> oder
      * <code>false</code>) zurück, ob sich auf seiner Position ein Objekt der
      * Klasse {@link Gestein} befindet. Eine entsprechende Meldung erscheint
      * auch auf dem Display.

@@ -1,7 +1,7 @@
 import greenfoot.*;
 
 /**
- * Eine Markierung, die ein Rover ablegen oder einsammeln kann.
+ * Einen Alarm, der von Brenndon/Brennda als Markierung in der Welt platziert werden kann.
  */
 public class Alarm extends Actor {
 
@@ -10,10 +10,10 @@ public class Alarm extends Actor {
     }
 
     /**
-     * Act-Methode der Marke.
+     * Act-Methode des Alarms.
      */
     public void act() {
-        // Die Marke hat keine Funktion.
+        // Der Alarm hat keine Funktion.
     }
 
 }

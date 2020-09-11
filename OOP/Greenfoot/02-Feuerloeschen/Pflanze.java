@@ -1,8 +1,9 @@
 import greenfoot.*;
 
 /**
- * Ein Hügel in der Mars-Welt. Ein Hügel ist ein Hindernis für dne Rover, das
- * nicht befahren werden kann.
+ * Eine Pflanze in der Welt. Eine Pflanze ist ein Hindernis für Brenndon/Brennda,
+ * das erstmal nicht überquert werden kann. Pflanzen können aber durch den
+ * Einsatz des Beils entfernt werden.
  */
 public class Pflanze extends Actor {
 
@@ -12,10 +13,10 @@ public class Pflanze extends Actor {
     }
 
     /**
-     * Act-Methode des Hügels.
+     * Act-Methode der Pflanze.
      */
     public void act() {
-        // Der Hügel hat keine Funktion.
+        // Die Pflanze hat keine Funktion.
     }
 
 }

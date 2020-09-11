@@ -1,7 +1,7 @@
 import greenfoot.*;
 
 /**
- * Eine Markierung, die ein Rover ablegen oder einsammeln kann.
+ * Feuer befindet sich in der Welt und muss von Brenndon/Brennda gelöscht werden.
  */
 public class Feuer extends Actor {
 
@@ -10,10 +10,10 @@ public class Feuer extends Actor {
     }
 
     /**
-     * Act-Methode der Feuer.
+     * Act-Methode des Feuers.
      */
     public void act() {
-        // Die Feuer hat keine Funktion.
+        // Das Feuer hat keine Funktion.
     }
 
 }
