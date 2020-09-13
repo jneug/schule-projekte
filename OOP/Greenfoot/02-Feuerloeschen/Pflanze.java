@@ -8,8 +8,11 @@ import greenfoot.*;
 public class Pflanze extends Actor {
 
     public Pflanze() {
-        int num = Greenfoot.getRandomNumber(47)+1;
-        setImage("images/trees/tree"+num+".png");
+        int num = Greenfoot.getRandomNumber(25)+1;
+        if( num < 10 )
+            setImage("images/tree0"+num+".png");
+        else
+            setImage("images/tree"+num+".png");
     }
 
     /**
