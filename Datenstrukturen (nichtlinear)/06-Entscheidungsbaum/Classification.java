@@ -9,7 +9,8 @@ public class Classification extends DecisionNode {
 
     /**
      * Erstellt eine Klassifikation
-     * @param pClassification
+     *
+     * @param pClassification Name der Klasse (z.B. "Ja" oder "Nein")
      */
     public Classification( String pClassification ) {
         classification = pClassification;
