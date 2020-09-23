@@ -133,6 +133,7 @@ def create_version(version, args):
             if ext in args.exclude:
                 continue
             elif ext in args.include:
+                is_empty = True
                 with open(fullpath, 'r', encoding=args.encoding) as inf:
                     with open(fulloutpath, 'w', encoding=args.encoding) as outf:
                         skip = False
@@ -157,7 +158,11 @@ def create_version(version, args):
                                 pass
                             else:
                                 outf.write(line)
+                                is_empty = False
                             line = inf.readline()
+                # delete empty files
+                if is_empty:
+                    os.remove(fulloutpath)
             else:
                 shutil.copy(fullpath, fulloutpath)
 
@@ -192,6 +197,7 @@ def create_ml(args):
             if ext in args.exclude:
                 continue
             elif ext in args.include:
+                is_empty = True
                 with open(fullpath, 'r', encoding=args.encoding) as inf:
                     with open(fulloutpath, 'w', encoding=args.encoding) as outf:
                         skip = False
@@ -214,7 +220,10 @@ def create_ml(args):
                                 pass
                             else:
                                 outf.write(line)
+                                is_empty = False
                             line = inf.readline()
+                if is_empty:
+                    os.remove(fulloutpath)
             else:
                 shutil.copy(fullpath, fulloutpath)
 
