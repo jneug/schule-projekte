@@ -38,8 +38,8 @@ public class GuessTheNumberRoom extends Room {
             if( EscapeRoom.containsAny(s, new String[]{"schau", "such", "forsch"}) ) {
                 EscapeRoom.println("Du siehst ein Zahlenschloss mit einem Rad.");
                 EscapeRoom.wait(500);
-                EscapeRoom.println("Du siehst einige Papierfetzen herumliegen:");
-                EscapeRoom.println("  Ein roter, ein blauer, ein gelber und ein weißer.");
+                EscapeRoom.println("Du siehst einige Dinge herumliegen:");
+                EscapeRoom.println("  Ein rotes, ein blaues, ein gelbes und ein weißes.");
             } else if( s.indexOf("weiß") > -1 && s.indexOf("nimm") > -1 ) {
                 EscapeRoom.println("Du nimmst das weiße Papier.");
                 EscapeRoom.println(keys[0].hint());
