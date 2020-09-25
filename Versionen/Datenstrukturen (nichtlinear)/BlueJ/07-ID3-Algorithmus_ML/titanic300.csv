@@ -1,0 +1,300 @@
+1;1;1;Bowerman, Miss. Elsie Edith;female;über 20;0;1;S
+2;2;1;Hamalainen, Master. Viljo;male;unter 20;1;1;S
+3;3;0;Attalah, Mr. Sleiman;male;über 20;0;0;C
+4;3;0;Burns, Miss. Mary Delia;female;unter 20;0;0;Q
+5;3;0;Lievens, Mr. Rene Aime;male;über 20;0;0;S
+6;3;0;Ilmakangas, Miss. Ida Livija;female;über 20;1;0;S
+7;3;0;Goodwin, Mr. Charles Edward;male;unter 20;2;2;S
+8;3;0;Foley, Mr. Joseph;male;über 20;0;0;Q
+9;1;1;Compton, Mrs. Alexander Taylor (Mary Eliza Ingersoll);female;über 20;0;2;C
+10;1;0;Birnbaum, Mr. Jakob;male;über 20;0;0;C
+11;3;0;Christmann, Mr. Emil;male;über 20;0;0;S
+12;3;0;Jensen, Mr. Niels Peder;male;über 20;0;0;S
+13;3;0;Delalic, Mr. Redjo;male;über 20;0;0;S
+14;2;0;Schmidt, Mr. August;male;über 20;0;0;S
+15;1;0;Kenyon, Mr. Frederick R;male;über 20;1;0;S
+16;2;1;"Troutt, Miss. Edwina Celia ""Winnie""";female;über 20;0;0;S
+17;3;1;Hedman, Mr. Oskar Arvid;male;über 20;0;0;S
+18;1;1;Mock, Mr. Philipp Edmund;male;über 20;1;0;C
+19;3;0;Andersson, Mr. Anders Johan;male;über 20;1;2;S
+20;3;0;Nysveen, Mr. Johan Hansen;male;über 20;0;0;S
+21;1;0;Meyer, Mr. Edgar Joseph;male;über 20;1;0;C
+22;3;1;Krekorian, Mr. Neshan;male;über 20;0;0;C
+23;3;1;Sap, Mr. Julius;male;über 20;0;0;S
+24;1;1;Crosby, Miss. Harriet R;female;über 20;0;2;S
+25;2;1;Caldwell, Mr. Albert Francis;male;über 20;1;1;S
+26;3;0;Celotti, Mr. Francesco;male;über 20;0;0;S
+27;3;0;Kelly, Mr. James;male;über 20;0;0;Q
+28;3;1;Nysten, Miss. Anna Sofia;female;über 20;0;0;S
+29;3;0;Pettersson, Miss. Ellen Natalia;female;unter 20;0;0;S
+30;3;0;Fischer, Mr. Eberhard Thelander;male;unter 20;0;0;S
+31;3;0;Mionoff, Mr. Stoytcho;male;über 20;0;0;S
+32;2;0;Gale, Mr. Shadrach;male;über 20;1;0;S
+33;1;1;Spedden, Master. Robert Douglas;male;unter 20;0;2;C
+34;2;0;Gaskell, Mr. Alfred;male;unter 20;0;0;S
+35;1;1;Ryerson, Master. John Borie;male;unter 20;2;2;C
+36;3;0;Dintcheff, Mr. Valtcho;male;über 20;0;0;S
+37;2;0;Hold, Mr. Stephen;male;über 20;1;0;S
+38;1;1;Bishop, Mr. Dickinson H;male;über 20;1;0;C
+39;3;0;Asim, Mr. Adola;male;über 20;0;0;S
+40;3;1;"Goldsmith, Master. Frank John William ""Frankie""";male;unter 20;0;2;S
+41;3;0;Pekoniemi, Mr. Edvard;male;über 20;0;0;S
+42;3;0;Lindahl, Miss. Agda Thorilda Viktoria;female;über 20;0;0;S
+43;3;0;Abbott, Master. Eugene Joseph;male;unter 20;0;2;S
+44;1;1;"Duff Gordon, Sir. Cosmo Edmund (""Mr Morgan"")";male;über 20;1;0;C
+45;2;0;Chapman, Mr. John Henry;male;über 20;1;0;S
+46;3;0;Goodwin, Mr. Charles Frederick;male;über 20;1;2;S
+47;1;1;Oliva y Ocana, Dona. Fermina;female;über 20;0;0;C
+48;3;0;Soholt, Mr. Peter Andreas Lauritz Andersen;male;unter 20;0;0;S
+49;1;1;Snyder, Mr. John Pillsbury;male;über 20;1;0;S
+50;3;0;Braund, Mr. Owen Harris;male;über 20;1;0;S
+51;3;0;Betros, Mr. Tannous;male;über 20;0;0;C
+52;3;0;Pokrnic, Mr. Mate;male;unter 20;0;0;S
+53;1;1;Silvey, Mrs. William Baird (Alice Munger);female;über 20;1;0;S
+54;1;1;Warren, Mrs. Frank Manley (Anna Sophia Atkinson);female;über 20;1;0;C
+55;1;0;Baxter, Mr. Quigg Edmond;male;über 20;0;1;C
+56;3;0;Skoog, Mrs. William (Anna Bernhardina Karlsson);female;über 20;1;2;S
+57;3;0;Buckley, Miss. Katherine;female;unter 20;0;0;Q
+58;2;0;Jefferys, Mr. Ernest Wilfred;male;über 20;2;0;S
+59;1;0;Loring, Mr. Joseph Holland;male;über 20;0;0;S
+60;1;1;Greenfield, Mr. William Bertram;male;über 20;0;1;C
+61;3;0;Jussila, Miss. Katriina;female;über 20;1;0;S
+62;3;0;Ali, Mr. Ahmed;male;über 20;0;0;S
+63;3;1;"Andersson, Mr. August Edvard (""Wennerstrom"")";male;über 20;0;0;S
+64;3;0;Hakkarainen, Mr. Pekka Pietari;male;über 20;1;0;S
+65;1;1;Douglas, Mrs. Walter Donald (Mahala Dutton);female;über 20;1;0;C
+66;1;0;Andrews, Mr. Thomas Jr;male;über 20;0;0;S
+67;1;1;Allen, Miss. Elisabeth Walton;female;über 20;0;0;S
+68;3;0;van Billiard, Mr. Austin Blyler;male;über 20;0;2;S
+69;1;1;Penasco y Castellana, Mrs. Victor de Satode (Maria Josefa Perez de Soto y Vallejo);female;unter 20;1;0;C
+70;3;0;Augustsson, Mr. Albert;male;über 20;0;0;S
+71;3;0;Rice, Master. Eugene;male;unter 20;2;1;Q
+72;1;0;Ryerson, Mr. Arthur Larned;male;über 20;1;2;C
+73;2;0;Hickman, Mr. Stanley George;male;über 20;2;0;S
+74;2;1;Mallet, Master. Andre;male;unter 20;0;2;C
+75;2;0;Swane, Mr. George;male;unter 20;0;0;S
+76;2;0;Louch, Mr. Charles Alexander;male;über 20;1;0;S
+77;2;1;Pallas y Castello, Mr. Emilio;male;über 20;0;0;C
+78;2;0;Rogers, Mr. Reginald Harry;male;unter 20;0;0;S
+79;2;0;Troupiansky, Mr. Moses Aaron;male;über 20;0;0;S
+80;3;1;Moor, Mrs. (Beila);female;über 20;0;1;S
+81;1;1;Frauenthal, Dr. Henry William;male;über 20;2;0;S
+82;1;1;Newsom, Miss. Helen Monypeny;female;unter 20;0;2;S
+83;3;0;Abbing, Mr. Anthony;male;über 20;0;0;S
+84;1;1;Compton, Miss. Sara Rebecca;female;über 20;1;1;C
+85;1;0;Van der hoef, Mr. Wyckoff;male;über 20;0;0;S
+86;2;0;Fillbrook, Mr. Joseph Charles;male;unter 20;0;0;S
+87;1;0;Millet, Mr. Francis Davis;male;über 20;0;0;S
+88;1;1;Fortune, Miss. Ethel Flora;female;über 20;2;2;S
+89;1;1;Endres, Miss. Caroline Louise;female;über 20;0;0;C
+90;1;1;McGough, Mr. James Robert;male;über 20;0;0;S
+91;3;0;Lobb, Mrs. William Arthur (Cordelia K Stanlick);female;über 20;1;0;S
+92;3;0;Kallio, Mr. Nikolai Erland;male;unter 20;0;0;S
+93;1;1;"Homer, Mr. Harry (""Mr E Haven"")";male;über 20;0;0;C
+94;1;1;Francatelli, Miss. Laura Mabel;female;über 20;0;0;C
+95;1;1;Wick, Miss. Mary Natalie;female;über 20;0;2;S
+96;1;1;Young, Miss. Marie Grice;female;über 20;0;0;C
+97;1;1;"Duff Gordon, Lady. (Lucille Christiana Sutherland) (""Mrs Morgan"")";female;über 20;1;0;C
+98;1;1;Stone, Mrs. George Nelson (Martha Evelyn);female;über 20;0;0;S
+99;3;1;Thomas, Master. Assad Alexander;male;unter 20;0;1;C
+100;1;0;Compton, Mr. Alexander Taylor Jr;male;über 20;1;1;C
+101;3;1;Dean, Mrs. Bertram (Eva Georgetta Light);female;über 20;1;2;S
+102;1;0;Ostby, Mr. Engelhart Cornelius;male;über 20;0;1;C
+103;3;0;Vovk, Mr. Janko;male;über 20;0;0;S
+104;3;0;Rosblom, Miss. Salli Helena;female;unter 20;1;1;S
+105;3;0;Bostandyeff, Mr. Guentcho;male;über 20;0;0;S
+106;2;1;Nasser, Mrs. Nicholas (Adele Achem);female;unter 20;1;0;C
+107;2;0;Norman, Mr. Robert Douglas;male;über 20;0;0;S
+108;3;0;Gustafsson, Mr. Alfred Ossian;male;über 20;0;0;S
+109;2;1;Duran y More, Miss. Asuncion;female;über 20;1;0;C
+110;1;1;Lurette, Miss. Elise;female;über 20;0;0;C
+111;1;1;Frolicher-Stehli, Mrs. Maxmillian (Margaretha Emerentia Stehli);female;über 20;1;1;C
+112;3;1;Turkula, Mrs. (Hedwig);female;über 20;0;0;S
+113;3;0;Goodwin, Master. Harold Victor;male;unter 20;2;2;S
+114;1;0;Reuchlin, Jonkheer. John George;male;über 20;0;0;S
+115;1;1;Thayer, Mrs. John Borland (Marian Longstreth Morris);female;über 20;1;1;C
+116;3;0;Alexander, Mr. William;male;über 20;0;0;S
+117;3;0;Robins, Mrs. Alexander A (Grace Charity Laury);female;über 20;1;0;S
+118;3;1;Barah, Mr. Hanna Assi;male;über 20;0;0;C
+119;2;0;Brown, Mr. Thomas William Solomon;male;über 20;1;1;S
+120;3;0;Sivola, Mr. Antti Wilhelm;male;über 20;0;0;S
+121;3;0;Carr, Miss. Jeannie;female;über 20;0;0;Q
+122;2;0;Fynney, Mr. Joseph J;male;über 20;0;0;S
+123;1;0;Cumings, Mr. John Bradley;male;über 20;1;0;C
+124;3;0;Olsson, Miss. Elina;female;über 20;0;0;S
+125;3;1;Badman, Miss. Emily Louisa;female;unter 20;0;0;S
+126;2;0;Byles, Rev. Thomas Roussel Davids;male;über 20;0;0;S
+127;2;0;"Navratil, Mr. Michel (""Louis M Hoffman"")";male;über 20;0;2;S
+128;3;0;Allum, Mr. Owen George;male;unter 20;0;0;S
+129;1;0;Harrison, Mr. William;male;über 20;0;0;S
+130;1;1;Marvin, Mrs. Daniel Warner (Mary Graham Carmichael Farquarson);female;unter 20;1;0;S
+131;1;1;Snyder, Mrs. John Pillsbury (Nelle Stevenson);female;über 20;1;0;S
+132;1;1;Dick, Mr. Albert Adrian;male;über 20;1;0;S
+133;2;0;Levy, Mr. Rene Jacques;male;über 20;0;0;C
+134;3;0;Olsvigen, Mr. Thor Anderson;male;über 20;0;0;S
+135;1;1;Harris, Mrs. Henry Birkhardt (Irene Wallach);female;über 20;1;0;S
+136;3;0;Connors, Mr. Patrick;male;über 20;0;0;Q
+137;3;0;Braund, Mr. Lewis Richard;male;über 20;1;0;S
+138;1;1;Stengel, Mr. Charles Emil Henry;male;über 20;1;0;C
+139;2;1;Doling, Miss. Elsie;female;unter 20;0;1;S
+140;2;0;"Morley, Mr. Henry Samuel (""Mr Henry Marshall"")";male;über 20;0;0;S
+141;3;1;Pickard, Mr. Berk (Berk Trembisky);male;über 20;0;0;S
+142;1;0;Weir, Col. John;male;über 20;0;0;S
+143;1;1;Andrews, Miss. Kornelia Theodosia;female;über 20;1;0;S
+144;3;0;Palsson, Master. Gosta Leonard;male;unter 20;2;1;S
+145;3;0;Haas, Miss. Aloisia;female;über 20;0;0;S
+146;1;1;Blank, Mr. Henry;male;über 20;0;0;C
+147;3;0;Larsson, Mr. Bengt Edvin;male;über 20;0;0;S
+148;1;1;Ryerson, Mrs. Arthur Larned (Emily Maria Borie);female;über 20;1;2;C
+149;3;0;Sivic, Mr. Husein;male;über 20;0;0;S
+150;3;1;"Coutts, Master. William Loch ""William""";male;unter 20;1;1;S
+151;2;0;Eitemiller, Mr. George Floyd;male;über 20;0;0;S
+152;2;1;Duran y More, Miss. Florentina;female;über 20;1;0;C
+153;1;1;Allison, Master. Hudson Trevor;male;unter 20;1;2;S
+154;3;1;Sunderland, Mr. Victor Francis;male;unter 20;0;0;S
+155;3;1;Goldsmith, Mrs. Frank John (Emily Alice Brown);female;über 20;1;1;S
+156;3;0;Olsen, Mr. Henry Margido;male;über 20;0;0;S
+157;3;0;Stanley, Mr. Edward Roland;male;über 20;0;0;S
+158;1;1;Dodge, Dr. Washington;male;über 20;1;1;S
+159;2;1;Abelson, Mrs. Samuel (Hannah Wizosky);female;über 20;1;0;C
+160;3;0;Eklund, Mr. Hans Linus;male;unter 20;0;0;S
+161;3;0;Lindell, Mrs. Edvard Bengtsson (Elin Gerda Persson);female;über 20;1;0;S
+162;3;1;Johnson, Master. Harold Theodor;male;unter 20;1;1;S
+163;1;1;Schabert, Mrs. Paul (Emma Mock);female;über 20;1;0;C
+164;3;0;Zabour, Miss. Hileni;female;unter 20;1;0;C
+165;1;0;Wick, Mr. George Dennick;male;über 20;1;1;S
+166;3;0;Peacock, Mrs. Benjamin (Edith Nile);female;über 20;0;2;S
+167;3;1;Andersson, Miss. Erna Alexandra;female;unter 20;2;2;S
+168;1;1;White, Mrs. John Stuart (Ella Holmes);female;über 20;0;0;C
+169;2;0;Ashby, Mr. John;male;über 20;0;0;S
+170;1;1;Harper, Mrs. Henry Sleeper (Myna Haxtun);female;über 20;1;0;C
+171;3;0;Perkin, Mr. John Henry;male;über 20;0;0;S
+172;1;1;Candee, Mrs. Edward (Helen Churchill Hungerford);female;über 20;0;0;C
+173;3;1;"Thomas, Mrs. Alexander (Thamine ""Thelma"")";female;unter 20;1;1;C
+174;3;0;Gallagher, Mr. Martin;male;über 20;0;0;Q
+175;3;0;Connaghton, Mr. Michael;male;über 20;0;0;Q
+176;3;0;Hansen, Mr. Claus Peter;male;über 20;2;0;S
+177;1;1;Ismay, Mr. Joseph Bruce;male;über 20;0;0;S
+178;2;0;Jefferys, Mr. Clifford Thomas;male;über 20;2;0;S
+179;2;0;Abelson, Mr. Samuel;male;über 20;1;0;C
+180;2;1;Hold, Mrs. Stephen (Annie Margaret Hill);female;über 20;1;0;S
+181;3;0;Dooley, Mr. Patrick;male;über 20;0;0;Q
+182;2;1;Quick, Miss. Phyllis May;female;unter 20;1;1;S
+183;3;0;Johnson, Mr. William Cahoone Jr;male;unter 20;0;0;S
+184;1;0;Isham, Miss. Ann Elizabeth;female;über 20;0;0;C
+185;1;1;Cardeza, Mrs. James Warburton Martinez (Charlotte Wardle Drake);female;über 20;0;1;C
+186;1;0;Minahan, Dr. William Edward;male;über 20;2;0;Q
+187;3;1;Tenglin, Mr. Gunnar Isidor;male;über 20;0;0;S
+188;3;1;Asplund, Master. Edvin Rojj Felix;male;unter 20;2;2;S
+189;3;1;Baclini, Miss. Helene Barbara;female;unter 20;2;1;C
+190;2;0;Gale, Mr. Harry;male;über 20;1;0;S
+191;1;1;Douglas, Mrs. Frederick Charles (Mary Helene Baxter);female;über 20;1;1;C
+192;3;0;Coleff, Mr. Satio;male;über 20;0;0;S
+193;3;0;Barton, Mr. David John;male;über 20;0;0;S
+194;3;0;Pasic, Mr. Jakob;male;über 20;0;0;S
+195;1;1;Silverthorne, Mr. Spencer Victor;male;über 20;0;0;S
+196;1;1;Daniel, Mr. Robert Williams;male;über 20;0;0;S
+197;3;0;Leonard, Mr. Lionel;male;über 20;0;0;S
+198;2;0;Drew, Mr. James Vivian;male;über 20;1;1;S
+199;2;1;Lehmann, Miss. Bertha;female;unter 20;0;0;C
+200;2;0;Turpin, Mr. William John Robert;male;über 20;1;0;S
+201;2;0;Faunthorpe, Mr. Harry;male;über 20;1;0;S
+202;1;0;Hays, Mr. Charles Melville;male;über 20;1;1;S
+203;2;0;Ponesell, Mr. Martin;male;über 20;0;0;S
+204;1;1;Bishop, Mrs. Dickinson H (Helen Walton);female;unter 20;1;0;C
+205;3;0;Goodwin, Master. William Frederick;male;unter 20;2;2;S
+206;2;0;Hocking, Mr. Richard George;male;über 20;2;1;S
+207;2;1;del Carlo, Mrs. Sebastiano (Argenia Genovesi);female;über 20;1;0;C
+208;3;1;Sandstrom, Miss. Beatrice Irene;female;unter 20;1;1;S
+209;3;0;Hanna, Mr. Mansour;male;über 20;0;0;C
+210;2;0;Greenberg, Mr. Samuel;male;über 20;0;0;S
+211;1;1;Simonius-Blumer, Col. Oberst Alfons;male;über 20;0;0;C
+212;1;0;Blackwell, Mr. Stephen Weart;male;über 20;0;0;S
+213;1;1;Bird, Miss. Ellen;female;über 20;0;0;S
+214;3;1;Hellstrom, Miss. Hilda Maria;female;über 20;0;0;S
+215;2;0;Giles, Mr. Ralph;male;über 20;0;0;S
+216;1;0;Moore, Mr. Clarence Bloomfield;male;über 20;0;0;S
+217;3;0;Rice, Master. George Hugh;male;unter 20;2;1;Q
+218;3;0;Braf, Miss. Elin Ester Maria;female;über 20;0;0;S
+219;1;1;Cleaver, Miss. Alice;female;über 20;0;0;S
+220;1;1;Eustis, Miss. Elizabeth Mussey;female;über 20;1;0;C
+221;1;1;Fortune, Mrs. Mark (Mary McDougald);female;über 20;1;2;S
+222;3;1;Hakkarainen, Mrs. Pekka Pietari (Elin Matilda Dolck);female;über 20;1;0;S
+223;2;1;West, Mrs. Edwy Arthur (Ada Mary Worth);female;über 20;1;2;S
+224;2;0;Wheadon, Mr. Edward H;male;über 20;0;0;S
+225;2;0;Nicholls, Mr. Joseph Charles;male;unter 20;1;1;S
+226;1;1;Sagesser, Mlle. Emma;female;über 20;0;0;C
+227;3;0;Adams, Mr. John;male;über 20;0;0;S
+228;1;1;Kimball, Mr. Edwin Nelson Jr;male;über 20;1;0;S
+229;2;1;Davies, Mrs. John Morgan (Elizabeth Agnes Mary White) ;female;über 20;0;2;S
+230;3;0;Nancarrow, Mr. William Henry;male;über 20;0;0;S
+231;3;0;Rush, Mr. Alfred George John;male;unter 20;0;0;S
+232;2;0;McCrie, Mr. James Matthew;male;über 20;0;0;S
+233;3;0;Barbara, Mrs. (Catherine David);female;über 20;0;1;C
+234;2;0;Clarke, Mr. Charles Valentine;male;über 20;1;0;S
+235;3;1;Ohman, Miss. Velin;female;über 20;0;0;S
+236;2;1;Quick, Miss. Winifred Vera;female;unter 20;1;1;S
+237;3;0;Van Impe, Mrs. Jean Baptiste (Rosalie Paula Govaert);female;über 20;1;1;S
+238;3;1;Yasbeck, Mrs. Antoni (Selini Alexander);female;unter 20;1;0;C
+239;3;1;de Messemaeker, Mr. Guillaume Joseph;male;über 20;1;0;S
+240;1;1;Carter, Mrs. William Ernest (Lucile Polk);female;über 20;1;2;S
+241;1;0;Maguire, Mr. John Edward;male;über 20;0;0;S
+242;2;0;Aldworth, Mr. Charles Augustus;male;über 20;0;0;S
+243;1;1;Chevre, Mr. Paul Romaine;male;über 20;0;0;C
+244;2;0;de Brito, Mr. Jose Joaquim;male;über 20;0;0;S
+245;3;0;Laitinen, Miss. Kristina Sofia;female;über 20;0;0;S
+246;2;0;Maybery, Mr. Frank Hubert;male;über 20;0;0;S
+247;3;1;Lindqvist, Mr. Eino William;male;über 20;1;0;S
+248;3;0;Svensson, Mr. Olof;male;über 20;0;0;S
+249;2;0;"Cotterill, Mr. Henry ""Harry""";male;über 20;0;0;S
+250;3;0;Petersen, Mr. Marius;male;über 20;0;0;S
+251;1;0;Sutton, Mr. Frederick;male;über 20;0;0;S
+252;2;1;Shelley, Mrs. William (Imanita Parrish Hall);female;über 20;0;1;S
+253;3;1;Abrahim, Mrs. Joseph (Sophie Halaut Easu);female;unter 20;0;0;C
+254;3;0;Stankovic, Mr. Ivan;male;über 20;0;0;C
+255;1;1;Longley, Miss. Gretchen Fiske;female;über 20;0;0;S
+256;3;0;Cor, Mr. Liudevit;male;unter 20;0;0;S
+257;2;1;Herman, Miss. Kate;female;über 20;1;2;S
+258;2;0;Keane, Mr. Daniel;male;über 20;0;0;Q
+259;3;0;Dimic, Mr. Jovan;male;über 20;0;0;S
+260;2;0;Sedgwick, Mr. Charles Frederick Waddington;male;über 20;0;0;S
+261;1;1;Barkworth, Mr. Algernon Henry Wilson;male;über 20;0;0;S
+262;1;1;Lines, Miss. Mary Conover;female;unter 20;0;1;S
+263;1;1;Stahelin-Maeglin, Dr. Max;male;über 20;0;0;C
+264;3;1;Abrahamsson, Mr. Abraham August Johannes;male;über 20;0;0;S
+265;3;0;Dakic, Mr. Branko;male;unter 20;0;0;S
+266;3;1;Dowdell, Miss. Elizabeth;female;über 20;0;0;S
+267;3;0;Henriksson, Miss. Jenny Lovisa;female;über 20;0;0;S
+268;3;0;Bengtsson, Mr. John Viktor;male;über 20;0;0;S
+269;1;0;White, Mr. Richard Frasar;male;über 20;0;1;S
+270;3;1;Devaney, Miss. Margaret Delia;female;unter 20;0;0;Q
+271;2;1;Webber, Miss. Susan;female;über 20;0;0;S
+272;3;0;Ahlin, Mrs. Johan (Johanna Persdotter Larsson);female;über 20;1;0;S
+273;3;0;Hagardon, Miss. Kate;female;unter 20;0;0;Q
+274;2;1;Richards, Master. George Sibley;male;unter 20;1;1;S
+275;2;1;Lemore, Mrs. (Amelia Milley);female;über 20;0;0;S
+276;3;1;Andersen-Jensen, Miss. Carla Christine Nielsine;female;unter 20;1;0;S
+277;3;0;Wiklund, Mr. Karl Johan;male;über 20;1;0;S
+278;3;0;Theobald, Mr. Thomas Leonard;male;über 20;0;0;S
+279;2;0;Milling, Mr. Jacob Christian;male;über 20;0;0;S
+280;3;0;Moen, Mr. Sigurd Hansen;male;über 20;0;0;S
+281;3;0;Van Impe, Miss. Catharina;female;unter 20;0;2;S
+282;3;0;Karlsson, Mr. Nils August;male;über 20;0;0;S
+283;3;0;Pavlovic, Mr. Stefo;male;über 20;0;0;S
+284;1;0;Marvin, Mr. Daniel Warner;male;unter 20;1;0;S
+285;1;1;Kreuchen, Miss. Emilie;female;über 20;0;0;S
+286;2;1;Rugg, Miss. Emily;female;über 20;0;0;S
+287;3;0;Karlsson, Mr. Julius Konrad Eugen;male;über 20;0;0;S
+288;1;0;Porter, Mr. Walter Chamberlain;male;über 20;0;0;S
+289;2;1;Hewlett, Mrs. (Mary D Kingcome) ;female;über 20;0;0;S
+290;1;1;Chambers, Mr. Norman Campbell;male;über 20;1;0;S
+291;1;0;Foreman, Mr. Benjamin Laventall;male;über 20;0;0;C
+292;1;1;Kimball, Mrs. Edwin Nelson Jr (Gertrude Parsons);female;über 20;1;0;S
+293;3;0;Goodwin, Miss. Lillian Amy;female;unter 20;2;2;S
+294;2;1;"Nourney, Mr. Alfred (""Baron von Drachstedt"")";male;über 20;0;0;C
+295;3;1;Ayoub, Miss. Banoura;female;unter 20;0;0;C
+296;3;0;Strom, Miss. Telma Matilda;female;unter 20;0;1;S
+297;2;0;Harbeck, Mr. William H;male;über 20;0;0;S
+298;2;1;Becker, Master. Richard F;male;unter 20;2;1;S
+299;3;0;Danbom, Mr. Ernst Gilbert;male;über 20;1;1;S
+300;1;1;Leader, Dr. Alice (Farnham);female;über 20;0;0;S

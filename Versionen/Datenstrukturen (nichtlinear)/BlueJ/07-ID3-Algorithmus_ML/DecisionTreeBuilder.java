@@ -93,18 +93,6 @@ public class DecisionTreeBuilder {
         // Aktueller Inhalt der Wurzel des Teilbaumes
         DecisionNode k = pTree.getContent();
 
-        /*aufg*
-        // TODO: Ausgabe des Baumes implemeniteren
-
-        // Mit k.toString() kann der Inhalt
-        // des Knotens als String geholt und mit
-        // System.out.println() ausgeben werden.
-
-        // Beispielhafter Aufruf für die Rekursion
-        // im linken Teilbaum.
-        // baumAusgeben(pBaum.getLeftTree(), pTiefe+1);
-         *aufg*/
-        //ml*
         String tabs = "";
         if( pDepth > 0 ) {
             tabs = new String(new char[pDepth]).replace("\0", "  ");
@@ -121,7 +109,6 @@ public class DecisionTreeBuilder {
         if( pTree.getRightTree() != null ) {
             printTree(pTree.getRightTree(), pDepth + 1);
         }
-        //*ml
     }
 
     /**
