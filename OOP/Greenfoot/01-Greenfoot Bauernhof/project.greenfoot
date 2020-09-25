@@ -1,0 +1,22 @@
+#Greenfoot project file
+class.Bauer.image=farmer.png
+class.Kuh.image=cow.png
+editor.fx.0.height=738
+editor.fx.0.width=816
+editor.fx.0.x=232
+editor.fx.0.y=7
+height=1000
+package.numDependencies=2
+package.numTargets=3
+project.charset=UTF-8
+readme.height=58
+readme.name=@README
+readme.width=47
+readme.x=10
+readme.y=10
+simulation.speed=50
+version=3.0.0
+width=1296
+world.lastInstantiated=Bauernhof
+xPosition=0
+yPosition=0
