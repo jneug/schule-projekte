@@ -39,12 +39,17 @@ parser.add_argument('--preset', dest="preset",
                     help='use a preset tag style')
 parser.add_argument('--project-root', dest="root", action='store',
                     help='if set to a prefix of IN, the folder structure in OUT will reflect the structure of the project root. For IN=/projects/foo/bar/my-project OUT=/projects/out project-root=/projects the resulting versions will be written to /projects/out/foo/bar')
-#parser.add_argument('--keep-empty', dest="keep_empty", action='store_true',
-#                    help='By default empty files are omitted. This will keep those files in the output.')
+parser.add_argument('--keep-empty', dest="keep_empty", action='store_true',
+                    help='By default empty files are omitted. This will keep those files in the output.')
 parser.add_argument('--encoding', dest="encoding", action='store', default="utf-8",
                     help='Set the encoding for project files Default: utf-8.')
 parser.add_argument('-z', '--zip', dest="create_zip", action='store_true', default=False,
                     help='Create additional zip files of the output folders.')
+parser.add_argument('--no-ml', dest="delete_ml", action='store_true',
+                    help='Skip generating a ml version of the project. Note that the ml version is always generated, but this will delete the folder afterwards.')
+
+parser.add_argument('--debug', dest="debug", action='store_true',
+                    help='Enable more verbose debug output.')
 
 args = parser.parse_args()
 
@@ -77,6 +82,10 @@ if not args.ml_open:
     args.ml_open = args.tag_open
 if not args.ml_close:
     args.ml_close = args.tag_close
+
+def debug(msg):
+    if args.debug:
+        print(msg)
 
 def test_version(version1, version2):
     """ Compares a version with a version string and checks if the first
@@ -160,8 +169,7 @@ def create_version(version, args):
                                 outf.write(line)
                                 is_empty = False
                             line = inf.readline()
-                # delete empty files
-                if is_empty:
+                if is_empty and not args.keep_empty:
                     os.remove(fulloutpath)
             else:
                 shutil.copy(fullpath, fulloutpath)
@@ -194,6 +202,8 @@ def create_ml(args):
             _, ext = os.path.splitext(file)
             ext = ext[1:]
 
+            debug(f'working on {fullpath}')
+
             if ext in args.exclude:
                 continue
             elif ext in args.include:
@@ -222,12 +232,14 @@ def create_ml(args):
                                 outf.write(line)
                                 is_empty = False
                             line = inf.readline()
-                if is_empty:
+                if is_empty and not args.keep_empty:
                     os.remove(fulloutpath)
             else:
                 shutil.copy(fullpath, fulloutpath)
 
-    if args.create_zip:
+    if args.delete_ml:
+        shutil.rmtree(outdir)
+    elif args.create_zip:
         create_zip(outdir, args)
 
     if not versions:
@@ -241,12 +253,15 @@ if os.path.isdir(args.indir):
     if args.root and os.path.commonprefix([args.root, args.indir]) == args.root:
         args.outdir = os.path.dirname(os.path.join(args.outdir, args.indir[len(args.root)+1:]))
 
+    debug(f'Compiling project <{args.name}>\n  from <{args.indir}>\n  to <{args.outdir}>')
+    debug('Creating ML version:')
     versions = create_ml(args)
 
     if not args.versions:
         args.versions = versions
     for ver in versions:
         if any(test_version(ver, v) for v in args.versions):
+            debug(f'Creating version {ver}:')
             create_version(ver, args)
 else:
     print(f'{args.indir} does not exist')
