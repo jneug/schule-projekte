@@ -8,8 +8,7 @@ public class DecisionTreeBuilder {
     private BinaryTree<DecisionNode> decisionTree;
 
     public DecisionTreeBuilder() {
-        // Hier den Entscheidungsbaum aufbauen.
-        // Vorbereiten der Klassifikationen:
+        // Vorbereiten der Klassifikationen (Blätter)
         Classification classYes = new Classification("ja");
         Classification classNo = new Classification("nein");
 
