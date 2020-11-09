@@ -8,8 +8,7 @@ public class DecisionTreeBuilder {
     private BinaryTree<DecisionNode> decisionTree;
 
     public DecisionTreeBuilder() {
-        // Hier den Entscheidungsbaum aufbauen.
-        // Vorbereiten der Klassifikationen:
+        // Vorbereiten der Klassifikationen (Blätter)
         Classification classYes = new Classification("ja");
         Classification classNo = new Classification("nein");
 
@@ -18,11 +17,22 @@ public class DecisionTreeBuilder {
             new Decision("vorhersage", "regnerisch") // Inhalt der Wurzel / erste Entschiedung
         );
 
-        // TODO: Hier den Entscheidungsbaum aufbauen.
-        // z.B.
-        // decisionTree.getLeftTree().setContent( ... );
-        // decisionTree.getLeftTree().getLeftTree().setContent(classNo);
-        // usw. ...
+        decisionTree.getLeftTree().setContent(
+            new Decision("feuchtigkeit", "hoch")
+        );
+        decisionTree.getLeftTree().getLeftTree().setContent(classNo);
+        decisionTree.getLeftTree().getRightTree().setContent(classYes);
+
+        decisionTree.getRightTree().setContent(
+            new Decision("vorhersage", "sonnig")
+        );
+        decisionTree.getRightTree().getLeftTree().setContent(
+            new Decision("wind", "stark")
+        );
+        decisionTree.getRightTree().getRightTree().setContent(classYes);
+
+        decisionTree.getRightTree().getLeftTree().getLeftTree().setContent(classNo);
+        decisionTree.getRightTree().getLeftTree().getRightTree().setContent(classYes);
     }
 
     /**
@@ -57,9 +67,16 @@ public class DecisionTreeBuilder {
         String result = "";
         while( result.equals("") || result.equals("left")
             || result.equals("right") ) {
-            // TODO: Impementiere den Durchlauf durch den Entschiedungsbaum,
-            // indem bei jedem inneren Knoten die Entscheidung getroffen wird,
-            // ob links oder rechts weitergemacht wird.
+            DecisionNode e = node.getContent();
+            result = e.decide(pDataset);
+
+            if( result.equals("left") ) {
+                // Im linken Teilbaum weiter
+                node = node.getLeftTree();
+            } else if( result.equals("right") ) {
+                // Im rechten Teilbaum weiter
+                node = node.getRightTree();
+            }
         }
         return result;
     }

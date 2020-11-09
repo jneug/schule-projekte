@@ -8,21 +8,31 @@ public class DecisionTreeBuilder {
     private BinaryTree<DecisionNode> decisionTree;
 
     public DecisionTreeBuilder() {
-        // Hier den Entscheidungsbaum aufbauen.
-        // Vorbereiten der Klassifikationen:
-        Classification classYes = new Classification("ja");
-        Classification classNo = new Classification("nein");
-
-        // Von der Wurzel zu den Blättern!
-        decisionTree = new BinaryTree<DecisionNode>(
-            new Decision("vorhersage", "regnerisch") // Inhalt der Wurzel / erste Entschiedung
+        // Vorbereiten der Klassifikationen (Blätter)
+        BinaryTree<DecisionNode> classYes = new BinaryTree<>(
+            new Classification("ja")
+        );
+        BinaryTree<DecisionNode> classNo = new BinaryTree<>(
+            new Classification("nein")
         );
 
+
         // TODO: Hier den Entscheidungsbaum aufbauen.
+        //
+        // Der Baum wird von den Blättern nach "oben" zur Wurzel aufgebaut.
         // z.B.
-        // decisionTree.getLeftTree().setContent( ... );
-        // decisionTree.getLeftTree().getLeftTree().setContent(classNo);
-        // usw. ...
+        // BinaryTree<DecisionNode> wind = new BinaryTree<>(
+        //     new Decision("wind", "stark"),     // Entscheide Merkmal "wind", gehe links bei "stark"
+        //     classNo,                           // Linker Teilbaum
+        //     classYes                           // rechter Teilbaum
+        // );
+        // usw...
+        // Die Wurzel zuletzt
+        decisionTree = new BinaryTree<>(
+            new Decision("vorhersage", "regnerisch"),
+            feuchtigkeit,
+            vorhersage
+        );
     }
 
     /**
@@ -60,15 +70,6 @@ public class DecisionTreeBuilder {
             // TODO: Impementiere den Durchlauf durch den Entschiedungsbaum,
             // indem bei jedem inneren Knoten die Entscheidung getroffen wird,
             // ob links oder rechts weitergemacht wird.
-
-            DecisionNode e = null;
-			result = "???";
-
-			if( result.equals("left") ) {
-                // ...
-			} else if( result.equals("right") ) {
-				// ...
-			}
         }
         return result;
     }
