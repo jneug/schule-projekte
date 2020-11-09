@@ -3,7 +3,7 @@ public class StackNode<ContentType> {
 
     private ContentType contentObject = null;
 
-    private StackNode nextNode = null;
+    private StackNode<ContentType> nextNode = null;
 
     /**
      * Ein neues Objekt vom Typ Node<ContentType> wird erschaffen.
@@ -22,7 +22,7 @@ public class StackNode<ContentType> {
      *
      * @param pNext der Nachfolger des Knotens
      */
-    public void setNext( StackNode pNext) {
+    public void setNext( StackNode<ContentType> pNext) {
         nextNode = pNext;
     }
 
@@ -31,7 +31,7 @@ public class StackNode<ContentType> {
      *
      * @return das Objekt vom Typ QueueNode, auf das der aktuelle Verweis zeigt
      */
-    public StackNode getNext() {
+    public StackNode<ContentType> getNext() {
         return nextNode;
     }
 
