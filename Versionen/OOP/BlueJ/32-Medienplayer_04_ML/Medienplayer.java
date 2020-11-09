@@ -43,5 +43,5 @@ public class Medienplayer {
             playlist.enqueue(temp.front());
         }
     }
-
+    
 }
