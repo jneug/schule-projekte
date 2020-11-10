@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Random;
 import java.lang.Math;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
@@ -42,7 +44,6 @@ public class Planet extends World {
     public void weltLeeren() {
         removeObjects(getObjects(Actor.class));
     }
-
 
     /**
      * Es werden Rober, Hügel, Gesteine und Markierungen erstellt.
@@ -176,23 +177,23 @@ public class Planet extends World {
                 case '[':
                 case '(':
                 case '{':
-                    inParantheses = true;
-                    break;
+                inParantheses = true;
+                break;
                 case ')':
-                    if( inParantheses && currentString.charAt(0) == '(') {
-                        inParantheses = false;
-                    }
-                    break;
+                if( inParantheses && currentString.charAt(0) == '(') {
+                    inParantheses = false;
+                }
+                break;
                 case '}':
-                    if( inParantheses && currentString.charAt(0) == '{') {
-                        inParantheses = false;
-                    }
-                    break;
+                if( inParantheses && currentString.charAt(0) == '{') {
+                    inParantheses = false;
+                }
+                break;
                 case ']':
-                    if( inParantheses && currentString.charAt(0) == '[') {
-                        inParantheses = false;
-                    }
-                    break;
+                if( inParantheses && currentString.charAt(0) == '[') {
+                    inParantheses = false;
+                }
+                break;
             }
 
             if( !inParantheses ) {
@@ -297,38 +298,38 @@ public class Planet extends World {
         switch( pType ) {
             case 'r':
             case '>':
-                addObject(new Rover(), pX, pY);
-                break;
+            addObject(new Rover(), pX, pY);
+            break;
 
             case '^':
-                Rover r1 = new Rover();
-                addObject(r1, pX, pY);
-                r1.setRotation(270);
-                break;
+            Rover r1 = new Rover();
+            addObject(r1, pX, pY);
+            r1.setRotation(270);
+            break;
 
             case 'v':
-                Rover r2 = new Rover();
-                addObject(r2, pX, pY);
-                r2.setRotation(90);
-                break;
+            Rover r2 = new Rover();
+            addObject(r2, pX, pY);
+            r2.setRotation(90);
+            break;
 
             case '<':
-                Rover r3 = new Rover();
-                addObject(r3, pX, pY);
-                r3.setRotation(180);
-                break;
+            Rover r3 = new Rover();
+            addObject(r3, pX, pY);
+            r3.setRotation(180);
+            break;
 
             case 'm':
-                addObject(new Marke(), pX, pY);
-                break;
+            addObject(new Marke(), pX, pY);
+            break;
 
             case 'h':
-                addObject(new Huegel(), pX, pY);
-                break;
+            addObject(new Huegel(), pX, pY);
+            break;
 
             case 'g':
-                addObject(new Gestein(), pX, pY);
-                break;
+            addObject(new Gestein(), pX, pY);
+            break;
         }
     }
 
@@ -376,14 +377,14 @@ public class Planet extends World {
             for( int j = 0; j < getWidth(); j++ ) {
                 java.util.List<Actor> actors = getObjectsAt(j, i, Actor.class);
                 actors.removeIf(new Predicate<Actor>() {
-                    @Override
-                    public boolean test( Actor actor ) {
-                        return !(actor.getClass().equals(Huegel.class) ||
-                            actor.getClass().equals(Gestein.class) ||
-                            actor.getClass().equals(Marke.class) ||
-                            actor.getClass().equals(Rover.class));
-                    }
-                });
+                        @Override
+                        public boolean test( Actor actor ) {
+                            return !(actor.getClass().equals(Huegel.class) ||
+                                actor.getClass().equals(Gestein.class) ||
+                                actor.getClass().equals(Marke.class) ||
+                                actor.getClass().equals(Rover.class));
+                        }
+                    });
                 if( actors.size() == 0 ) {
                     map.append('.');
                 } else {
@@ -401,17 +402,17 @@ public class Planet extends World {
                             Rover rover = (Rover) actor;
                             switch( rover.getRotation() ) {
                                 case 0:
-                                    map.append('R');
-                                    break;
+                                map.append('R');
+                                break;
                                 case 90:
-                                    map.append('v');
-                                    break;
+                                map.append('v');
+                                break;
                                 case 180:
-                                    map.append('<');
-                                    break;
+                                map.append('<');
+                                break;
                                 case 270:
-                                    map.append('^');
-                                    break;
+                                map.append('^');
+                                break;
                             }
                         }
                     }
@@ -422,7 +423,6 @@ public class Planet extends World {
             }
             map.append('\n');
         }
-
 
         String mapStr = map.toString();
         // Optimize map
@@ -444,10 +444,11 @@ public class Planet extends World {
                 pFile += ".map";
             }
             try {
-                String maps_path = Planet.class
-                    .getResource("maps/").getPath();
+                Path mapsFolder = Paths.get(Planet.class
+                        .getResource("maps/").toURI());
+                Path mapPath = Paths.get(mapsFolder.toAbsolutePath() + "/" + pFile);
                 PrintWriter i = new PrintWriter(
-                    new File(maps_path + pFile));
+                        mapPath.toFile());
                 i.print(mapStr);
                 i.flush();
                 i.close();
@@ -593,92 +594,4 @@ public class Planet extends World {
         weltAusKarteErstellen(map.toString());
     }
 
-    //ml*
-
-    /**
-     * Erstellt eine Welt, die einen Weg enthält
-     */
-    public void zufallsweg() {
-        int maxX = getWidth(), maxY = getHeight();
-        int halfX = maxX / 2;
-
-        char[][] map = new char[maxX][maxY];
-        for( int y = 0; y < maxY; y++ ) {
-            for( int x = 0; x < maxX; x++ ) {
-                map[x][y] = 'H';
-            }
-        }
-
-        Random r = new Random();
-        // Generate random center points
-        int[] p1 = new int[2], p2 = new int[2];
-        // left half
-        p1[0] = r.nextInt(halfX - 6) + 3;
-        p1[1] = r.nextInt(maxY - 8) + 4;
-        p2[0] = r.nextInt(halfX - 6) + 3 + halfX;
-        p2[1] = r.nextInt(maxY - 8) + 4;
-
-        // Generate random edge points
-
-        // Generate path
-        //int startX = p1[0]+3, startY = p1[1];
-
-        map[p1[0]][p1[1]] = 'M';
-        map[p2[0]][p2[1]] = 'M';
-
-        while( p1[0] != p2[0] || p1[1] != p2[1] ) {
-            int q = r.nextInt(2);
-            if( p1[q] != p2[q] ) {
-                p1[q] -= Math.signum(p1[q] - p2[q]);
-                map[p1[0]][p1[1]] = '#';
-            }
-        }
-
-        // print(map);
-
-        StringBuilder m = new StringBuilder();
-        for( int y = 0; y < maxY; y++ ) {
-            for( int x = 0; x < maxX; x++ ) {
-                m.append(map[x][y]);
-            }
-            m.append("\n");
-        }
-        // Display map
-        weltLeeren();
-        weltAusKarteErstellen(m.toString());
-    }
-
-    private boolean finished( int[][] arr ) {
-        for( int y = 0; y < arr[0].length; y++ ) {
-            for( int[] ints : arr ) {
-                if( ints[y] != 2 && ints[y] != 0 ) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    private void print( int[][] arr ) {
-        for( int y = 0; y < arr[0].length; y++ ) {
-            for( int[] ints : arr ) {
-                System.out.print(ints[y]);
-                System.out.print(" ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-
-    private void print( char[][] arr ) {
-        for( int y = 0; y < arr[0].length; y++ ) {
-            for( char[] chars : arr ) {
-                System.out.print(chars[y]);
-                System.out.print(" ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-    //*ml
 }
