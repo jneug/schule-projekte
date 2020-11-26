@@ -265,7 +265,7 @@ public class ID3 {
      * @return
      */
     private double log2( double x ) {
-        return Math.log10(x) / Math.log10(2);
+        return Math.log(x) / Math.log(2);
     }
 
     /**
