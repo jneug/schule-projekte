@@ -94,20 +94,23 @@ public class DecisionTreeBuilder {
         DecisionNode k = pTree.getContent();
 
         /*aufg*
-        // TODO: Ausgabe des Baumes implemeniteren
+        // TODO: Ausgabe des Baumes implementieren
 
         // Mit k.toString() kann der Inhalt
         // des Knotens als String geholt und mit
         // System.out.println() ausgeben werden.
+        // Zur besseren Übersicht kann pDepth benutzt werden,
+        // um die Ausgaben einzurücken (z.B. " ".repeat(pDepth)).
 
         // Beispielhafter Aufruf für die Rekursion
         // im linken Teilbaum.
-        // baumAusgeben(pBaum.getLeftTree(), pTiefe+1);
+        // printTree(pTree.getLeftTree(), pDepth+1);
          *aufg*/
         //ml*
         String tabs = "";
         if( pDepth > 0 ) {
-            tabs = new String(new char[pDepth]).replace("\0", "  ");
+            //tabs = new String(new char[pDepth]).replace("\0", "  ");
+            tabs = " ".repeat(pDepth);
         }
 
         if( k != null ) {
