@@ -296,7 +296,7 @@ public class DecisionTreeBuilder {
 
     /**
      * Lädt die angegebene Textdatei in eine Liste von {@link Passenger Passagieren}.
-     * Die Datei muss eine durcg ";" getrennte CSV-Datei sein, deren Spalten so aufgebaut sind:
+     * Die Datei muss eine durch ";" getrennte CSV-Datei sein, deren Spalten so aufgebaut sind:
      *
      * <pre>
      *     ID;class;survived;name,sex;age;sibsp;parch;embarked
