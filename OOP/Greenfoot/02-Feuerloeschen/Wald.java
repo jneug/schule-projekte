@@ -23,7 +23,7 @@ public class Wald extends World {
      */
     public Wald() {
         // Initialisierung der Welt
-        super(breite, hoehe, zellenGroesse);
+        super(breite, hoehe, zellenGroesse, true);
         setBackground("images/gras.png");
         setPaintOrder(String.class, Feuerbot.Gedanke.class, Feuerbot.class, Alarm.class, Feuer.class, Pflanze.class, Stein.class);
         Greenfoot.setSpeed(50);
