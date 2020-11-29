@@ -26,7 +26,9 @@ public class Traversierungen {
      * @see #preorder(BinaryTree)
      */
     public void preorder() {
+	    System.out.print("Preorder: ");
         preorder(root);
+        System.out.println();
     }
 
     /**
@@ -34,7 +36,13 @@ public class Traversierungen {
      * @param pRoot Der Wurzelknoten des aktuellen Teilbaumes.
      */
     public void preorder( BinaryTree<Integer> pRoot ) {
-
+        //ml*
+        if( !pRoot.isEmpty() ) { // Rekursionsabbruch
+            printContent(pRoot);
+            preorder(pRoot.getLeftTree()); // Rekursionsaufruf / Reduktion
+            preorder(pRoot.getRightTree()); // Rekursionsaufruf / Reduktion
+        }
+        //*ml
     }
 
     /**
@@ -43,7 +51,9 @@ public class Traversierungen {
      * @see #postorder(BinaryTree)
      */
     public void postorder() {
+		System.out.print("Postorder: ");
         postorder(root);
+		System.out.println();
     }
 
     /**
@@ -51,7 +61,13 @@ public class Traversierungen {
      * @param pRoot Der Wurzelknoten des aktuellen Teilbaumes.
      */
     public void postorder( BinaryTree<Integer> pRoot ) {
-
+        //ml*
+        if( !pRoot.isEmpty() ) { // Rekursionsabbruch
+            preorder(pRoot.getLeftTree()); // Rekursionsaufruf / Reduktion
+            preorder(pRoot.getRightTree()); // Rekursionsaufruf / Reduktion
+            printContent(pRoot);
+        }
+        //*ml
     }
 
     /**
@@ -60,7 +76,9 @@ public class Traversierungen {
      * @see #inorder(BinaryTree)
      */
     public void inorder() {
+		System.out.print("Inorder: ");
         inorder(root);
+		System.out.println();
     }
 
     /**
@@ -68,6 +86,23 @@ public class Traversierungen {
      * @param pRoot Der Wurzelknoten des aktuellen Teilbaumes.
      */
     public void inorder( BinaryTree<Integer> pRoot ) {
-
+        //ml*
+        if( !pRoot.isEmpty() ) { // Rekursionsabbruch
+            preorder(pRoot.getLeftTree()); // Rekursionsaufruf / Reduktion
+            printContent(pRoot);
+            preorder(pRoot.getRightTree()); // Rekursionsaufruf / Reduktion
+        }
+        //*ml
     }
+
+    /**
+     * Hilfsmethode, um den Inhalt eines Wurzelknotens auf der
+     * Kommandozeile auszugeben.
+     * @param pRoot Der Wurzelknoten
+     */
+    private void printContent( BinaryTree<Integer> pRoot ) {
+        System.out.print(pRoot.getContent().toString());
+        System.out.print(",");
+    }
+
 }
