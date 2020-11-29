@@ -1,4 +1,3 @@
-
 /**
  * Ein Muppet der Muppet-Show:
  * https://de.wikipedia.org/wiki/Die_Muppet_Show
@@ -13,13 +12,14 @@ public class Muppet implements ComparableContent<Muppet> {
 
     /**
      * Konstruktor für Muppets.
+     *
      * @param pName
      * @param pColor
      * @param pHeight
      */
     public Muppet( String pName, String pColor, double pHeight ) {
-        name   = pName;
-        color  = pColor;
+        name = pName;
+        color = pColor;
         height = pHeight;
     }
 
@@ -40,14 +40,31 @@ public class Muppet implements ComparableContent<Muppet> {
     }
 
     public String toString() {
-        return name;
+        return String.format("%s[%d]", name, height);
     }
 
     /*
     Vergleichsmethoden zum Sortieren von Muppets.
     Die Muppets sollen zunächst nach Namen sortiert werden.
     */
-   /*
+    /*aufg*
+    @Override
+    public boolean isGreater( Muppet pMuppet ) {
+        return false;
+    }
+
+    @Override
+    public boolean isEqual( Muppet pMuppet ) {
+        return false;
+    }
+
+    @Override
+    public boolean isLess( Muppet pMuppet ) {
+        return false;
+    }
+    *aufg*/
+    //ml*
+    /*
     @Override
     public boolean isGreater( Muppet pMuppet ) {
         return name.compareToIgnoreCase(pMuppet.getName()) > 0;
@@ -82,4 +99,6 @@ public class Muppet implements ComparableContent<Muppet> {
     public boolean isLess( Muppet pMuppet ) {
         return height < pMuppet.getHeight();
     }
+    //*ml
+
 }
