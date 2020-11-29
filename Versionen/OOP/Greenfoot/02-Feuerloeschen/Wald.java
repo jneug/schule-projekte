@@ -25,7 +25,7 @@ public class Wald extends World {
         // Initialisierung der Welt
         super(breite, hoehe, zellenGroesse);
         setBackground("images/gras.png");
-        setPaintOrder(String.class, Feuerbot.class, Alarm.class, Feuer.class, Pflanze.class, Stein.class);
+        setPaintOrder(String.class, Feuerbot.Gedanke.class, Feuerbot.class, Alarm.class, Feuer.class, Pflanze.class, Stein.class);
         Greenfoot.setSpeed(50);
 
         // Diese Zeile auskommentieren, um beim Start eine Zufallskarte zu erstellen.

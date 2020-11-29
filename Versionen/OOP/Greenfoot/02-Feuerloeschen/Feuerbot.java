@@ -10,6 +10,7 @@ public class Feuerbot extends Actor {
      * ihn mit dem "Act"-Button in Greenfoot.
      */
     public void act() {
+        drehe("rechts");
     }
 
     public void benutzeBeil() {
@@ -60,12 +61,25 @@ public class Feuerbot extends Actor {
      * @param richtung "links" oder "rechts"
      */
     public void drehe( String richtung ) {
+        int rot = getRotation();
+
         if( richtung == "rechts" ) {
             setRotation(getRotation() + 90);
         } else if( richtung == "links" ) {
             setRotation(getRotation() - 90);
         } else {
             denke("Das verstehe ich nicht.");
+        }
+    }
+
+    @Override
+    public void setRotation( int rotation ) {
+        int rot = getRotation();
+        
+        super.setRotation(rotation);
+
+        if( (getRotation() == 180 && rot != 180) || (getRotation() != 180 && rot == 180) ) {
+            getImage().mirrorVertically();
         }
     }
 
@@ -224,7 +238,7 @@ public class Feuerbot extends Actor {
 
     private Gedanke gedanke;
 
-    private class Gedanke extends Actor {
+    public class Gedanke extends Actor {
         private GreenfootImage nachricht;
 
         public void denke( String text ) {
