@@ -109,8 +109,7 @@ public class DecisionTreeBuilder {
         //ml*
         String tabs = "";
         if( pDepth > 0 ) {
-            //tabs = new String(new char[pDepth]).replace("\0", "  ");
-            tabs = " ".repeat(pDepth);
+            tabs = new String(new char[pDepth]).replace("\0", "  ");
         }
 
         if( k != null ) {
