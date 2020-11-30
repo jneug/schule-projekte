@@ -48,6 +48,7 @@ public class Muppet implements ComparableContent<Muppet> {
     Die Muppets sollen zunächst nach Namen sortiert werden.
     */
     /*aufg*
+    // TODO: Implementiere die drei Vergleichsmethoden
     @Override
     public boolean isGreater( Muppet pMuppet ) {
         return false;

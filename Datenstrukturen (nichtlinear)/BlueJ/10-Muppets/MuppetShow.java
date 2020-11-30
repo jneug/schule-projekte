@@ -22,6 +22,12 @@ public class MuppetShow {
         theMuppets.remove(pMuppet);
     }
 
+    /**
+     * Sucht iterativ im Baum nach einem Muppet mit dem angegebenen Namen.
+     * Ist kein passender Muppet vorhanden, wird <code>null</code> zurückgegeben.
+     * @param pName
+     * @return
+     */
     public Muppet searchMuppet( String pName ) {
         // Erstellen eines Dummy-Muppets, der zum Suchen genutzt werden kann.
         Muppet dummyMuppet = new Muppet(pName, "", 0.0);
@@ -29,10 +35,11 @@ public class MuppetShow {
         BinarySearchTree<Muppet> node = theMuppets;
         while( !node.isEmpty() ) {
             /*aufg*
-            // Nutzen sie die Methoden isEqual, isLess und isGreater
+            // TODO:
+            // Nutze die Methoden isEqual, isLess und isGreater
             // der Muppets, um den passenden Eintrag im Baum zu suchen.
             //
-            // Nutzen sie diese Programmzeilen:
+            // Nutze diese Programmzeilen:
 
             // node = node.getLeftTree();
             // if( node.getContent().isEqual(dummyMuppet) ) {
@@ -64,6 +71,7 @@ public class MuppetShow {
      */
     public String getMuppetColor( String pName ) {
         /*aufg*
+        // TODO: Implementieren
         return "";
          *aufg*/
         //ml*
@@ -77,14 +85,16 @@ public class MuppetShow {
     }
 
     /**
-     * Ändern sie die Methoden isEqual, isLess und isGreater in der
+     * TODO:
+     * Ändere die Methoden isEqual, isLess und isGreater in der
      * Klasse Muppet so um, dass die Muppets nun im Baum nach Größe
      * sortiert werden.
      * <p>
-     * Implementieren sie dann diese Methode wie folgt:
+     * Implementiere dann diese Methode wie folgt:
      * - Die Methode sucht nach dem Muppet mit der Größe pOldHeight und ändert
-     * seine Größe auf pNewHeight.
-     * - Durch dei Änderung könnte es sein, dass der Muppet nicht mehr richtig
+     * seine Größe auf pNewHeight. Implementiere dazu eine rekursive Suchmethode,
+     * die im Baum nach einem Muppet sucht.
+     * - Durch die Änderung könnte es sein, dass der Muppet nicht mehr richtig
      * im Baum einsortiert ist. Löschen sie ihn und fügen sie ihn erneut ein.
      *
      * @param pOldHeight
