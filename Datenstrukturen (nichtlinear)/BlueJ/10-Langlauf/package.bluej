@@ -2,7 +2,7 @@
 dependency1.from=BinarySearchTree
 dependency1.to=ComparableContent
 dependency1.type=UsesDependency
-dependency2.from=RacingSimulator
+dependency2.from=Racingsimulator
 dependency2.to=Athlete
 dependency2.type=UsesDependency
 editor.fx.0.height=738
@@ -30,7 +30,7 @@ readme.width=47
 readme.x=10
 readme.y=10
 target1.height=50
-target1.name=RacingSimulator
+target1.name=Racingsimulator
 target1.showInterface=false
 target1.type=ClassTarget
 target1.width=130

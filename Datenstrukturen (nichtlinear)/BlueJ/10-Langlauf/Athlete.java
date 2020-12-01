@@ -2,41 +2,44 @@
 
 
 public class Athlete implements ComparableContent<Athlete> {
-    
-    private long startTime, finishTime;
-    
-    private int finalTime;
-    
-    public Athlete() {
-        
+
+    private String name;
+
+    private long startTime, endTime;
+
+    public Athlete( String pName ) {
+        name = pName;
     }
-    
-    public void startRun( long time ) {
+
+    public String getName() {
+        return name;
+    }
+
+    public void setStartTime( long time ) {
         startTime = time;
     }
-    
-    public void finishRun( long time ) {
-        finishTime = time;
-        finalTime = Math.round((float) ((finishTime-startTime) / (1000*60)));
+
+    public void setEndTime( long time ) {
+        endTime = time;
     }
-    
+
     public int getFinalTime() {
-        return finalTime;
+        return Math.round((float) ((endTime-startTime) / (1000*60)));
     }
-    
+
     public boolean isGreater( Athlete pOther ) {
         return getFinalTime() > pOther.getFinalTime();
     }
-    
+
     public boolean isLess( Athlete pOther ) {
         return getFinalTime() < pOther.getFinalTime();
     }
-    
+
     public boolean isEqual( Athlete pOther ) {
         return getFinalTime() == pOther.getFinalTime();
     }
-    
+
     public String toString() {
-        return "["+hashCode()+"]: "+getFinalTime()+" min";
+        return "%s(%.2f)".format(name, getFinalTime());
     }
 }
