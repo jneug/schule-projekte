@@ -1,14 +1,15 @@
-
-
-
+/**
+ * Ein Schloss, dass mit einem Nummernschlüssel entriegelt werden kann.
+ */
 public class NumberLock extends Lock {
-    
+
     protected int correctNumber, lastGuess;
+
     public NumberLock( int pCorrectNumber ) {
         correctNumber = pCorrectNumber;
         lastGuess = -1;
     }
-    
+
     public boolean unlock( Item pItem ) {
         if( isOpen() ) {
             return true;
@@ -24,21 +25,21 @@ public class NumberLock extends Lock {
             return false;
         }
     }
-    
-    public String hint() {
+
+    public void printHint() {
         if( lastGuess == -1 ) {
-            return "Du hast bisher nicht versucht das Schloss zu öffnen.";
+            EscapeRoom.println("Du hast bisher nicht versucht das Schloss zu öffnen.");
         }
         try {
             if( lastGuess < correctNumber ) {
-                return "Die Nummer muss höher sein.";
+                EscapeRoom.println("Die Nummer muss höher sein.");
             } else if( lastGuess > correctNumber ) {
-                return "Die Nummer muss niedriger sein.";
+                EscapeRoom.println("Die Nummer muss niedriger sein.");
             } else {
-                return "Die Nummer scheint zu passen!";
+                EscapeRoom.println("Die Nummer scheint zu passen!");
             }
         } catch( NumberFormatException ex ) {
-            return "Du musst für dieses Schloss ein Item mit einer Nummer benutzen.";
+            EscapeRoom.println("Du musst für dieses Schloss einen Nummernschlüssel benutzen.");
         }
     }
 }
