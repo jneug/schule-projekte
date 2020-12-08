@@ -30,4 +30,9 @@ out
 *.iml
 Abiturklassen
 
+# Python
+__pycache__/
+
+# General
+.DS_Store
 Thumbs.db
