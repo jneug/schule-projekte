@@ -1,4 +1,5 @@
 import socket
+import os
 
 class Connection(object):
     def __init__(self, pServerIP, pServerPort, encoding='utf8'):
@@ -7,8 +8,8 @@ class Connection(object):
         self._socket.connect((pServerIP, pServerPort))
 
     def send(self, pMessage):
-        if pMessage[-1] != '\n':
-            pMessage += '\n'
+        if pMessage[-len(os.linesep):] != os.linesep:
+            pMessage += os.linesep
         self._socket.sendall(bytes(pMessage, self.encoding))
 
     def receive(self):
