@@ -1,10 +1,21 @@
+##!! Behebt das Import-Problem in Mu-Editor
+import os
+os.chdir(os.path.dirname(__file__))
+
+## Importieren der Connection-Klasse
 from connection import Connection
 
+
+
+## Konfiguration der Verbindung
 POP3_SERVER = '127.0.0.1'
 POP3_PORT   = 110
 POP3_USER   = 'user1'
 POP3_PASS   = 'user1'
 
+
+
+## Hilfsmethode
 def getMessageCount(pStatMessage):
     """
     Hilfsfunktion:
@@ -14,6 +25,8 @@ def getMessageCount(pStatMessage):
     firstSpace, secondSpace  = pStatMessage.find(' '), pStatMessage.rfind(' ')
     return int(pStatMessage[firstSpace+1:secondSpace]);
 
+
+## TODO: Ab hier implementieren
 def printNextMail():
     """
     Ruft die erste verfügbare Mail vom Server ab und schreibt sie
