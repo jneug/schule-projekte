@@ -90,40 +90,38 @@ public class DecisionTreeBuilder {
      * @param pDepth Die aktuelle Tiefe
      */
     private void printTree( BinaryTree<DecisionNode> pTree, int pDepth ) {
-        // Aktueller Inhalt der Wurzel des Teilbaumes
-        DecisionNode k = pTree.getContent();
+        if( !pTree.isEmpty() ) {
+            // Aktueller Inhalt der Wurzel des Teilbaumes
+            DecisionNode k = pTree.getContent();
 
-        /*aufg*
-        // TODO: Ausgabe des Baumes implementieren
+            /*aufg*
+            // TODO: Ausgabe des Baumes implementieren
 
-        // Mit k.toString() kann der Inhalt
-        // des Knotens als String geholt und mit
-        // System.out.println() ausgeben werden.
-        // Zur besseren Übersicht kann pDepth benutzt werden,
-        // um die Ausgaben einzurücken (z.B. " ".repeat(pDepth)).
+            // Mit k.toString() kann der Inhalt
+            // des Knotens als String geholt und mit
+            // System.out.println() ausgeben werden.
+            // Zur besseren Übersicht kann pDepth benutzt werden,
+            // um die Ausgaben einzurücken.
 
-        // Beispielhafter Aufruf für die Rekursion
-        // im linken Teilbaum.
-        // printTree(pTree.getLeftTree(), pDepth+1);
-         *aufg*/
-        //ml*
-        String tabs = "";
-        if( pDepth > 0 ) {
-            tabs = new String(new char[pDepth]).replace("\0", "  ");
-        }
+            // Beispielhafter Aufruf für die Rekursion
+            // im linken Teilbaum.
+            // printTree(pTree.getLeftTree(), pDepth+1);
+            *aufg*/
+            //ml*
+            String tabs = "";
+            if( pDepth > 0 ) {
+                tabs = new String(new char[pDepth])
+                            .replace("\0", "  ");
+            }
 
-        if( k != null ) {
             System.out.print(tabs);
             System.out.println(k.toString());
-        }
 
-        if( pTree.getLeftTree() != null ) {
+            // Ausgabe erst linker, dann rechter Teilbaum
             printTree(pTree.getLeftTree(), pDepth + 1);
-        }
-        if( pTree.getRightTree() != null ) {
             printTree(pTree.getRightTree(), pDepth + 1);
+            //*ml
         }
-        //*ml
     }
 
     /**
