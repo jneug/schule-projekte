@@ -5,7 +5,7 @@ import java.util.concurrent.Callable;
 /**
  * Eine Sammlung von Klassenmethoden, um wiederkehrende
  * Aufgaben mit binären Suchbäumen zu vereinfachen.
- * @version 0.1 (2019-09-13)
+ * @version 0.2 (2020-12-09)
  * @author J. Neugebauer <schule@neugebauer.cc>
  */
 public class SearchTrees {
@@ -61,13 +61,11 @@ public class SearchTrees {
     }
 
     public static <T extends ComparableContent<T>> void printPreorder( BinarySearchTree<T> pRoot, PrintStream pOut ) {
-        if( pRoot.getContent() == null ) {
-            return;
+        if( !pRoot.isEmpty() ) {
+            pOut.print(pRoot.getContent().toString() + ",");
+            printPreorder(pRoot.getLeftTree(), pOut);
+            printPreorder(pRoot.getRightTree(), pOut);
         }
-
-        pOut.print(pRoot.getContent().toString() + ",");
-        printPreorder(pRoot.getLeftTree(), pOut);
-        printPreorder(pRoot.getRightTree(), pOut);
     }
 
     public static <T extends ComparableContent<T>> void printPostorder( BinarySearchTree<T> pRoot ) {
@@ -75,13 +73,11 @@ public class SearchTrees {
     }
 
     public static <T extends ComparableContent<T>> void printPostorder( BinarySearchTree<T> pRoot, PrintStream pOut ) {
-        if( pRoot.getContent() == null ) {
-            return;
+        if( !pRoot.isEmpty() ) {
+            printPreorder(pRoot.getLeftTree(), pOut);
+            printPreorder(pRoot.getRightTree(), pOut);
+            pOut.print(pRoot.getContent().toString() + ",");
         }
-
-        pOut.print(pRoot.getContent().toString() + ",");
-        printPostorder(pRoot.getLeftTree(), pOut);
-        printPostorder(pRoot.getRightTree(), pOut);
     }
 
     public static <T extends ComparableContent<T>> void printInorder( BinarySearchTree<T> pRoot ) {
@@ -89,13 +85,11 @@ public class SearchTrees {
     }
 
     public static <T extends ComparableContent<T>> void printInorder( BinarySearchTree<T> pRoot, PrintStream pOut ) {
-        if( pRoot.getContent() == null ) {
-            return;
+        if( !pRoot.isEmpty() ) {
+            printPreorder(pRoot.getLeftTree(), pOut);
+            pOut.print(pRoot.getContent().toString() + ",");
+            printPreorder(pRoot.getRightTree(), pOut);
         }
-
-        pOut.print(pRoot.getContent().toString() + ",");
-        printInorder(pRoot.getLeftTree(), pOut);
-        printInorder(pRoot.getRightTree(), pOut);
     }
 
     /**
