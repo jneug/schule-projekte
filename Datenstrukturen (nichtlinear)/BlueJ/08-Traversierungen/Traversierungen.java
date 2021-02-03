@@ -18,6 +18,9 @@ public class Traversierungen {
 
         root.getRightTree().setContent(6);
         root.getRightTree().getRightTree().setContent(3);
+
+        // Zuälliger Baum
+        //root = Trees.generateIntegerTree(25, 0.5, 0.25);
     }
 
     /**
