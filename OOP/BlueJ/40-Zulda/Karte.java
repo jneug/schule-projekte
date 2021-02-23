@@ -51,12 +51,39 @@ public class Karte extends Knoten {
         return weltY;
     }
 
+    /**
+     * Gibt das Array aller Felder zurück.
+     * @return
+     */
     public Feld[][] getFelder() {
         return felder;
     }
 
+    /**
+     * Gibt das Feld am angegeben Index zurück.
+     * @param pX
+     * @param pY
+     * @return
+     */
     public Feld getFeld(int pX, int pY) {
         return felder[pX][pY];
+    }
+
+    /**
+     * Gibt das Feld zurück, in dem die angegebenen Koordinaten liegen. Sind die
+     * Koordinaten außerhalb der Karte, wird {@code null} zurück gegeben.
+     * @param x
+     * @param y
+     * @return
+     */
+    public Feld feldAnKoordinate( float x, float y ) {
+        int i = (int) (x/48);
+        int j = (int) (y/48);
+        if( i >= 0 && i < felder.length  && j >= 0 && j < felder[0].length ) {
+            return felder[i][j];
+        } else {
+            return null;
+        }
     }
 
 }

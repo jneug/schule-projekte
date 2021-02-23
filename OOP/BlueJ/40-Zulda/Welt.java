@@ -21,6 +21,10 @@ public class Welt extends Knoten {
     // Referenz zur Spielfigur
     private Lunk lunk;
 
+    // Aktuelle Position der Spielerfigur als Index der aktuellen Karte
+    // (Index des Feldes, auf dem Lun ksteht.)
+    private int lunkX = 10, lunkY = 8;
+
     public Welt( Lunk pLunk ) {
         lunk = pLunk;
 
@@ -41,8 +45,8 @@ public class Welt extends Knoten {
         karteY = 2;
         add(karten[karteX][karteY]);
 
-        lunk.setX(10*48);
-        lunk.setY(8*48);
+        lunk.setX(lunkX*48);
+        lunk.setY(lunkY*48);
         add(lunk);
     }
 
@@ -58,11 +62,15 @@ public class Welt extends Knoten {
                 add(karten[karteX][karteY]);
 
                 entfernen(lunk);
-                lunk.verschieben(new Vektor((19*48)-lunk.aktuelleFigur().getX(), 0));
+                lunk.setzePosition((19*48), lunk.getY());
                 add(lunk);
             }
         } else {
-            lunk.verschieben(new Vektor(-48, 0));
+            Feld linkesFeld = karten[karteX][karteY].feldAnKoordinate(lunk.getX()-48, lunk.getY());
+            // LinkesFeld ist ungleich null, da sonst nicht der else-Zweig ausgeführt werden würde
+            if( linkesFeld.istPassierbar() ) {
+                lunk.verschieben(new Vektor(-48, 0));
+            }
         }
         lunk.zustandSetzen("idle_left");
     }
@@ -79,7 +87,7 @@ public class Welt extends Knoten {
                 add(karten[karteX][karteY]);
 
                 entfernen(lunk);
-                lunk.verschieben(new Vektor(-1*lunk.aktuelleFigur().getX(), 0));
+                lunk.setzePosition(0, lunk.getY());
                 add(lunk);
             }
         } else {
@@ -100,7 +108,7 @@ public class Welt extends Knoten {
                 add(karten[karteX][karteY]);
 
                 entfernen(lunk);
-                lunk.verschieben(new Vektor(0, (14*48)-lunk.aktuelleFigur().getY()));
+                lunk.setzePosition(lunk.getX(), (14*48));
                 add(lunk);
             }
         } else {
@@ -121,7 +129,7 @@ public class Welt extends Knoten {
                 add(karten[karteX][karteY]);
 
                 entfernen(lunk);
-                lunk.verschieben(new Vektor(0, -1*lunk.aktuelleFigur().getY()));
+                lunk.setzePosition(lunk.getX(), 0);
                 add(lunk);
             }
         } else {

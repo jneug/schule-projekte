@@ -26,8 +26,6 @@ public class Zulda extends Game {
 
     @Override
     public void tasteReagieren(int tastencode) {
-        System.out.printf("Lunk ist at (%f,%f)\n", lunk.getX(), lunk.getY());
-        System.out.printf("or at (%f,%f)\n", lunk.aktuelleFigur().getX(), lunk.aktuelleFigur().getY());
         if( tastencode == Taste.LINKS ) {
             welt.bewegeLinks();
         } else if( tastencode == Taste.RECHTS ) {

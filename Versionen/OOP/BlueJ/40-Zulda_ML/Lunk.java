@@ -31,4 +31,22 @@ public class Lunk extends ActionFigur {
         neueAktion(new Figur(0, 0, "images/adventurer_hit_left.eaf"), "hit_left");
     }
 
+    public void setzePosition( float newX, float newY ) {
+        Figur aktFig = aktuelleFigur();
+        verschieben(new Vektor(
+            newX - aktFig.getX(),
+            newY - aktFig.getY()
+        ));
+    }
+
+    @Override
+    public float getX() {
+        return aktuelleFigur().getX();
+    }
+
+    @Override
+    public float getY() {
+        return aktuelleFigur().getY();
+    }
+
 }
