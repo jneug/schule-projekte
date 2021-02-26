@@ -8,6 +8,11 @@ import ea.*;
  */
 public class Lunk extends ActionFigur {
 
+    private int hitpoints;
+
+    private int attack;
+    private int defense;
+
     public Lunk() {
         super(new Figur(0, 0, "images/adventurer_idle_right.eaf"), "idle_right");
 
@@ -29,6 +34,10 @@ public class Lunk extends ActionFigur {
         neueAktion(new Figur(0, 0, "images/adventurer_slash_left.eaf"), "slash_left");
         neueAktion(new Figur(0, 0, "images/adventurer_jump_left.eaf"), "jump_left");
         neueAktion(new Figur(0, 0, "images/adventurer_hit_left.eaf"), "hit_left");
+
+        hitpoints = 1000;
+        attack = 100;
+        defense = 80;
     }
 
     public void setzePosition( float newX, float newY ) {
@@ -40,6 +49,12 @@ public class Lunk extends ActionFigur {
     }
 
     @Override
+    public boolean bewegen( Vektor v ) {
+        this.verschieben(v);
+        return true;
+    }
+
+    @Override
     public float getX() {
         return aktuelleFigur().getX();
     }
@@ -47,6 +62,30 @@ public class Lunk extends ActionFigur {
     @Override
     public float getY() {
         return aktuelleFigur().getY();
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+
+    public int getHitpoints() {
+        return hitpoints;
+    }
+
+    public void addHitpoints( int pHp ) {
+        hitpoints += pHp;
     }
 
 }

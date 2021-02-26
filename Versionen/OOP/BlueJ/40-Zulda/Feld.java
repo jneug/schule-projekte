@@ -1,7 +1,5 @@
 import ea.*;
 
-import java.util.Locale;
-
 /**
  * Ein Feld (eng. Tile) stellt den Grundbaustein einer {@link Karte} dar. Sie
  * sind jeweils quadratische "Fliesen" der Größe 48x48 Pixel. Jede Fliese ist
