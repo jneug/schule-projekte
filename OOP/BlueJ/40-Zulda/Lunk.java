@@ -7,7 +7,7 @@ import ea.*;
  * ausgeführt werden können. Ansonsten gibt es noch keine Spiellogik.
  */
 public class Lunk extends ActionFigur {
-
+    
     private int hitpoints;
 
     private int attack;
@@ -37,7 +37,7 @@ public class Lunk extends ActionFigur {
 
         hitpoints = 1000;
         attack = 100;
-        defense = 80;
+        defense = 10;
     }
 
     public void setzePosition( float newX, float newY ) {
@@ -47,6 +47,7 @@ public class Lunk extends ActionFigur {
             newY - aktFig.getY()
         ));
     }
+
 
     @Override
     public boolean bewegen( Vektor v ) {

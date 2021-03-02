@@ -1,14 +1,17 @@
+import ea.DateiManager;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Beispiel einer "von Hand" erstellten Karte in der Spielwelt.
  */
 public class Karte_0 extends Karte {
 
-    private Ork feind;
-
-    private TrankAngriff trank;
-
-    public Karte_0( int x, int y ) {
-        super(x,y);
+    public Karte_0( int x, int y, Welt pWelt ) {
+        super(x, y, pWelt);
 
         for( int i = 0; i < felder.length; i++ ) {
             if( i < 9 || i > 10 ) {
@@ -52,15 +55,11 @@ public class Karte_0 extends Karte {
         }
 
         // Einen Ork als Gegner einfügen
-        feind = new Ork(this);
-        verschiebeZuFeldAnIndex(feind,2, 2);
-        add(feind);
+        addGegner(2, 2, new Ork(this));
 
         // Einen Trank als Gegenstand einfügen
         addFeld(18, 13, "sand");
-        trank = new TrankAngriff(this);
-        verschiebeZuFeldAnIndex(trank, 18,13);
-        add(trank);
+        addGegenstand(18,13, new TrankAngriff(this));
     }
 
     /**
@@ -76,12 +75,12 @@ public class Karte_0 extends Karte {
 
     @Override
     public void karteAnzeigen() {
-        feind.start();
+        super.karteAnzeigen();
     }
 
     @Override
     public void karteVerstecken() {
-        feind.stopp();
+        super.karteVerstecken();
     }
 
 }

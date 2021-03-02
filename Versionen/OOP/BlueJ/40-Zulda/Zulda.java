@@ -24,6 +24,10 @@ public class Zulda extends Game {
         musik.loop();
     }
 
+    /**
+     * Diese Methode verarbeitet alle Tasteneingaben während des Spiels.
+     * @param tastencode
+     */
     @Override
     public void tasteReagieren(int tastencode) {
         if( tastencode == Taste.LINKS ) {
@@ -37,8 +41,10 @@ public class Zulda extends Game {
         } else if( tastencode == Taste.LEERTASTE ) {
             if( lunk.aktuellesVerhalten().endsWith("right") ) {
                 lunk.aktionSetzen("slash_right");
+                welt.attackeRechts();
             } else {
                 lunk.aktionSetzen("slash_left");
+                welt.attackeLinks();
             }
         }
     }

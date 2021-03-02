@@ -1,5 +1,7 @@
 import ea.*;
 
+import java.util.ArrayList;
+
 /**
  * Die Spielwelt besetht aus 4x3 {@link Karte}n, durch dei die {@link Lunk Spielfigur}
  * wandern kann. Sie enthaät alles, was im Spiel sichtbar ist und interagieren kann.
@@ -33,11 +35,11 @@ public class Welt extends Knoten {
         for( int i = 0; i < karten.length; i++ ) {
             for (int j = 0; j < karten[0].length; j++) {
                 if( i == 2 && j == 2 ) {
-                    karten[i][j] = new Karte_0(i, j);
+                    karten[i][j] = new Karte_0(i, j, this);
                 } else if( i == 0 || j == 0 ) {
-                    karten[i][j] = new Karte_Random(i, j);
+                    karten[i][j] = new Karte_Random(i, j,  this);
                 } else {
-                    karten[i][j] = new Karte(i, j);
+                    karten[i][j] = new Karte(i, j, this);
                 }
             }
         }
@@ -56,7 +58,15 @@ public class Welt extends Knoten {
     }
 
     /**
-     * Bewegt den {@ink Lunk Spielercharackter} ein Feld nach links. Überschreitet
+     * Gibt den Spielercharakter zurück.
+     * @return
+     */
+    public Lunk getSpieler() {
+        return lunk;
+    }
+
+    /**
+     * Bewegt den {@ink Lunk Spielercharakter} ein Feld nach links. Überschreitet
      * die Figur den Rand der Karte, wird die aktuelle Karte gewechselt, sofern
      * nicht der Rand der Welt erreicht wurde. Ist das Feld nicht passierbar
      * oder der Rand der Welt erricht, passiert nichts.
@@ -74,13 +84,18 @@ public class Welt extends Knoten {
             // feld ist ungleich null, da sonst nicht der else-Zweig ausgeführt werden würde
             if( feld.istPassierbar() ) {
                 karten[karteX][karteY].verschiebeZuFeld(lunk, feld);
+
+                // Gegenstände auf dem neuen Feld einsammeln
+                for( Gegenstand g: karten[karteX][karteY].getGegenstaendeAufFeld(feld) ) {
+                    g.einsammeln(lunk);
+                }
             }
         }
         lunk.zustandSetzen("idle_left");
     }
 
     /**
-     * Bewegt den {@ink Lunk Spielercharackter} ein Feld nach rechts. Überschreitet
+     * Bewegt den {@ink Lunk Spielercharakter} ein Feld nach rechts. Überschreitet
      * die Figur den Rand der Karte, wird die aktuelle Karte gewechselt, sofern
      * nicht der Rand der Welt erreicht wurde. Ist das Feld nicht passierbar
      * oder der Rand der Welt erricht, passiert nichts.
@@ -98,13 +113,18 @@ public class Welt extends Knoten {
             // feld ist ungleich null, da sonst nicht der else-Zweig ausgeführt werden würde
             if( feld.istPassierbar() ) {
                 karten[karteX][karteY].verschiebeZuFeld(lunk, feld);
+
+                // Gegenstände auf dem neuen Feld einsammeln
+                for( Gegenstand g: karten[karteX][karteY].getGegenstaendeAufFeld(feld) ) {
+                    g.einsammeln(lunk);
+                }
             }
         }
         lunk.zustandSetzen("idle_right");
     }
 
     /**
-     * Bewegt den {@ink Lunk Spielercharackter} ein Feld nach oben. Überschreitet
+     * Bewegt den {@ink Lunk Spielercharakter} ein Feld nach oben. Überschreitet
      * die Figur den Rand der Karte, wird die aktuelle Karte gewechselt, sofern
      * nicht der Rand der Welt erreicht wurde. Ist das Feld nicht passierbar
      * oder der Rand der Welt erricht, passiert nichts.
@@ -122,13 +142,18 @@ public class Welt extends Knoten {
             // feld ist ungleich null, da sonst nicht der else-Zweig ausgeführt werden würde
             if( feld.istPassierbar() ) {
                 karten[karteX][karteY].verschiebeZuFeld(lunk, feld);
+
+                // Gegenstände auf dem neuen Feld einsammeln
+                for( Gegenstand g: karten[karteX][karteY].getGegenstaendeAufFeld(feld) ) {
+                    g.einsammeln(lunk);
+                }
             }
         }
         lunk.zustandSetzen("idle_right");
     }
 
     /**
-     * Bewegt den {@ink Lunk Spielercharackter} ein Feld nach unten. Überschreitet
+     * Bewegt den {@ink Lunk Spielercharakter} ein Feld nach unten. Überschreitet
      * die Figur den Rand der Karte, wird die aktuelle Karte gewechselt, sofern
      * nicht der Rand der Welt erreicht wurde. Ist das Feld nicht passierbar
      * oder der Rand der Welt erricht, passiert nichts.
@@ -146,9 +171,52 @@ public class Welt extends Knoten {
             // feld ist ungleich null, da sonst nicht der else-Zweig ausgeführt werden würde
             if( feld.istPassierbar() ) {
                 karten[karteX][karteY].verschiebeZuFeld(lunk, feld);
+
+                // Gegenstände auf dem neuen Feld einsammeln
+                for( Gegenstand g: karten[karteX][karteY].getGegenstaendeAufFeld(feld) ) {
+                    g.einsammeln(lunk);
+                }
             }
         }
         lunk.zustandSetzen("idle_left");
+    }
+
+    /**
+     * Lässt den {@ink Lunk Spielercharakter} alle Gegner auf dem Feld rechts
+     * von ihm attackieren. Gegener deren Hitpoints auf Null sinken, werden aus
+     * der Karte entfernt.
+     */
+    public void attackeRechts() {
+        Karte aktuelleKarte = karten[karteX][karteY];
+        Feld feldRechts = aktuelleKarte.feldAnKoordinate(lunk.zentrum().x+48, lunk.zentrum().y);
+        ArrayList<Gegner> gegnerRechts = aktuelleKarte.getGegnerAufFeld(feldRechts);
+        for( Gegner g: gegnerRechts ) {
+            // TODO: Überlgen, wie Schaden berechnet wird ...
+            g.addHitpoints((int) ((lunk.getAttack() - g.getDefense()) * -0.5) );
+
+            if( g.getHitpoints() <= 0 ) {
+                aktuelleKarte.entferneGegner(g);
+            }
+        }
+    }
+
+    /**
+     * Lässt den {@ink Lunk Spielercharakter} alle Gegner auf dem Feld links
+     * von ihm attackieren. Gegener deren Hitpoints auf Null sinken, werden aus
+     * der Karte entfernt.
+     */
+    public void attackeLinks() {
+        Karte aktuelleKarte = karten[karteX][karteY];
+        Feld feldRechts = aktuelleKarte.feldAnKoordinate(lunk.zentrum().x-48, lunk.zentrum().y);
+        ArrayList<Gegner> gegnerRechts = aktuelleKarte.getGegnerAufFeld(feldRechts);
+        for( Gegner g: gegnerRechts ) {
+            // TODO: Überlgen, wie Schaden berechnet wird ...
+            g.addHitpoints((int) ((lunk.getAttack() - g.getDefense()) * -0.5) );
+
+            if( g.getHitpoints() <= 0 ) {
+                aktuelleKarte.entferneGegner(g);
+            }
+        }
     }
 
     /**
@@ -172,5 +240,4 @@ public class Welt extends Knoten {
             add(lunk);
         }
     }
-
 }

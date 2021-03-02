@@ -6,8 +6,8 @@ import java.util.Random;
  */
 public class Karte_Random extends Karte {
 
-    public Karte_Random(int x, int y) {
-        super(x,y);
+    public Karte_Random(int x, int y, Welt pWelt) {
+        super(x, y, pWelt);
 
         Random rand = new Random((x+1)*(y+1)*1592873L);
 

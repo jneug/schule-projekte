@@ -2,7 +2,7 @@ import ea.*;
 
 public class TrankAngriff extends Gegenstand implements Ticker {
 
-    private int wirkung = 10;
+    private int wirkung = 100;
 
     // Steuerung der Animation
     private int delta = 0;
@@ -18,7 +18,6 @@ public class TrankAngriff extends Gegenstand implements Ticker {
 
     @Override
     public void tick() {
-        /*aug*
         // TODO: Wie funktioniert die Animation? Erstelle eine Tabelle für die Variablen
         // delta und speed und notiere ihre Veränderungen bei mehrmaligem Aufruf der tick()-Methode.
         // TODO: Experimentiere mit anderen Werten für delta und speed.
@@ -55,10 +54,10 @@ public class TrankAngriff extends Gegenstand implements Ticker {
 
     @Override
     public void zerstoeren() {
-        // Abmelden, sodass die tick()-Methdoe nicht mehr ausgeführt wird.
+        // Abmelden, sodass die tick()-Methode nicht mehr ausgeführt wird.
         Manager.standard.abmelden(this);
         // Gegenstand aus dem Spiel entfernen
-        karte.entfernen(this);
+        karte.entferneGegenstand(this);
         leeren();
     }
 }

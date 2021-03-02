@@ -58,4 +58,16 @@ public abstract class Gegner extends Bild {
         this.defense = defense;
     }
 
+    /**
+     * Startet das Verhalten des Gegners. Sollte überschrieben werden.
+     */
+    public void start() {
+    }
+
+    /**
+     * Stoppt das Verhalten des Gegners. Sollte überschrieben werden.
+     */
+    public void stopp() {
+    }
+
 }
