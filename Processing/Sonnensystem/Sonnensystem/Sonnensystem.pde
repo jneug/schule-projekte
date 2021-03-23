@@ -1,11 +1,13 @@
 Sun sun = new Sun();
 Planet earth = new Planet("Earth", sun, 120.0, -.01, #0000FF);
 Moon moon = new Moon("Moon", earth, 8, 30, .005);
+ISS iss = new ISS(earth);
 
 Planet mars = new Planet("Mars", sun, 250.0, -.0128, #FF3311);
 
 void setup() {
   size(800, 600);
+  earth.setImage("earth.png");
 }
 
 void draw() {
@@ -18,8 +20,10 @@ void draw() {
   earth.draw();
   moon.draw();
   mars.draw();
+  iss.draw();
   
   earth.update();
   moon.update();
   mars.update();
+  iss.update();
 }

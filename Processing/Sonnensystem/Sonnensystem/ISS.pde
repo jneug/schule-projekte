@@ -1,6 +1,4 @@
-class Moon {
-
-  private String name;
+class ISS {
 
   private float x;
   
@@ -11,18 +9,14 @@ class Moon {
   private float angle;
 
   private float speed;
-  
-  private float size;
 
   private Planet planet;
 
-  public Moon( String pName, Planet pPlanet, float pSize, float pDist, float pSpeed ) {
-    name = pName;
+  public ISS( Planet pPlanet) {
     planet = pPlanet;
-    distance = pDist;
-    size = pSize;
+    distance = 12.0;
     
-    speed = pSpeed;
+    speed = -0.008;
     angle = 0.0;
     x = 0.0;
     y = 0.0;
@@ -37,9 +31,17 @@ class Moon {
   }
   
   public void draw() {
+    translate(getX(), getY());
+    rotate(1-angle);
     noStroke();
-    fill(178);
-    ellipse(getX(),getY(),size,size);
+    fill(255);
+    
+    rect(0,0,6,2);
+    rect(2,-3,2,8);
+    rect(5,-3,2,8);
+    
+    rotate(1+angle);
+    translate(-1*getX(), -1*getY());
   }
   
   public void update() {

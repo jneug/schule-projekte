@@ -28,6 +28,13 @@ class Planet {
     y = 0.0;
   }
   
+  private PImage img;
+  
+  public void setImage( String pImg ) {
+     img = loadImage(pImg);
+     img.resize(20,20);
+  }
+  
   public float getX() {
     return sun.getX()+x;
   }
@@ -39,7 +46,11 @@ class Planet {
   public void draw() {
     noStroke();
     fill(clr);
-    ellipse(getX(),getY(),20,20);
+    if( img != null ) {
+      image(img, getX()-10, getY()-10);
+    } else {
+      ellipse(getX(),getY(),20,20);
+    }
     text(name, getX()+10, getY()+15); 
   }
   
