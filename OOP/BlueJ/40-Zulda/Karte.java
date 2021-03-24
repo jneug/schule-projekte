@@ -276,7 +276,9 @@ public class Karte extends Knoten {
     }
 
     /**
-     * Entfernt einen Gegenstand aus der Karte.
+     * Entfernt einen Gegenstand aus der Karte. Der Gegenstand wird nicht
+     * zerstört oder anderweitig modifiziert. Falls dies gewünscht ist,
+     * muss explizit im Programm passieren.
      * @param pGegenstand
      */
     public void entferneGegenstand( Gegenstand pGegenstand ) {
@@ -285,12 +287,14 @@ public class Karte extends Knoten {
     }
 
     /**
-     * Entfernt einen Gegner aus der Karte.
+     * Entfernt einen Gegner aus der Karte und dem Spiel. Der Ticker
+     * des Gegners wird gestoppt.
      * @param pGegner
      */
     public void entferneGegner( Gegner pGegner ) {
+        pGegner.stopp();
         entfernen(pGegner);
-        gegenstaende.remove(pGegner);
+        gegner.remove(pGegner);
     }
 
     /**
