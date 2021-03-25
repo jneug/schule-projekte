@@ -1,3 +1,0 @@
-# Arrays
-
-Übungsprojekt zu Arrays.
