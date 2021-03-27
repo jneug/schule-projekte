@@ -1,5 +1,6 @@
 Versionen/
 _lib/
+lib/
 
 
 # Compiled class file
@@ -28,11 +29,14 @@ doc/
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+# vscode #
+.vscode
+*.code-workspace
+
 # IntelliJ #
 out
 .idea
 *.iml
-Abiturklassen
 
 # Python
 todo.md
