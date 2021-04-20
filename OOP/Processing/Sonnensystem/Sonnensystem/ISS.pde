@@ -40,7 +40,7 @@ class ISS {
     rect(2,-3,2,8);
     rect(5,-3,2,8);
     
-    rotate(1+angle);
+    rotate(angle);
     translate(-1*getX(), -1*getY());
   }
   

@@ -39,6 +39,7 @@ class Moon {
   public void draw() {
     noStroke();
     fill(178);
+    ellipseMode(CENTER);
     ellipse(getX(),getY(),size,size);
   }
   
