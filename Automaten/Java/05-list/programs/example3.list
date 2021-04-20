@@ -1,0 +1,9 @@
+list from 1 to 50 by 1
+	{i} bottles of beer on the wall, {i} bottles of beer.
+end
+list from 51 to 99 by 1
+	{i} bottles of beer, {i} bottles of beer on the wall.
+end
+list from 1 to 50 by 10
+	{i}
+end
