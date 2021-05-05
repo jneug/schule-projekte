@@ -72,10 +72,10 @@
 
     private void testList( List<Integer> sortiert ) {
         sortiert.toFirst();
-        int letzteZahl = sortiert.getContent().intValue();
+        int letzteZahl = sortiert.getContent();
         sortiert.next();
         while( sortiert.hasAccess() ) {
-            int dieseZahl = sortiert.getContent().intValue();
+            int dieseZahl = sortiert.getContent();
             assertFalse(letzteZahl+" ist größer als "+dieseZahl,
                 letzteZahl>dieseZahl);
             sortiert.next();

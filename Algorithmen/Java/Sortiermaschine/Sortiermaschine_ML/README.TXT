@@ -1,1 +1,0 @@
-Ein Grundgerüst für eine Sortiermaschine
