@@ -4,17 +4,21 @@ public class ChinookDB {
     public static final String DB_NAME = "chinook.db";
 
     private DatabaseConnector dbc;
-    
+
     private List<Playlist> playlists;
-    
+
+    public static void main(String[] args) {
+        ChinookDB cdb = new ChinookDB();
+        cdb.printStats();
+    }
 
     public ChinookDB() {
         // Verbindung zur SQLite DB aufbauen.
-        // SQLite kann Datenbanken aus Dateien lesen, daher werden die 
+        // SQLite kann Datenbanken aus Dateien lesen, daher werden die
         // anderen Parameter ignoriert (nur bei Verbindung zu einer
         // DB im Internet/Netzwerk nötig).
         dbc = new DatabaseConnector("", 0, DB_NAME, "", "");
-        
+
         // Fülle die Liste mit Playlist-Objekten, die passende Track-Objekte enthalten.
         // Die Daten bekommst du aus der Datenbank.
         playlists = new List<Playlist>();
