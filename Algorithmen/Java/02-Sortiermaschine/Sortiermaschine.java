@@ -88,18 +88,18 @@ public class Sortiermaschine {
      * aus der unsortierten Liste und sortiere es passend in der neuen Liste ein.
      */
     public List<Integer> insertionsortList( List<Integer> zahlen ) {
-        List<Integer> sortiert = new List<Integer>();
+        List<Integer> sortiert = new List<>();
 
         //ml*
         while( !zahlen.isEmpty() ) {
             zahlen.toFirst();
-            Integer i = zahlen.getContent().intValue();
+            Integer i = zahlen.getContent();
             zahlen.remove();
 
             sortiert.toFirst();
             boolean inserted = false;
             while( sortiert.hasAccess() ) {
-                if( sortiert.getContent().intValue() > i ) {
+                if( sortiert.getContent() > i ) {
                     sortiert.insert(i);
                     inserted = true;
                     break;
@@ -123,18 +123,18 @@ public class Sortiermaschine {
      * unsortierte Bereich kleiner wird. Gib dann die neue Liste zurück.
      */
     public List<Integer> selectionsortList( List<Integer> zahlen ) {
-        List<Integer> sortiert = new List<Integer>();
+        List<Integer> sortiert = new List<>();
 
         //ml*
         while( !zahlen.isEmpty() ) {
             zahlen.toFirst();
-            Integer i = zahlen.getContent().intValue();
+            Integer i = zahlen.getContent();
             zahlen.remove();
 
             while( zahlen.hasAccess() ) {
-                if( zahlen.getContent().intValue() < i ) {
+                if( zahlen.getContent() < i ) {
                     zahlen.insert(i);
-                    i = zahlen.getContent().intValue();
+                    i = zahlen.getContent();
                     zahlen.remove();
                 } else {
                     zahlen.next();
@@ -164,13 +164,13 @@ public class Sortiermaschine {
             boolean vertauschung = false;
 
             zahlen.toFirst();
-            Integer i = zahlen.getContent().intValue();
+            Integer i = zahlen.getContent();
             zahlen.remove();
 
             while( zahlen.hasAccess() ) {
-                if( zahlen.getContent().intValue() > i ) {
+                if( zahlen.getContent() > i ) {
                     zahlen.insert(i);
-                    i = zahlen.getContent().intValue();
+                    i = zahlen.getContent();
                     zahlen.remove();
                 } else {
                     zahlen.next();
@@ -192,8 +192,8 @@ public class Sortiermaschine {
      * @param zahlen
      */
     private void printList( int[] zahlen ) {
-        for( int i = 0; i < zahlen.length; i++ ) {
-            System.out.println(zahlen[i]);
+        for( int j : zahlen ) {
+            System.out.println(j);
         }
         System.out.println("---");
     }

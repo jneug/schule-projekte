@@ -4,21 +4,21 @@
  */
 public class VideoPlayer
 {
-    
+
     /**
      * Die Playliste mit Videos. Aufsteigend sortiert nach dem Namen der Videos.
      */
     private Video[] playlist;
-    
+
     private int counter;
-    
+
     /**
-     * Erstellt einen neuen VideoPLayer.
+     * Erstellt einen neuen VideoPlayer.
      */
     public VideoPlayer()
     {
         playlist = new Video[16];
-        
+
         playlist[0] = new Video("7 BEZIEHUNGS ARTEN!", "https://www.youtube.com/watch?v=AGhlkObLFrA", "ApeCrime", 68673, 671520);
         playlist[1] = new Video("Bubble-sort with Hungarian folk dance", "https://www.youtube.com/watch?v=lyZQPjUT5B4", "AlgoRythmics", 6725, 1213349);
         playlist[2] = new Video("Die 10 gruseligsten \"Wenn du es siehst\"-Bilder!", "https://www.youtube.com/watch?v=BoU_eI2Pm1I", "CreepyPastaPunch", 12732, 390002);
@@ -41,22 +41,25 @@ public class VideoPlayer
      * Sucht in der Playlist nach dem Video mit der angegeben Anzahl Likes.
      */
     public Video sucheNachLikes( int anzahlLikes ) {
+        //ml*
         for( int i = 0; i < playlist.length; i++ ) {
             if( playlist[i].getLikes() == anzahlLikes ) {
                 return playlist[i];
             }
         }
+        //*ml
         // Gesuchtes Element wurde nicht gefunden
         return null;
     }
-    
+
     /**
      * Sucht in der Playlist nach dem Video mit dem angegeben Namen.
-     * 
+     *
      * TIPP: mit "String A".compareTo("String B") kann man zwei Strings vergleichen.
      * Siehe dazu auch: http://docs.oracle.com/javase/8/docs/api/java/lang/String.html#compareTo-java.lang.String-
      */
     public Video sucheNachName( String name ) {
+        //ml*
         // Initialwerte für linken und rechten Zeiger
         int links = 0;
         int rechts = playlist.length-1;
@@ -65,7 +68,7 @@ public class VideoPlayer
             // Mitte des aktuellen Bereich festlegen
             // Impliziter Cast zu int (das Ergebnis wird abgerundet)
             int mitte = links + (rechts-links)/2;
-            
+
             // Stringvergleich durchführen
             int compare = playlist[mitte].getName().compareTo(name);
             if( compare < 0 ) {
@@ -81,58 +84,22 @@ public class VideoPlayer
                 return playlist[mitte];
             }
         }
-        
+        //*ml
         // Gesuchtes Element wurde nicht gefunden
         return null;
     }
-    
-    
     /**
-     * Sucht in der Playlist rekursiv nach dem Video mit dem angegeben Namen. 
-     * 
-     * TIPP: mit "String A".compareTo("String B") kann man zwei Strings vergleichen.
-     * Siehe dazu auch: http://docs.oracle.com/javase/8/docs/api/java/lang/String.html#compareTo-java.lang.String-
+     * Sortiert die Playliste nach der Anzahl der Views pro Video.
      */
-    public Video sucheNachNameRekursiv( String name ) {
-        // Initialwerte für linke und rechte Grenze festlegen und
-        // Rekursion starten.
-        return sucheNachNameHilfe(name, 0, playlist.length-1);
+    public void sortiereNachName() {
+
     }
-    
+
     /**
-     * Hilfsmethode für den rekursiven Aufruf der binären Suche.
-     */
-    private Video sucheNachNameHilfe( String name, int links, int rechts ) {
-        // Gesuchtes Element wurde nicht gefunden
-        if( links > rechts ) {
-            return null;
-        }
-        
-        // Mitte des aktuellen Bereich festlegen
-        // Impliziter Cast zu int (das Ergebnis wird abgerundet)
-        int mitte = links + (rechts-links)/2;
-        
-        // Stringvergleich durchführen
-        int compare = playlist[mitte].getName().compareTo(name);
-        if( compare < 0 ) {
-            // Mittleres Element ist "kleiner" als das Gesuchte
-            // Linken Zeiger verschieben
-            return sucheNachNameHilfe(name, mitte+1, rechts);
-        } else if( compare > 0 ) {
-            // Mittleres Element ist "größer" als das Gesuchte
-            // Rechten Zeiger verschieben
-            return sucheNachNameHilfe(name, links, mitte-1);
-        } else {
-            // Mittleres Element ist das Gesuchte
-            return playlist[mitte];
-        }
-    }
-    
-    /**
-     * Sortiert die Playliste nach der Anzahl der Views pro Video. Die Methode nutzt dafür
-     * den Bubblesort Algorithmus.
+     * Sortiert die Playliste nach der Anzahl der Views pro Video.
      */
     public void sortiereNachViews() {
+        //ml*
         int i = playlist.length-1;
         while( i > 0 ) {
             int j = 0;
@@ -144,13 +111,14 @@ public class VideoPlayer
             }
             i = i - 1;
         }
+        //*ml
     }
-    
+
     /**
-     * Sortiert die Playliste nach dem Namen des Autors. Die Methode nutzt dafür
-     * den Selectionsort Algorithmus.
+     * Sortiert die Playliste nach dem Namen des Autors.
      */
     public void sortiereNachAutor() {
+        //ml*
         int i = playlist.length-1;
         while( i > 0 ) {
             int j = 0;
@@ -164,11 +132,12 @@ public class VideoPlayer
             tausche(i, max);
             i = i - 1;
         }
+        //*ml
     }
-    
+
     /**
      * Vertauscht die Videos an den Indizes <code>a</code> und <code>b</code> in der
-     * Playliste. Die Indizes dürfen nur zwischen <code>0</code> und <code>playlist.length</code> 
+     * Playliste. Die Indizes dürfen nur zwischen <code>0</code> und <code>playlist.length</code>
      * liegen.
      */
     private void tausche( int a, int b ) {
@@ -176,9 +145,9 @@ public class VideoPlayer
         playlist[a] = playlist[b];
         playlist[b] = tmp;
     }
-    
+
     /**
-     *  Gibt die aktuelle Playlsite auf der Konsole aus.
+     *  Gibt die aktuelle Playliste auf der Konsole aus.
      */
     public void print() {
         System.out.println("# Playliste:");
