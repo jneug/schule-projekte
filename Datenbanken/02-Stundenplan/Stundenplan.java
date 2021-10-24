@@ -71,7 +71,13 @@ public class Stundenplan implements SelectionListener {
 
             // Neue Daten aus der Datenbank abfragen.
             // Hier gefakte Daten, die Struktur der Datenbank ist nicht vorgegeben.
-            dbc.executeStatement("SELECT 0,'Q2','405',kuerzel,0,0,'Informatik',-16711936 FROM lehrer WHERE kuerzel = '" + pNewValue + "'");
+            dbc.executeStatement(
+                "SELECT 0,'Q2','405',kuerzel,ABS(RANDOM()) % 5,ABS(RANDOM()) % 10,'Informatik','#00ff3f' " +
+                    "FROM lehrer WHERE kuerzel = '" + pNewValue + "'"+
+                    "UNION "+
+                    "SELECT 1,'EFa','501',kuerzel,ABS(RANDOM()) % 5,ABS(RANDOM()) % 10,'Mathematik','#35b5ff' " +
+                    "FROM lehrer WHERE kuerzel = '" + pNewValue + "'"
+            );
             QueryResult r = dbc.getCurrentQueryResult();
 
             // Falls es ein Ergebnis gibt ...
@@ -87,7 +93,7 @@ public class Stundenplan implements SelectionListener {
                         "Raum " + data[i][2], // Untertitel
                         data[i][1], // Beschreibungstext
                         data[i][3], // Fußzeile
-                        new Color(Integer.parseInt(data[i][7])) // Farbe (Objekt der Klasse Color)
+                        Color.decode(data[i][7]) // Farbe (Objekt der Klasse Color)
                     );
                 }
 

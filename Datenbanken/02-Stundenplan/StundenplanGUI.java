@@ -162,8 +162,8 @@ public class StundenplanGUI extends JFrame implements ActionListener {
      * Entfernt alle derzeit angezeigten Stunden aus dem GUI.
      */
     public void removeAllLessons() {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 5; j++) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 10; j++) {
                 removeLesson(i, j);
             }
         }
