@@ -53,13 +53,13 @@ public class Calculator {
             return pNumberB;
         } else {
             while( pNumberB > 0 ) {
-                /*aufg*
-                if( pNumberA < pNumberB ) {
-                *aufg*/
-                //ml*
                 if( pNumberA > pNumberB ) {
-                //*ml
+                    /*aufg*
+                    pNumberB += pNumberA;
+                    *aufg*/
+                    //ml*
                     pNumberA -= pNumberB;
+                    //*ml
                 } else {
                     pNumberB -= pNumberA;
                 }

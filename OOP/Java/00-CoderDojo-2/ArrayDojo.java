@@ -2,30 +2,169 @@
 import java.util.Random;
 
 /**
- * Verschiedene Übungen zu Arrays.
+ * Das ArrayDojo Projekt ist eine Sammlung unzusammenhängender Übungen zur
+ * Programmierung mit Arrays.
  *
- * TODO:
- * Implementiere die Methoden nach der Beschreibung im jeweiligen
- * Kommentar. Teste deine Umsetzungen regelmäßig mit den Test-Methoden
- * in der Klasse {@link ArraysTest}.
+ *
+ * Im Kommentar jeder Methode steht eine Beschreibung des Problems, dass in der
+ * Methode gelöst werden soll. Die Klasse {@link ArrayDojoTest} enthält
+ * Testmethoden, die prüfen, ob die Methode korrekt implementiert wurde. Die
+ * Tests können in BlueJ mit einem Rechtsklick auf die Testklasse gestartet
+ * werden.
  *
  * Du kannst die Methoden in beliebiger Reihenfolge implementieren. Such
- * dir also die für dich interessantesten raus.
+ * dir also die für dich interessantesten heraus.
  *
  * Einige Methoden sind schon vollständig implementiert, und können
  * als Beispiel dienen. Die Methoden {@link #printArray(int[])},
  * {@link #printArray(String[])} und {@link #printArray(boolean[])}
  * geben ein Array auf der Kommandozeile aus und können bei der Fehlersuche
  * helfen. Denke auch daran, den Debugger zu nutzen.
+ *
+ * TODO:
+ * Implementiere die Methoden nach der Beschreibung im jeweiligen
+ * Kommentar. Teste deine Umsetzungen regelmäßig mit den Test-Methoden
+ * in der Klasse {@link ArrayDojoTest}.
  */
-public class Arrays {
+public class ArrayDojo {
 
     // Interner Zufallsgenerator
     private Random rand;
 
-    public Arrays() {
+    public ArrayDojo() {
         // Neuen Zufallsgenerator erstellen
         rand = new Random();
+    }
+
+    /**
+     * Gibt immer das erste Element des Zahlenarrays zurück.
+     *
+     * Es darf angenommen werden, dass das Array immer mindestens ein Element
+     * hat.
+     *
+     * @param pArray
+     * @return
+     */
+    public int getFirst( int[] pArray ) {
+        /*aufg*
+        return 0;
+        *aufg*/
+        //ml*
+        return pArray[0];
+        //*ml
+    }
+
+    /**
+     * Gibt immer das zweite Element des Zahlenarrays zurück. Für ein leeres
+     * Array wird 0 zurückgegeben.
+     *
+     * Es darf angenommen werden, dass das Array immer mindestens ein Element
+     * hat.
+     *
+     * @param pArray
+     * @return
+     */
+    public int getSecond( int[] pArray ) {
+        /*aufg*
+        return 0;
+        *aufg*/
+        //ml*
+        return pArray[1];
+        //*ml
+    }
+
+    /**
+     * Gibt immer das letzte Element des Zahlenarrays zurück. Für ein leeres
+     * Array wird 0 zurückgegeben.
+     * @param pArray
+     * @return
+     */
+    public int getLast( int[] pArray ) {
+        /*aufg*
+        return 0;
+        *aufg*/
+        //ml*
+        if( pArray.length == 0 ) {
+            return 0;
+        } else {
+            return pArray[pArray.length - 1];
+        }
+        //*ml
+    }
+
+
+    /**
+     * Gibt das Element am Index <var>pIndex</var> des Stringarrays zurück.
+     * Gibt es kein Element am angegebenen Index, dann wird <code>null</code>
+     * zurück gegeben.
+     * @param pArray
+     * @return
+     */
+    public String getValue( String[] pArray, int pIndex ) {
+        /*aufg*
+        return null;
+        *aufg*/
+        //ml*
+        if( pArray.length == 0 || pArray.length < pIndex ) {
+            return null;
+        } else {
+            return pArray[pIndex];
+        }
+        //*ml
+    }
+
+
+    /**
+     * Gibt das Element an Stelle <var>pNumber</var> des Stringarrays zurück.
+     * Also 1 = erstes Element, 2 = zweites Element, ...
+     * Gibt es kein solches Element, dann wird <code>null</code> zurück gegeben.
+     * @param pArray
+     * @return
+     */
+    public String getElement( String[] pArray, int pNumber ) {
+        /*aufg*
+        return null;
+        *aufg*/
+        //ml*
+        if( pArray.length == 0 || pArray.length <= pNumber ) {
+            return null;
+        } else {
+            return pArray[pNumber-1];
+        }
+        //*ml
+    }
+
+    /**
+     * Ermittelt die Länge des Arrays.
+     * @param pArray
+     * @return
+     */
+    public int getLength( String[] pArray ) {
+        /*aufg*
+        return 0;
+        *aufg*/
+        //ml*
+        return pArray.length;
+        //*ml
+    }
+
+    /**
+     * Setzt das erste Element des Arrays auf <var>pValue</var>. Ist das Array
+     * leer, wird das Array nicht verändert.
+     * @param pArray
+     * @param pValue
+     * @return
+     */
+    public int[] setFirst( int[] pArray, int pValue ) {
+        /*aufg*
+        return null;
+        *aufg*/
+        //ml*
+        if( pArray.length > 0 ) {
+            pArray[0] = pValue;
+        }
+        return pArray;
+        //*ml
     }
 
     /**
@@ -172,6 +311,8 @@ public class Arrays {
      * Integer-Arrays.
      *
      * Für ein leeres Array wird 0 zurück gegeben.
+     * <p>
+     * Tipp: Implementiere zunächst {@link #sum(int[])}.
      */
     public double avg( int[] pArray ) {
         /*aufg*
@@ -194,21 +335,20 @@ public class Arrays {
      * Für ein leeres Array wird <code>false<code> zurück gegeben.
      */
     public boolean and( boolean[] pArray ) {
-        /*aufg*
-        return true;
-        *aufg*/
-        //ml*
+        // Leeres Array (Länge 0) gibt false zurück
         if( pArray.length == 0 ) {
             return false;
         }
 
+        // Array mit Zählschleife durchlaufen
         for( int i = 0; i < pArray.length; i++ ) {
+            // Bei erstem false wird abgebrochen und false zurückgegeben
             if( !pArray[i] ) {
                 return false;
             }
         }
+        // Wenn wir hier ankommen, dann gab es im Array kein false
         return true;
-        //*ml
     }
 
     /**

@@ -1,6 +1,7 @@
 
 
 import static org.junit.Assert.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class CalculatorTest {
             new int[]{5, 6},
             new int[]{24, 156}
         };
-        for( int i = 0; i < tests.length; i++ ) {
+        for (int i = 0; i < tests.length; i++) {
             int sum = calc.addEvenNumbers(tests[i][0]);
             assertEquals("addEvenNumbers(" + tests[i][0] + ")", tests[i][1], sum);
         }
@@ -42,7 +43,7 @@ public class CalculatorTest {
             new int[]{1, 18, 1},
             new int[]{24, 7, 1}
         };
-        for( int i = 0; i < tests.length; i++ ) {
+        for (int i = 0; i < tests.length; i++) {
             int ggt = calc.ggT(tests[i][0], tests[i][1]);
             assertEquals("ggT(" + tests[i][0] + "," + tests[i][1] + ")", tests[i][2], ggt);
         }
@@ -61,7 +62,7 @@ public class CalculatorTest {
             new int[]{24, 7, 168}
 
         };
-        for( int i = 0; i < tests.length; i++ ) {
+        for (int i = 0; i < tests.length; i++) {
             int kgv = calc.kgV(tests[i][0], tests[i][1]);
             assertEquals("kgV(" + tests[i][0] + "," + tests[i][1] + ")", tests[i][2], kgv);
         }
