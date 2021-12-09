@@ -102,8 +102,19 @@ def test_version(version1, version2):
 
     if len(op) == 0 or op == '=':
         return ver1 == ver2
-    else:
-        return eval(f'{ver1}{op}{ver2}')
+    if op == "=" or op == "==":
+        return ver1 == ver2
+    if op == "<=":
+        return ver1 <= ver2
+    if op == "<":
+        return ver1 < ver2
+    if op == ">=":
+        return ver1 >= ver2
+    if op == ">":
+        return ver1 > ver2
+    if op == "!=" or op == "<>":
+        return ver1 != ver2
+    return False
 
 def create_zip(dir, args):
     with zipfile.ZipFile(f'{dir}.zip', 'w', zipfile.ZIP_DEFLATED) as zipf:
