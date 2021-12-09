@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class Ork extends Gegner implements Ticker {
 
-    public Ork( Karte pKarte) {
+    public Ork( Karte pKarte ) {
         super(300, 30, 10, pKarte, "images/monster_1.gif");
     }
 
@@ -18,8 +18,8 @@ public class Ork extends Gegner implements Ticker {
     public void tick() {
         /*aufg*
         // TODO: Implementiere ein Verhalten für den Ork. Er könnte sich zum
-        Beispiel zufällig durch die Welt bewegen. (Nutze z.B. die Klasse
-        Random dafür: https://link.ngb.schule/zufallszahlen).
+        // Beispiel zufällig durch die Welt bewegen. (Nutze z.B. die Klasse
+        // Random dafür: https://link.ngb.schule/zufallszahlen).
         *aufg*/
         //ml*
         Random rand = new Random();

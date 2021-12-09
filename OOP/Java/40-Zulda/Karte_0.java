@@ -69,7 +69,7 @@ public class Karte_0 extends Karte {
      * @param typ Typ des Untergrundes (bestimmt auch die Passierbarkeit)
      */
     private void addFeld(int i, int j, String typ ) {
-        felder[i][j] = new Feld(i*48, j * 48, typ);
+        felder[i][j] = new Feld(i*Zulda.TILE_SIZE, j * Zulda.TILE_SIZE, typ);
         add(felder[i][j]);
     }
 

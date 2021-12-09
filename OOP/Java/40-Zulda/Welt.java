@@ -31,7 +31,7 @@ public class Welt extends Knoten {
         lunk = pLunk;
 
         // Initialisiere die Karten der Welt
-        karten = new Karte[4][3];
+        karten = new Karte[Zulda.WORLD_WIDTH][Zulda.WORLD_HEIGHT];
         for( int i = 0; i < karten.length; i++ ) {
             for (int j = 0; j < karten[0].length; j++) {
                 if( i == 2 && j == 2 ) {
@@ -73,14 +73,15 @@ public class Welt extends Knoten {
      */
     public void bewegeLinks() {
         lunk.zustandSetzen("run_left");
-        if (lunk.aktuelleFigur().getX() < 48) {
+        if (lunk.aktuelleFigur().getX() < Zulda.TILE_SIZE) {
             if( karteX > 0 ) {
                 wechseleKarte(karteX-1, karteY);
 
-                karten[karteX][karteY].verschiebeZuFeldAnKoordinate(lunk, 19*48, lunk.getY());
+                int newX = (Zulda.MAP_WIDTH-1)*Zulda.TILE_SIZE;
+                karten[karteX][karteY].verschiebeZuFeldAnKoordinate(lunk, newX, lunk.getY());
             }
         } else {
-            Feld feld = karten[karteX][karteY].feldAnKoordinate(lunk.getX()-48, lunk.getY());
+            Feld feld = karten[karteX][karteY].feldAnKoordinate(lunk.getX()-Zulda.TILE_SIZE, lunk.getY());
             // feld ist ungleich null, da sonst nicht der else-Zweig ausgeführt werden würde
             if( feld.istPassierbar() ) {
                 karten[karteX][karteY].verschiebeZuFeld(lunk, feld);
@@ -102,14 +103,14 @@ public class Welt extends Knoten {
      */
     public void bewegeRechts() {
         lunk.zustandSetzen("run_right");
-        if (lunk.aktuelleFigur().getX() >= 19*48) {
+        if (lunk.aktuelleFigur().getX() >= (Zulda.MAP_WIDTH-1)*Zulda.TILE_SIZE) {
             if( karteX < 3 ) {
                 wechseleKarte(karteX+1, karteY);
 
                 karten[karteX][karteY].verschiebeZuFeldAnKoordinate(lunk, 0, lunk.getY());
             }
         } else {
-            Feld feld = karten[karteX][karteY].feldAnKoordinate(lunk.getX()+48, lunk.getY());
+            Feld feld = karten[karteX][karteY].feldAnKoordinate(lunk.getX()+Zulda.TILE_SIZE, lunk.getY());
             // feld ist ungleich null, da sonst nicht der else-Zweig ausgeführt werden würde
             if( feld.istPassierbar() ) {
                 karten[karteX][karteY].verschiebeZuFeld(lunk, feld);
@@ -131,14 +132,15 @@ public class Welt extends Knoten {
      */
     public void bewegeHoch() {
         lunk.zustandSetzen("run_right");
-        if (lunk.aktuelleFigur().getY() < 48) {
+        if (lunk.aktuelleFigur().getY() < Zulda.TILE_SIZE) {
             if( karteY > 0 ) {
                 wechseleKarte(karteX, karteY-1);
 
-                karten[karteX][karteY].verschiebeZuFeldAnKoordinate(lunk, lunk.getX(), 14*48);
+                int newY = (Zulda.MAP_HEIGHT-1)*Zulda.TILE_SIZE;
+                karten[karteX][karteY].verschiebeZuFeldAnKoordinate(lunk, lunk.getX(), newY);
             }
         } else {
-            Feld feld = karten[karteX][karteY].feldAnKoordinate(lunk.getX(), lunk.getY()-48);
+            Feld feld = karten[karteX][karteY].feldAnKoordinate(lunk.getX(), lunk.getY()-Zulda.TILE_SIZE);
             // feld ist ungleich null, da sonst nicht der else-Zweig ausgeführt werden würde
             if( feld.istPassierbar() ) {
                 karten[karteX][karteY].verschiebeZuFeld(lunk, feld);
@@ -160,14 +162,14 @@ public class Welt extends Knoten {
      */
     public void bewegeRunter() {
         lunk.zustandSetzen("run_left");
-        if (lunk.aktuelleFigur().getY() >= 14*48) {
+        if (lunk.aktuelleFigur().getY() >= (Zulda.MAP_HEIGHT-1)*Zulda.TILE_SIZE) {
             if( karteY < 2 ) {
                 wechseleKarte(karteX, karteY+1);
 
                 karten[karteX][karteY].verschiebeZuFeldAnKoordinate(lunk, lunk.getX(), 0);
             }
         } else {
-            Feld feld = karten[karteX][karteY].feldAnKoordinate(lunk.getX(), lunk.getY()+48);
+            Feld feld = karten[karteX][karteY].feldAnKoordinate(lunk.getX(), lunk.getY()+Zulda.TILE_SIZE);
             // feld ist ungleich null, da sonst nicht der else-Zweig ausgeführt werden würde
             if( feld.istPassierbar() ) {
                 karten[karteX][karteY].verschiebeZuFeld(lunk, feld);
@@ -188,7 +190,7 @@ public class Welt extends Knoten {
      */
     public void attackeRechts() {
         Karte aktuelleKarte = karten[karteX][karteY];
-        Feld feldRechts = aktuelleKarte.feldAnKoordinate(lunk.zentrum().x+48, lunk.zentrum().y);
+        Feld feldRechts = aktuelleKarte.feldAnKoordinate(lunk.zentrum().x+ Zulda.TILE_SIZE, lunk.zentrum().y);
         ArrayList<Gegner> gegnerRechts = aktuelleKarte.getGegnerAufFeld(feldRechts);
         for( Gegner g: gegnerRechts ) {
             // TODO: Überlgen, wie Schaden berechnet wird ...
@@ -207,7 +209,7 @@ public class Welt extends Knoten {
      */
     public void attackeLinks() {
         Karte aktuelleKarte = karten[karteX][karteY];
-        Feld feldRechts = aktuelleKarte.feldAnKoordinate(lunk.zentrum().x-48, lunk.zentrum().y);
+        Feld feldRechts = aktuelleKarte.feldAnKoordinate(lunk.zentrum().x-Zulda.TILE_SIZE, lunk.zentrum().y);
         ArrayList<Gegner> gegnerRechts = aktuelleKarte.getGegnerAufFeld(feldRechts);
         for( Gegner g: gegnerRechts ) {
             // TODO: Überlgen, wie Schaden berechnet wird ...
