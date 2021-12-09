@@ -1,13 +1,7 @@
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public abstract class Layer {
-
-    protected BufferedImage canvas;
-    protected Graphics2D graphics;
+public final class Shape2DEbene extends Ebene {
 
     protected Color strokeColor;
 
@@ -15,72 +9,32 @@ public abstract class Layer {
 
     protected double strokeWeight;
 
-    protected boolean isVisible = true;
+    protected int konturArt = DURCHGEZOGEN;
 
-    public Layer() {
-        this(100, 100);
+    private ArrayList<java.awt.Shape> shapes;
+
+    private boolean sofortZeichnen = false;
+
+    public Shape2DEbene() {
+        super();
+        shapes = new ArrayList<java.awt.Shape>(32);
     }
 
-    public Layer( int pWidth, int pHeight ) {
-        createCanvas(pWidth, pHeight);
-
-        strokeColor = Color.BLACK;
-        fillColor = Color.WHITE;
-        strokeWeight = 1.0;
+    public Shape2DEbene(boolean pSofortZeichnen) {
+        super();
+        shapes = new ArrayList<java.awt.Shape>(32);
+        sofortZeichnen = pSofortZeichnen;
     }
 
-    public void setSize( int pWidth, int pHeight ) {
-        if( canvas != null ) {
-            recreateCanvas(pWidth, pHeight);
-        } else {
-            createCanvas(pWidth, pHeight);
-        }
+    public Shape2DEbene(int pWidth, int pHeight) {
+        super(pWidth, pHeight);
+        shapes = new ArrayList<java.awt.Shape>(32);
     }
 
-    private void createCanvas( int pWidth, int pHeight ) {
-        canvas = new BufferedImage(pWidth, pHeight, BufferedImage.TYPE_INT_ARGB);
-        graphics = canvas.createGraphics();
-
-        // add antialiasing
-        RenderingHints hints = new RenderingHints(
-            RenderingHints.KEY_ANTIALIASING,
-            RenderingHints.VALUE_ANTIALIAS_ON
-        );
-        hints.put(
-            RenderingHints.KEY_RENDERING,
-            RenderingHints.VALUE_RENDER_QUALITY
-        );
-        graphics.addRenderingHints(hints);
-    }
-
-    private void recreateCanvas( int pWidth, int pHeight ) {
-        BufferedImage oldCanvas = canvas;
-        createCanvas(pWidth, pHeight);
-        graphics.drawImage(oldCanvas, 0, 0, null);
-    }
-
-    public abstract void clear();
-
-    public void draw( Graphics2D pGraphics ) {
-        if( isVisible ) {
-            pGraphics.drawImage(canvas, 0, 0, null);
-        }
-    }
-
-    public boolean isVisible() {
-        return isVisible;
-    }
-
-    public void hide() {
-        isVisible = false;
-    }
-
-    public void show() {
-        isVisible = true;
-    }
-
-    public void toggle() {
-        isVisible = !isVisible;
+    public Shape2DEbene(int pWidth, int pHeight, boolean pSofortZeichnen ) {
+        super(pWidth, pHeight);
+        shapes = new ArrayList<java.awt.Shape>(32);
+        sofortZeichnen = pSofortZeichnen;
     }
 
     public Color getColor() {
@@ -114,7 +68,7 @@ public abstract class Layer {
 
     public void setColor(Color pColor) {
         fillColor = pColor;
-        graphics.setColor(pColor);
+        leinwand.setColor(pColor);
     }
 
     public Color getStrokeColor() {
@@ -151,12 +105,78 @@ public abstract class Layer {
 
     public void setStrokeColor(Color pColor) {
         strokeColor = pColor;
-        graphics.setColor(pColor);
+        leinwand.setColor(pColor);
     }
 
     public void setStrokeWeight( double pWeight ) {
         strokeWeight = pWeight;
-        graphics.setStroke(new BasicStroke((float) pWeight, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        leinwand.setStroke(createStroke());
+    }
+
+    protected Stroke createStroke() {
+        switch(konturArt) {
+            case GEPUNKTET:
+                return new BasicStroke(
+                    (float) strokeWeight,
+                    BasicStroke.CAP_ROUND,
+                    BasicStroke.JOIN_ROUND,
+                    10.0f, new float[]{1.0f, 5.0f}, 0.0f);
+            case GESTRICHELT:
+                return new BasicStroke(
+                    (float) strokeWeight,
+                    BasicStroke.CAP_ROUND,
+                    BasicStroke.JOIN_ROUND,
+                    10.0f, new float[]{5.0f}, 0.0f);
+            default:
+                return new BasicStroke(
+                    (float) strokeWeight,
+                    BasicStroke.CAP_ROUND,
+                    BasicStroke.JOIN_ROUND);
+        }
+    }
+
+    public int getKonturArt() {
+        return konturArt;
+    }
+
+    public void setKonturArt(int konturArt) {
+        this.konturArt = konturArt;
+    }
+
+    public void leeren() {
+        leinwand.setBackground(new Color(0, 0, 0, 0));
+        leinwand.clearRect(0, 0, puffer.getWidth(), puffer.getHeight());
+    }
+
+    public java.util.List<java.awt.Shape> getShapes() {
+        return shapes;
+    }
+
+    public void add(java.awt.Shape s) {
+        shapes.add(s);
+
+        if( sofortZeichnen ) {
+            leinwand.setColor(fillColor);
+            leinwand.fill(s);
+
+            leinwand.setColor(strokeColor);
+            leinwand.draw(s);
+        }
+    }
+
+    @Override
+    public void zeichnen(Graphics2D pGraphics) {
+        if( !sofortZeichnen ) {
+            for (Shape shape : shapes) {
+                leinwand.setColor(fillColor);
+                leinwand.fill(shape);
+
+                leinwand.setColor(strokeColor);
+                leinwand.draw(shape);
+            }
+        }
+
+        super.zeichnen(pGraphics);
     }
 
 }

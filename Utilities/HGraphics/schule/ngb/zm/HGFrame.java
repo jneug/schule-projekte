@@ -1,20 +1,23 @@
+import formen.FormenEbene;
+
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
-public class HGFrame extends JFrame implements Runnable, MouseInputListener {
+public class HGFrame extends Konstanten implements Runnable, MouseInputListener {
 
-    public static final int DEFAULT_WIDHT = 400;
+    public static final int DEFAULT_WIDTH = 400;
 
     public static final int DEFAULT_HEIGHT = 400;
 
     public static final int DEFAULT_FPS = 60;
 
-    private ArrayList<Layer> layers;
+    private JFrame frame;
+
+    private ArrayList<Ebene> ebenen;
 
     private CanvasComponent drawing;
 
@@ -28,14 +31,14 @@ public class HGFrame extends JFrame implements Runnable, MouseInputListener {
 
     protected double delta = 0.0, mouseX = 0.0, mouseY = 0.0, pmouseX = 0.0, pmouseY = 0.0, width = 0.0, height = 0.0;
 
-    protected CanvasLayer canvas;
+    protected ZeichenEbene zeichnung;
 
-    protected ShapesLayer shapes;
+    protected FormenEbene formen;
 
     protected Object mouseLock = new Object();
 
     public HGFrame() {
-        super("HGraphics");
+        frame = new JFrame("HGraphics");
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -43,41 +46,42 @@ public class HGFrame extends JFrame implements Runnable, MouseInputListener {
             System.err.println("Error setting default look and feel.");
         }
 
-        setSize(DEFAULT_WIDHT, DEFAULT_HEIGHT);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        drawing = new CanvasComponent(getWidth(), getHeight());
-        setContentPane(drawing);
+        drawing = new CanvasComponent(frame.getWidth(), frame.getHeight());
+        frame.setContentPane(drawing);
 
         framesPerSecond = DEFAULT_FPS;
 
-        canvas = getCanvas();
-        shapes = getShapesCanvas();
+        zeichnung = getZeichenEbene();
+        formen = getFormenEbene();
 
         settings();
 
-        addMouseListener(this);
-        addMouseMotionListener(this);
-
-        //pack();
-        requestFocusInWindow();
-        setVisible(true);
-
-        addWindowListener(new WindowAdapter() {
+        frame.addMouseListener(this);
+        frame.addMouseMotionListener(this);
+        frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 running = false;
                 super.windowClosing(e);
             }
         });
+
+        //frame.pack();
+        frame.requestFocusInWindow();
+        frame.setVisible(true);
+
         running = true;
         new Thread(this).start();
     }
 
     public void setSize( int pWidth, int pHeight ) {
-        super.setSize(pWidth, pHeight);
+        frame.setSize(pWidth, pHeight);
+
         if( drawing != null ) {
             drawing.setSize(pWidth, pHeight);
         }
@@ -85,27 +89,39 @@ public class HGFrame extends JFrame implements Runnable, MouseInputListener {
         height = pHeight;
     }
 
+    public int getWidth() {
+        return frame.getWidth();
+    }
+
+    public int getHeight() {
+        return frame.getHeight();
+    }
+
+    public void setTitle(String title) {
+        frame.setTitle(title);
+    }
+
     public CanvasComponent getDrawing() {
         return drawing;
     }
 
-    public void addLayer( Layer pLayer ) {
-        drawing.addLayer(pLayer);
+    public void addLayer( Ebene pEbene) {
+        drawing.addLayer(pEbene);
     }
 
-    public CanvasLayer getCanvas() {
-        CanvasLayer layer = drawing.findLayer(CanvasLayer.class);
+    public ZeichenEbene getZeichenEbene() {
+        ZeichenEbene layer = drawing.findLayer(ZeichenEbene.class);
         if( layer == null ) {
-            layer = new CanvasLayer(getWidth(), getHeight());
+            layer = new ZeichenEbene(getWidth(), getHeight());
             drawing.addLayer(0, layer);
         }
         return layer;
     }
 
-    public ShapesLayer getShapesCanvas() {
-        ShapesLayer layer = drawing.findLayer(ShapesLayer.class);
+    public FormenEbene getFormenEbene() {
+        FormenEbene layer = drawing.findLayer(FormenEbene.class);
         if( layer == null ) {
-            layer = new ShapesLayer(getWidth(), getHeight());
+            layer = new FormenEbene(getWidth(), getHeight());
             drawing.addLayer(layer);
         }
         return layer;
@@ -140,8 +156,8 @@ public class HGFrame extends JFrame implements Runnable, MouseInputListener {
             draw();
 
             if( drawing != null ) {
-                //invalidate();
-                repaint();
+                //drawing.invalidate();
+                frame.repaint();
             }
 
             try {
@@ -170,7 +186,7 @@ public class HGFrame extends JFrame implements Runnable, MouseInputListener {
     }
 
     public void draw( ) {
-
+        running = false;
     }
 
     @Override

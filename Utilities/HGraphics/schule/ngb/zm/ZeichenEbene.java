@@ -2,33 +2,144 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.util.Stack;
 
-public class CanvasLayer extends Layer {
-
-    public static final int CENTER = 0;
-    public static final int NORTHWEST = 1;
-    public static final int WEST = 2;
-    public static final int SOUTHWEST = 3;
-
+public class ZeichenEbene extends Ebene {
 
     private int default_anchor = CENTER;
 
-    private Stack<AffineTransform> transformStack;
+    protected Color strokeColor;
 
-    public CanvasLayer() {
+    protected Color fillColor;
+
+    protected double strokeWeight;
+
+    protected int konturArt = DURCHGEZOGEN;
+
+    public Color getColor() {
+        return fillColor;
+    }
+
+    public void noFill() {
+        fillColor = null;
+    }
+
+    public void setColor(int gray) {
+        setColor(gray, gray, gray, 255);
+    }
+
+    public void setColor(int gray, int alpha) {
+        setColor(gray, gray, gray, alpha);
+    }
+
+    public void setColor(int red, int green, int blue) {
+        setColor(red, green, blue, 255);
+    }
+
+    public void setColor(int red, int green, int blue, int alpha ) {
+        if (red   < 0 || red   >= 256) throw new IllegalArgumentException("red must be between 0 and 255");
+        if (green < 0 || green >= 256) throw new IllegalArgumentException("green must be between 0 and 255");
+        if (blue  < 0 || blue  >= 256) throw new IllegalArgumentException("blue must be between 0 and 255");
+        if (alpha  < 0 || alpha  >= 256) throw new IllegalArgumentException("alpha must be between 0 and 255");
+
+        setColor(new Color(red, green, blue, alpha));
+    }
+
+    public void setColor(Color pColor) {
+        fillColor = pColor;
+        leinwand.setColor(pColor);
+    }
+
+    public Color getStrokeColor() {
+        return strokeColor;
+    }
+
+    public void noStroke() {
+        strokeColor = null;
+    }
+
+    public void setStrokeColor(int gray) {
+        setStrokeColor(gray, gray, gray, 255);
+    }
+
+    public void setStrokeColor(int gray, int alpha) {
+        setStrokeColor(gray, gray, gray, alpha);
+    }
+
+    public void setStrokeColor(int red, int green, int blue) {
+        if (red   < 0 || red   >= 256) throw new IllegalArgumentException("red must be between 0 and 255");
+        if (green < 0 || green >= 256) throw new IllegalArgumentException("green must be between 0 and 255");
+        if (blue  < 0 || blue  >= 256) throw new IllegalArgumentException("blue must be between 0 and 255");
+        setStrokeColor(red, green, blue, 255);
+    }
+
+    public void setStrokeColor(int red, int green, int blue, int alpha ) {
+        if (red   < 0 || red   >= 256) throw new IllegalArgumentException("red must be between 0 and 255");
+        if (green < 0 || green >= 256) throw new IllegalArgumentException("green must be between 0 and 255");
+        if (blue  < 0 || blue  >= 256) throw new IllegalArgumentException("blue must be between 0 and 255");
+        if (alpha  < 0 || alpha  >= 256) throw new IllegalArgumentException("alpha must be between 0 and 255");
+
+        setStrokeColor(new Color(red, green, blue, alpha));
+    }
+
+    public void setStrokeColor(Color pColor) {
+        strokeColor = pColor;
+        leinwand.setColor(pColor);
+    }
+
+    public void setStrokeWeight( double pWeight ) {
+        strokeWeight = pWeight;
+        leinwand.setStroke(createStroke());
+    }
+
+    protected Stroke createStroke() {
+        switch(konturArt) {
+            case GEPUNKTET:
+                return new BasicStroke(
+                    (float) strokeWeight,
+                    BasicStroke.CAP_ROUND,
+                    BasicStroke.JOIN_ROUND,
+                    10.0f, new float[]{1.0f, 5.0f}, 0.0f);
+            case GESTRICHELT:
+                return new BasicStroke(
+                    (float) strokeWeight,
+                    BasicStroke.CAP_ROUND,
+                    BasicStroke.JOIN_ROUND,
+                    10.0f, new float[]{5.0f}, 0.0f);
+            default:
+                return new BasicStroke(
+                    (float) strokeWeight,
+                    BasicStroke.CAP_ROUND,
+                    BasicStroke.JOIN_ROUND);
+        }
+    }
+
+    public int getKonturArt() {
+        return konturArt;
+    }
+
+    public void setKonturArt(int konturArt) {
+        this.konturArt = konturArt;
+    }
+
+    private Stack<AffineTransform> transformStack = new Stack<>();
+
+    public ZeichenEbene() {
         super();
-        transformStack = new Stack<>();
         transformStack.push(new AffineTransform());
+
+        strokeColor = Color.BLACK;
+        fillColor = Color.WHITE;
+        strokeWeight = 1.0;
+    }
+
+    public ZeichenEbene(int pWidth, int pHeight) {
+        super(pWidth, pHeight);
     }
 
     public void setAnchor( int pAnchor ) {
         default_anchor = pAnchor;
     }
 
-    public CanvasLayer(int pWidth, int pHeight) {
-        super(pWidth, pHeight);
-    }
-
-    public void clear() {
+    public void leeren() {
         clear(200);
     }
 
@@ -51,20 +162,20 @@ public class CanvasLayer extends Layer {
     public void clear(Color pColor) {
         /*graphics.setBackground(pColor);
         graphics.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());*/
-        Color currentColor = graphics.getColor();
-        graphics.setColor(pColor);
-        graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        graphics.setColor(currentColor);
+        Color currentColor = leinwand.getColor();
+        pushMatrix();
+        resetMatrix();
+        leinwand.setColor(pColor);
+        leinwand.fillRect(0, 0, puffer.getWidth(), puffer.getHeight());
+        leinwand.setColor(currentColor);
+        popMatrix();
     }
 
     public void line(double x1, double y1, double x2, double y2) {
-        if (strokeColor != null && strokeColor.getAlpha() > 0.0) {
-            Shape line = new Line2D.Double(x1, y1, x2, y2);
-            line = transformToCanvas(line);
+        Shape line = new Line2D.Double(x1, y1, x2, y2);
+        //line = transformToCanvas(line);
 
-            graphics.setColor(strokeColor);
-            graphics.draw(line);
-        }
+        drawShape(line);
     }
 
     public void pixel(double x, double y) {
@@ -88,16 +199,10 @@ public class CanvasLayer extends Layer {
         Shape rect = new Rectangle2D.Double(
             anchorPoint.getX(), anchorPoint.getY(), w, h
         );
-        rect = transformToCanvas(rect);
+        //rect = transformToCanvas(rect);
 
-        if (fillColor != null && fillColor.getAlpha() > 0.0) {
-            graphics.setColor(fillColor);
-            graphics.fill(rect);
-        }
-        if (strokeColor != null && strokeColor.getAlpha() > 0.0) {
-            graphics.setColor(strokeColor);
-            graphics.draw(rect);
-        }
+        fillShape(rect);
+        drawShape(rect);
     }
 
     public void point(double x, double y) {
@@ -121,16 +226,10 @@ public class CanvasLayer extends Layer {
         Shape ellipse = new Ellipse2D.Double(
             anchorPoint.x, anchorPoint.y, w, h
         );
-        ellipse = transformToCanvas(ellipse);
+        //ellipse = transformToCanvas(ellipse);
 
-        if (fillColor != null && fillColor.getAlpha() > 0.0) {
-            graphics.setColor(fillColor);
-            graphics.fill(ellipse);
-        }
-        if (strokeColor != null && strokeColor.getAlpha() > 0.0) {
-            graphics.setColor(strokeColor);
-            graphics.draw(ellipse);
-        }
+        fillShape(ellipse);
+        drawShape(ellipse);
     }
 
     public void arc( double x, double y, double d, double angle1, double angle2 ) {
@@ -144,12 +243,9 @@ public class CanvasLayer extends Layer {
             angle1, angle2 - angle1,
             Arc2D.OPEN
         );
-        arc = transformToCanvas(arc);
+        //arc = transformToCanvas(arc);
 
-        if (strokeColor != null && strokeColor.getAlpha() > 0.0) {
-            graphics.setColor(strokeColor);
-            graphics.draw(arc);
-        }
+        drawShape(arc);
     }
 
     public void pie( double x, double y, double d, double angle1, double angle2 ) {
@@ -163,16 +259,10 @@ public class CanvasLayer extends Layer {
             angle1, angle2 - angle1,
             Arc2D.PIE
         );
-        arc = transformToCanvas(arc);
+        //arc = transformToCanvas(arc);
 
-        if (fillColor != null && fillColor.getAlpha() > 0.0) {
-            graphics.setColor(fillColor);
-            graphics.fill(arc);
-        }
-        if (strokeColor != null && strokeColor.getAlpha() > 0.0) {
-            graphics.setColor(strokeColor);
-            graphics.draw(arc);
-        }
+        fillShape(arc);
+        drawShape(arc);
     }
 
     private Point2D.Double transformToCanvas(double x, double y) {
@@ -271,36 +361,55 @@ public class CanvasLayer extends Layer {
         );
     }
 
-    public void translate( double dx, double dy ) {
-        getMatrix().translate(dx, dy);
-    }
-
-    public void scale( double factor ) {
-        getMatrix().scale(factor, factor);
-    }
-
-    public void rotate( double pAngle ) {
-        getMatrix().rotate(Math.toRadians(pAngle));
-    }
-
-    public void shear( double dx, double dy ) {
-        getMatrix().shear(dx, dy);
-    }
-
-    public void pushMatrix() {
-        transformStack.push(new AffineTransform(transformStack.peek()));
-    }
-
-    public void popMatrix() {
-        transformStack.pop();
-        // Ensure at least one (identity) matrix is on the stack
-        if( transformStack.isEmpty() ) {
-            pushMatrix();
+    private void fillShape( Shape pShape ) {
+        if (fillColor != null && fillColor.getAlpha() > 0.0) {
+            leinwand.setColor(fillColor);
+            leinwand.fill(pShape);
         }
     }
 
+    private void drawShape( Shape pShape ) {
+        if (strokeColor != null && strokeColor.getAlpha() > 0.0
+            && strokeWeight > 0.0 ) {
+            leinwand.setColor(strokeColor);
+            leinwand.draw(pShape);
+        }
+    }
+
+    public void translate( double dx, double dy ) {
+        leinwand.translate(dx, dy);
+    }
+
+    public void scale( double factor ) {
+        leinwand.scale(factor, factor);
+    }
+
+    public void rotate( double pAngle ) {
+        leinwand.rotate(Math.toRadians(pAngle));
+    }
+
+    public void shear( double dx, double dy ) {
+        leinwand.shear(dx, dy);
+    }
+
     public AffineTransform getMatrix() {
-        return transformStack.peek();
+        return leinwand.getTransform();
+    }
+
+    public void pushMatrix() {
+        transformStack.push(leinwand.getTransform());
+    }
+
+    public void popMatrix() {
+        if( transformStack.isEmpty() ) {
+            resetMatrix();
+        } else {
+            leinwand.setTransform(transformStack.pop());
+        }
+    }
+
+    public void resetMatrix() {
+        leinwand.setTransform(new AffineTransform());
     }
 
 }
