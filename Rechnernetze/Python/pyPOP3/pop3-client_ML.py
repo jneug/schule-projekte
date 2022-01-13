@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-##!! Behebt das Import-Problem in Mu-Editor
+##!! Behebt das Import-Problem im Mu-Editor
 import os
 os.chdir(os.path.dirname(__file__))
 

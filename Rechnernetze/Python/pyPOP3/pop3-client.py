@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-##!! Behebt das Import-Problem in Mu-Editor
+##!! Behebt das Import-Problem im Mu-Editor
 import os
 os.chdir(os.path.dirname(__file__))
 
@@ -27,7 +27,7 @@ POP3_PASS = "ifq2_user1"
 def getMessageCount(pStatMessage):
     """
     Hilfsfunktion:
-    Extrahiert die Anzhal an Mails auf dem Server aus der STAT Antwort
+    Extrahiert die Anzahl an Mails auf dem Server aus der STAT Antwort
     und gibt sie als int zurück.
     """
     firstSpace, secondSpace  = pStatMessage.find(' '), pStatMessage.rfind(' ')
