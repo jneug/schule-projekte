@@ -86,6 +86,8 @@ def printNextMail(i):
 
     ## Mail ausgeben
     while mes != ".":
+        if mes.startswith("."):
+            mes = mes[1:]
         print(mes)
         mes = con.receive()
 

@@ -25,3 +25,4 @@ class Connection(object):
 
     def close(self):
         self._socket.close()
+        self._socket=None
