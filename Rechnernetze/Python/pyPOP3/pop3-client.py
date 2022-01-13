@@ -51,7 +51,7 @@ def printNextMail():
     msg = con.receive()
     ## Prüfen der Begrüßung auf Fehler-Markierung
     if msg.startswith('-ERR'):
-        print('Benutzername nicht akzeptiert!')     ## Fehler ausgeben,
+        print('Fehler beim Verbindungsaufbau!')     ## Fehler ausgeben,
         con.close()                                 ## Verbindung schließen und
         return                                      ## Methode beenden
 
