@@ -13,11 +13,17 @@ public class CheeseChampion {
     private ??? seitengang;
     private ??? ausgang;
     *aufg*/
-    /*aufg* >1
+    /*aufg* 2
     // TODO: Ersetze ??? durch die passende Datenstruktur
     private ???<Maus> eingang;
     private ???<Maus> seitengang;
     private ???<Maus> ausgang;
+    *aufg*/
+    /*aufg* >2
+    // Deklaration der Gänge
+    private Queue<Maus> eingang;
+    private Stack<Maus> seitengang;
+    private Queue<Maus> ausgang;
     *aufg*/
     //ml*
     private Queue<Maus> eingang;
@@ -27,6 +33,7 @@ public class CheeseChampion {
 
     public CheeseChampion() {
         /*aufg*
+        // Initialisierung der Gänge
         // TODO: Ersetze ??? durch die passende Datenstruktur
         eingang = ???;
         seitengang = ???;
@@ -73,7 +80,7 @@ public class CheeseChampion {
      */
     public void kampf() {
         /*aufg*
-        // TODO: Implemenitere hier den Mäusekampf
+        // TODO: Implementiere hier den Mäusekampf
         *aufg*/
         /*aufg* 2
         while( !eingang.isEmpty() ) {

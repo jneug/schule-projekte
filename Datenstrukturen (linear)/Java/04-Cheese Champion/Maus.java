@@ -1,11 +1,11 @@
 /**
  * Eine Maus, die am Mäusekampf (Cheese Champion) teilnimmt, hat eine Nummer
- * und eine Stärke als Attribute.
+ * und eine Stärke (beide ganze Zahlen) als Attribute.
  */
 public class Maus {
 
     /*aufg*
-    TODO: Implementiere die Maus nach der Beschreibung
+    // TODO: Implementiere die Maus nach der Beschreibung
     *aufg*/
     /*aufg* 2
     private int nummer;
