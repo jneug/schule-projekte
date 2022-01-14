@@ -125,6 +125,7 @@ public class ArrayDojoTest {
         try {
             for( int i = 0; i < 10; i++ ) {
                 numbers = ad.setFirst(numbers, 100 + i);
+                assertNotNull("setFirst() muss das geänderte Array zurückgeben.", numbers);
                 assertEquals(100 + i, numbers[0]);
                 numbers = Arrays.copyOfRange(numbers, 1, numbers.length);
             }
