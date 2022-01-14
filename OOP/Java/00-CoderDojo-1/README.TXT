@@ -9,7 +9,7 @@ Programmierung mit Java: Variablen, Kontrollstrukturen, usw.
 
 
 Im Kommentar jeder Methode steht eine Beschreibung des Problems, dass in der
-Methode gelöst werden soll. Die Klasse {@link CoderDojoTest} enthält
+Methode gelöst werden soll. Die Klasse _CoderDojoTest_ enthält
 Testmethoden, die prüfen, ob die Methode korrekt implementiert wurde. Die
 Tests können in BlueJ mit einem Rechtsklick auf die Testklasse gestartet
 werden.
