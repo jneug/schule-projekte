@@ -27,6 +27,7 @@ public class ListDojoTest {
     public void testAscendingList() {
         ListDojo ld = new ListDojo();
         List<Integer> ascList = ld.ascendingList(100);
+        assertNotNull(ascList);
 
         int i = 0;
         ascList.toFirst();
@@ -38,6 +39,7 @@ public class ListDojoTest {
         assertEquals("ascendingList(100) muss 100 Elemente enthalten.", i, 100);
 
         ascList = ld.ascendingList(1);
+        assertNotNull(ascList);
         ascList.toFirst();
         assertFalse("ascendingList(1) muss ein Element enthalten.", ascList.isEmpty());
         assertEquals(1, ascList.getContent().intValue());
@@ -45,6 +47,7 @@ public class ListDojoTest {
         assertFalse(ascList.hasAccess());
 
         ascList = ld.ascendingList(0);
+        assertNotNull(ascList);
         assertTrue("ascendingList(0) soll eine leere Liste ergeben.", ascList.isEmpty());
     }
 
@@ -52,6 +55,7 @@ public class ListDojoTest {
     public void testRandomList() {
         ListDojo ld = new ListDojo();
         List<Integer> randList = ld.randomList(1000, 5000, 6000);
+        assertNotNull(randList);
 
         int i = 0;
         randList.toFirst();
@@ -68,6 +72,7 @@ public class ListDojoTest {
 
 
         randList = ld.randomList(1, 1, 1);
+        assertNotNull(randList);
         randList.toFirst();
         assertFalse(randList.isEmpty());
         assertEquals(1, randList.getContent().intValue());
@@ -76,6 +81,7 @@ public class ListDojoTest {
 
 
         randList = ld.randomList(0, 0, 100);
+        assertNotNull(randList);
         assertTrue(randList.isEmpty());
     }
 
