@@ -13,7 +13,7 @@ public class SuperSecureLoginForm extends JFrame {
     private JLabel lBenutzername = new JLabel();
     private JLabel lPasswort = new JLabel();
     private JButton jbLogin = new JButton();
-    private JLabel jlStatus = new JLabel();
+    private JLabel jlStatus = new  JLabel();
     private JCheckBox cbShowQueries = new JCheckBox();
     // Ende Attribute
 

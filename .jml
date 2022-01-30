@@ -1,0 +1,4 @@
+[settings]
+project root = .
+output dir = ../schule-versionen
+create zip = yes

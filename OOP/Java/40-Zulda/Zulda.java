@@ -7,12 +7,25 @@ import ea.*;
  */
 public class Zulda extends Game {
 
+    // Konfigruationsvariablen
+    public static int WIDTH = 960;
+    public static int HEIGHT = 720;
+
+    public static int WORLD_WIDTH = 4;
+    public static int WORLD_HEIGHT = 3;
+
+    public static int MAP_WIDTH = 20;
+    public static int MAP_HEIGHT = 15;
+
+    public static int TILE_SIZE = 48;
+
+
     private Welt welt;
 
     private Lunk lunk;
 
     public Zulda() {
-        super(960, 720, "Zulda the Game");
+        super(WIDTH, HEIGHT, "Zulda the Game");
 
 
         lunk = new Lunk();

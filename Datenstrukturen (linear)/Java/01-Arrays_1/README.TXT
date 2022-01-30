@@ -1,3 +1,3 @@
-# Arrays
+# ArrayDojo
 
-Übungsprojekt zu Arrays.
+Übungsprojekt zu ArrayDojo.

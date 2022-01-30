@@ -1,12 +1,12 @@
 #BlueJ package file
-dependency1.from=Arrays
+dependency1.from=ArrayDojo
 dependency1.to=Wuerfel
 dependency1.type=UsesDependency
 dependency2.from=ArraysTest
 dependency2.to=Wuerfel
 dependency2.type=UsesDependency
 dependency3.from=ArraysTest
-dependency3.to=Arrays
+dependency3.to=ArrayDojo
 dependency3.type=UsesDependency
 editor.fx.0.height=722
 editor.fx.0.width=800
@@ -47,7 +47,7 @@ target2.width=80
 target2.x=240
 target2.y=490
 target3.height=160
-target3.name=Arrays
+target3.name=ArrayDojo
 target3.showInterface=false
 target3.type=ClassTarget
 target3.width=180

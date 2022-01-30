@@ -91,7 +91,8 @@ public class List<ContentType> {
      * @param pContent das einzufuegende Objekt vom Typ ContentType
      */
     public void insert( ContentType pContent ) {
-
+        next = new List<>(content, next);
+        content = pContent;
     }
 
     /**
@@ -140,7 +141,8 @@ public class List<ContentType> {
      * aktuelles Objekt mehr.
      */
     public void remove() {
-
+        content = next.getContent();
+        next = next.next();
     }
 
 }

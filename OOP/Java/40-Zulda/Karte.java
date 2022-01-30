@@ -1,9 +1,6 @@
 import ea.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Eine Karte besteht aus 20 mal 15 {@link Feld}ern und stellt einen Ausschnitt
@@ -43,7 +40,7 @@ public class Karte extends Knoten {
         welt = pWelt;
         weltX = pX;
         weltY = pY;
-        felder = new Feld[20][15];
+        felder = new Feld[Zulda.MAP_WIDTH][Zulda.MAP_HEIGHT];
 
         gegner = new ArrayList<>();
         gegenstaende = new ArrayList<>();
@@ -51,7 +48,7 @@ public class Karte extends Knoten {
         // Erstelle eine Karte nur aus Grasfeldern
         for( int i = 0; i < felder.length; i++ ) {
             for (int j = 0; j < felder[0].length; j++) {
-                felder[i][j] = new Feld(i*48,j*48, "gras");
+                felder[i][j] = new Feld(i*Zulda.TILE_SIZE,j*Zulda.TILE_SIZE, "gras");
                 add(felder[i][j]);
             }
         }
@@ -113,8 +110,8 @@ public class Karte extends Knoten {
      * @return
      */
     public Feld feldAnKoordinate( float x, float y ) {
-        int i = (int) (x/48);
-        int j = (int) (y/48);
+        int i = (int) (x/Zulda.TILE_SIZE);
+        int j = (int) (y/Zulda.TILE_SIZE);
         return feldAnIndex(i, j);
     }
 
@@ -177,7 +174,7 @@ public class Karte extends Knoten {
      */
     public void bewegeLinks( Gegner pGegner ) {
         if (pGegner.zentrum().x > 0) {
-            Feld feld = feldAnKoordinate(pGegner.zentrum().x-48, pGegner.zentrum().y);
+            Feld feld = feldAnKoordinate(pGegner.zentrum().x-Zulda.TILE_SIZE, pGegner.zentrum().y);
             if( feld != null && feld.istPassierbar() ) {
                 verschiebeZuFeld(pGegner, feld);
             }
@@ -191,7 +188,7 @@ public class Karte extends Knoten {
      */
     public void bewegeRechts( Gegner pGegner ) {
         if (pGegner.zentrum().x < 19*48) {
-            Feld feld = feldAnKoordinate(pGegner.zentrum().x+48, pGegner.zentrum().y);
+            Feld feld = feldAnKoordinate(pGegner.zentrum().x+Zulda.TILE_SIZE, pGegner.zentrum().y);
             if( feld != null && feld.istPassierbar() ) {
                 verschiebeZuFeld(pGegner, feld);
             }
@@ -205,7 +202,7 @@ public class Karte extends Knoten {
      */
     public void bewegeHoch( Gegner pGegner ) {
         if (pGegner.zentrum().y > 0) {
-            Feld feld = feldAnKoordinate(pGegner.zentrum().x, pGegner.zentrum().y-48);
+            Feld feld = feldAnKoordinate(pGegner.zentrum().x, pGegner.zentrum().y-Zulda.TILE_SIZE);
             if( feld != null && feld.istPassierbar() ) {
                 verschiebeZuFeld(pGegner, feld);
             }
@@ -218,8 +215,8 @@ public class Karte extends Knoten {
      * {@link Feld#istPassierbar() passierbar}, passiert nichts.
      */
     public void bewegeRunter( Gegner pGegner ) {
-        if (pGegner.zentrum().y < 14*48) {
-            Feld feld = feldAnKoordinate(pGegner.zentrum().x, pGegner.zentrum().y+48);
+        if (pGegner.zentrum().y < (Zulda.MAP_HEIGHT-1)*Zulda.TILE_SIZE) {
+            Feld feld = feldAnKoordinate(pGegner.zentrum().x, pGegner.zentrum().y+Zulda.TILE_SIZE);
             if( feld != null && feld.istPassierbar() ) {
                 verschiebeZuFeld(pGegner, feld);
             }

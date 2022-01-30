@@ -1,4 +1,3 @@
-Implementierung der push- und pop-Operationen in der Stack-Klasse (Stapel) aus
-dem Zentralabitur NRW.
+Implementierung der Aufgabe "Mäusekapf" aus dem 17. Bundeswettbewerb Informatik.
 
-Version: 2020-09-09
+Version: 2021-12-21
