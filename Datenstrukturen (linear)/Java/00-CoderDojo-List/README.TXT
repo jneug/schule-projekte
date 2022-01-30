@@ -1,12 +1,11 @@
- CoderDojo-ADT1
+ CoderDojo-List
 ================
 
-Das CoderDojo Projekt ist eine Sammlung unzusammenhängender Übungen zur
+Ein CoderDojo Projekt ist eine Sammlung unzusammenhängender Übungen zur
 Objektorientierten Programmierung.
 
-Dieser Dojo befasst sich mit den einfach verketteten Listen aus dem
+Dieses Dojo befasst sich mit den einfach verketteten Listen aus dem
 Material zum Abitur NRW.
-
 
 Im Kommentar jeder Methode steht eine Beschreibung des Problems, dass in der
 Methode gelöst werden soll. Die Klasse _ListDojoTest_ enthält
@@ -19,5 +18,4 @@ dir also die für dich interessantesten heraus.
 
 
 Autor: J. Neugebauer
-Erstellt: 13.01.2022
-Version: 0.0.1
+Version: 1.0.0 (2022-01-30)

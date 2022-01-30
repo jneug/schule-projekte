@@ -12,9 +12,9 @@ import static org.junit.Assert.*;
  * und durch Auswahl der passenden Testmethode. Du kannst alle Tests in der
  * linken Seitenleiste starten, indem du auf den kleinen Pfeil klickst und
  * "Tests starten" wählst.
- *
+ * <p>
  * <b>Achtung:</b> Verändere diese Klasse nicht! Du brauchst dir
- * diesen Quelltext auch nicht ansehen. Es reicht, die Tests zur Überprüfung
+ * diesen Quelltext auch nicht anzusehen. Es reicht, die Tests zur Überprüfung
  * deiner Lösungen zu nutzen.
  */
 public class ArrayDojoTest {

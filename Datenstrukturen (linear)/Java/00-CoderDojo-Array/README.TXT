@@ -1,15 +1,14 @@
- CoderDojo-1
-=============
+ CoderDojo-Array
+=================
 
 Ein CoderDojo Projekt ist eine Sammlung unzusammenhängender Übungen zur
 Objektorientierten Programmierung.
 
-Dieses Dojo befasst sich mit den grundlegenden Konzepten der imperativen
-Programmierung mit Java: Variablen, Kontrollstrukturen, usw.
+Dieses Dojo befasst sich mit der Datenstruktur Array (Datenfeld) bis
+zweidimensional.
 
-
-Im Kommentar jeder Methode steht eine Beschreibung des Problems, dass in der
-Methode gelöst werden soll. Die Klasse _CoderDojoTest_ enthält
+Im Kommentar jeder Methode steht eine Beschreibung des Problems, das in der
+Methode gelöst werden soll. Die Klasse _ArrayDojoTest_ enthält
 Testmethoden, die prüfen, ob die Methode korrekt implementiert wurde. Die
 Tests können in BlueJ mit einem Rechtsklick auf die Testklasse gestartet
 werden.

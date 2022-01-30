@@ -1,28 +1,28 @@
-import static org.junit.Assert.*;
-
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import static org.junit.Assert.*;
+
 /**
  * Test-Klasse für das CoderDojo.
- *
- * Starte die Tests mit einem Rechtsklick auf die Klasse im
- * BlueJ Projektfenster und durch Auswahl der passenden
- * Testmethode. Du kannst alle Tests in der linken Seitenleiste
- * starten, indem du auf den kleinen Pfeil klickst und "Tests
- * starten" wählst.
- *
+ * <p>
+ * Starte die Tests mit einem Rechtsklick auf die Klasse im BlueJ Projektfenster
+ * und durch Auswahl der passenden Testmethode. Du kannst alle Tests in der
+ * linken Seitenleiste starten, indem du auf den kleinen Pfeil klickst und
+ * "Tests starten" wählst.
+ * <p>
  * <b>Achtung:</b> Verändere diese Klasse nicht! Du brauchst dir
- * diesen Quelltext auch nicht ansehen. Es reicht, die Tests zur
- * Überprüfung deiner Lösungen zu nutzen.
+ * diesen Quelltext auch nicht anzusehen. Es reicht, die Tests zur Überprüfung
+ * deiner Lösungen zu nutzen.
  */
 public class CoderDojoTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+
     private final PrintStream originalOut = System.out;
 
     @Before
@@ -103,7 +103,7 @@ public class CoderDojoTest {
         assertFalse("makes10(4,3)", cd.makes10(4, 3));
     }
 
-        @Test
+    @Test
     public void testIsEven() {
         CoderDojo cd = new CoderDojo();
 
@@ -123,12 +123,12 @@ public class CoderDojoTest {
     public void testThreeOrFive() {
         CoderDojo cd = new CoderDojo();
 
-        for( int i: new int[]{3,5,9,15,20,25,125,300} ) {
-            assertTrue(i+" is divisable by 3 or 5", cd.threeOrFive(i));
+        for( int i : new int[]{3, 5, 9, 15, 20, 25, 125, 300} ) {
+            assertTrue(i + " is divisable by 3 or 5", cd.threeOrFive(i));
         }
 
-        for( int i: new int[]{1,8,13,22,73} ) {
-            assertFalse(i+" is not divisable by 3 or 5", cd.threeOrFive(i));
+        for( int i : new int[]{1, 8, 13, 22, 73} ) {
+            assertFalse(i + " is not divisable by 3 or 5", cd.threeOrFive(i));
         }
     }
 
@@ -136,12 +136,12 @@ public class CoderDojoTest {
     public void testThreeAndFive() {
         CoderDojo cd = new CoderDojo();
 
-        for( int i: new int[]{15,30,45,60,90,120} ) {
-            assertTrue(i+" is divisable by 3 and 5", cd.threeAndFive(i));
+        for( int i : new int[]{15, 30, 45, 60, 90, 120} ) {
+            assertTrue(i + " is divisable by 3 and 5", cd.threeAndFive(i));
         }
 
-        for( int i: new int[]{3,5,25,33,35,91,110,4321} ) {
-            assertFalse(i+" is not divisable by 3 and 5", cd.threeAndFive(i));
+        for( int i : new int[]{3, 5, 25, 33, 35, 91, 110, 4321} ) {
+            assertFalse(i + " is not divisable by 3 and 5", cd.threeAndFive(i));
         }
     }
 
@@ -153,9 +153,9 @@ public class CoderDojoTest {
         n = cd.piffPaff(20);
         assertEquals(1, n);
 
-        j = ( outContent.toString().split("piff").length ) - 1;
+        j = (outContent.toString().split("piff").length) - 1;
         assertEquals("Falsche Anzahl piffs", 6, j);
-        j = ( outContent.toString().split("paff").length ) - 1;
+        j = (outContent.toString().split("paff").length) - 1;
         assertEquals("Falsche Anzahl paffs", 4, j);
 
         outContent.reset();
@@ -163,9 +163,9 @@ public class CoderDojoTest {
         n = cd.piffPaff(100);
         assertEquals(6, n);
 
-        j = ( outContent.toString().split("piff").length ) - 1;
+        j = (outContent.toString().split("piff").length) - 1;
         assertEquals("Falsche Anzahl piffs", 33, j);
-        j = ( outContent.toString().split("paff").length ) - 1;
+        j = (outContent.toString().split("paff").length) - 1;
         assertEquals("Falsche Anzahl paffs", 20, j);
     }
 
@@ -188,6 +188,14 @@ public class CoderDojoTest {
     }
 
     @Test
+    public void testDuplocateString() {
+        CoderDojo cd = new CoderDojo();
+
+        assertEquals("duplicateString(\"foo\")", "foofoo", cd.duplicateString("foo"));
+        assertEquals("duplicateString(\"barbar\")", "barbarbarbar", cd.duplicateString("barbar"));
+    }
+
+    @Test
     public void testRepeatString() {
         CoderDojo cd = new CoderDojo();
 
@@ -206,9 +214,9 @@ public class CoderDojoTest {
         Pokemon p2 = new Pokemon("Pikachu", 5, 15);
         Pokemon p3 = new Pokemon("Enton", 10, 5);
 
-        assertEquals("Bulbasa", cd.getPokemonName(p1));
-        assertEquals("Pikachu", cd.getPokemonName(p2));
-        assertEquals("Enton", cd.getPokemonName(p3));
+        assertEquals("getPokemonName("+p1+")", "Bulbasa", cd.getPokemonName(p1));
+        assertEquals("getPokemonName("+p2+")", "Pikachu", cd.getPokemonName(p2));
+        assertEquals("getPokemonName("+p3+")", "Enton", cd.getPokemonName(p3));
     }
 
 
@@ -220,15 +228,15 @@ public class CoderDojoTest {
         Pokemon p2 = new Pokemon("Pikachu", 5, 15);
         Pokemon p3 = new Pokemon("Enton", 10, 5);
 
-        assertEquals(p2, cd.pokemonFight(p1, p2));
-        assertEquals(p1, cd.pokemonFight(p2, p1));
+        assertEquals(p1 + " vs " + p2, p2, cd.pokemonFight(p1, p2));
+        assertEquals(p2 + " vs " + p1, p1, cd.pokemonFight(p2, p1));
 
-        assertEquals(p1, cd.pokemonFight(p1, p1));
+        assertEquals(p1 + " vs " + p1, p1, cd.pokemonFight(p1, p1));
 
-        assertEquals(p1, cd.pokemonFight(p3, p1));
-        assertEquals(p3, cd.pokemonFight(p2, p3));
-        assertEquals(p2, cd.pokemonFight(p3, p2));
-        assertEquals(p1, cd.pokemonFight(p1, p3));
+        assertEquals(p3 + " vs " + p1, p1, cd.pokemonFight(p3, p1));
+        assertEquals(p2 + " vs " + p3, p3, cd.pokemonFight(p2, p3));
+        assertEquals(p3 + " vs " + p2, p2, cd.pokemonFight(p3, p2));
+        assertEquals(p1 + " vs " + p3, p1, cd.pokemonFight(p1, p3));
     }
 
 
@@ -241,12 +249,13 @@ public class CoderDojoTest {
         Pokemon p3 = new Pokemon("Enton", 10, 5);
 
         p2.addAttack(25);
-        assertEquals(30, p2.getAttack());
+        assertEquals("Pikachu[a:5|d:15].addAttack(25)", 30, p2.getAttack());
 
-        cd.addAttack(p1,100);
-        assertEquals(110, p1.getAttack());
+        cd.addAttack(p1, 100);
+        assertEquals("addAttack(Bulbasa[a:10|d:10], 100)", 110, p1.getAttack());
 
-        cd.addAttack(p3,-5);
-        assertEquals(5, p3.getAttack());
+        cd.addAttack(p3, -5);
+        assertEquals("addAttack(Enton[a:10|d:5], -5)", 5, p3.getAttack());
     }
+
 }

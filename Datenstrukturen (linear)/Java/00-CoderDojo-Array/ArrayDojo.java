@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 /**
  * Das ArrayDojo Projekt ist eine Sammlung unzusammenhängender Übungen zur
  * Programmierung mit zweidimensionalen Arrays.
