@@ -2,15 +2,24 @@
 
 > Eine Sammlung von Informatiksystemen, Programmen, Algorithmen und Texten für den Informatikunterricht.
 
-In diesem Repository sind eine Reihe von Informatiksystemen, Programmen, Algorithmen und Texten gesammelt, die für die Nutzung im Informatikunterricht bestimmt sind. Zu den immer wiederkehrenden Themenfeldern in den verschiedenen Curricula bietet sich die Sammlung von erprobten didaktischen Systemen an, die zur Planung und Durchführung von Informatikunterricht genutzt werden können.
+In diesem Repository sind meine Projekte für den Informatikunterricht gesammelt. Ich bemühe mich, die Projekte umfassend zu dokumentieren und fehlerfrei zu halten, allerdings gelingt das in der Hitze des schulischen Alltags manchmal nur bedingt. Daher bin ich über jegliche Fehlermeldungen und Verbesserungsvorschläge dankbar. 
 
-Beispiele sind Gerüste einer Sortiermaschine, in der Schülerinnen und Schüler eigene Sortieralgorithmen implementieren können, oder aber ein geschlossenes Informatiksystem, mit dessen Hilfe Suchalgorithmen handlungsorientiert erkundet werden können.
+Die Projekte sind grob nach Themengebieten sortiert, auch, wenn sich einige Projekte nicht ganz eindeutig einsortieren lassen. Innerhalb der Themen sind die Projekte noch einmal nach Programmiersprache sortiert. 
 
-Alle Tools in diesem Repository sind von Informatiklehrkräften speziell für den Einsatz im Unterricht entwickelt worden. Eine kuratierte Liste von weiteren, großartigen Werkzeugen für den Informatikunterricht kann unter https://github.com/jneug/awesome-informatik-tools abgerufen werden.
+Das Repository ist öffentlich und soll als Fundgrube für andere Lehrkräfte dienen. Daher können alle Quelltexte beliebig für den eigenen Unterricht kopiert, verändert und genutzt werden. Sofern spezielle Rechte oder Quellenangaben zu einem Projekt gehören, sind diese in der jeweiligen Readme angegeben. 
 
+Beachte aber vor dem Einsatz die Hinweise zu Projektversionen unten.
 
-## Projektversionen mit jml.py erzeugen
+## Eigene Projekte beisteuern
 
-Für die Projekte gibt es in der Regel zwei Versionen: Eine Musterlösung und eine Schülerversion. Manchmal gibt es auch mehrere Versionen, die zum Beispiel zur Differenzierung in einem heterogenen Kurs eingesetzt werden können. Sie enthalten z.B. mal mehr Hilfestellungen oder komplexere Aufgaben. 
+Ich bin immer auf der Suche nach guten Projektideen, deshalb würde ich mich sehr über Beiträge freuen. Wenn Du ein Projekt hast, dass Du beisteuern würdest, schick gerne einen Pull-Request oder das Projekt per Mail direkt an mich. 
 
-Da es mühsam ist, diese Versionen von Hand zu erstellen und aktuell zu halten, werden sie mit dem Python-Skript `jml.py` aus einer Basisversion erzeugt. Diese enthält den gesamten Quellcode eines Projektes. Teile können durhc speziell markierte Kommentare von bestimmten Versionen ausgeschlossen oder nur für diese eingefügt werden. `jml.py` generiert dann aus dem Projekt die geünschte Anzahl an Projektversionen.
+Das Projekt muss keine Qualitätsansprüche erfüllen (ein Blick auf meine Projekte sollte dies deutlich machen). Eine kurze Beschreibung zum Projekt wäre aber wünschenswert. 
+
+## Projektversionen erzeugen
+
+Die Projekte in diesem Repository sind nicht direkt für den Einsatz im Unterricht gedacht, sondern dienen als Basisprojekte, aus denen Schülerversionen und Musterlösungen automatisiert erzeugt werden können. Manchmal gibt es auch mehrere Versionen, die zum Beispiel zur Differenzierung in einem heterogenen Kurs eingesetzt werden können. Sie enthalten z.B. mal mehr Hilfestellungen oder komplexere Aufgaben. 
+
+Da es mühsam ist, diese Versionen von Hand zu erstellen und aktuell zu halten, wird das Tool [jml](https://github.com/jneug/jml) eingesetzt. Die Basisversionen enthalten den gesamten Quellcode der Projekte. Teile können durch speziell markierte Kommentare von bestimmten Versionen ausgeschlossen oder nur für diese eingefügt werden. `jml` generiert dann aus dem Projekt die gewünschte Anzahl an Projektversionen.
+
+Die Projektversionen werden regelmäßig erzeugt und separat in das Repository [jneug/schule-versionen](https://github.com/jneug/schule-versionen) eingestellt. 
