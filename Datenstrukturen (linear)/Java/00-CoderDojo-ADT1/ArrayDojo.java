@@ -2,21 +2,20 @@
  * Das ArrayDojo Projekt ist eine Sammlung unzusammenhängender Übungen zur
  * Programmierung mit zweidimensionalen Arrays.
  * <p>
- * <p>
  * Im Kommentar jeder Methode steht eine Beschreibung des Problems, das in der
  * Methode gelöst werden soll. Die Klasse {@link ArrayDojoTest} enthält
  * Testmethoden, die prüfen, ob die Methode korrekt implementiert wurde. Die
  * Tests können in BlueJ mit einem Rechtsklick auf die Testklasse gestartet
  * werden.
  * <p>
- * Du kannst die Methoden in beliebiger Reihenfolge implementieren. Such
- * dir also die für dich interessantesten heraus.
+ * Du kannst die Methoden in beliebiger Reihenfolge implementieren. Such dir
+ * also die für dich interessantesten heraus.
  * <p>
- * Einige Methoden sind schon vollständig implementiert, und können
- * als Beispiel dienen. Die Methoden {@link #printArray(int[][])},
- * {@link #printArray(Wuerfel[])} und {@link #printArray(Wuerfel[][])}
- * geben ein Array auf der Kommandozeile aus und können bei der Fehlersuche
- * helfen. Denke auch daran, den Debugger zu nutzen.
+ * Einige Methoden sind schon vollständig implementiert, und können als Beispiel
+ * dienen. Die Methoden {@link #printArray(int[][])}, {@link
+ * #printArray(Dice[])} und {@link #printArray(Dice[][])} geben ein Array auf
+ * der Kommandozeile aus und können bei der Fehlersuche helfen. Denke auch
+ * daran, den Debugger zu nutzen.
  * <p>
  * TODO:
  * Implementiere die Methoden nach der Beschreibung im jeweiligen
@@ -28,92 +27,92 @@ public class ArrayDojo {
     /**
      * Ein Beispiel zu Objekt-Arrays.
      * <p>
-     * Die Methode erstellt ein Array mit {@link Wuerfel}n und führt Methoden
-     * auf den Objekten aus.
+     * Die Methode erstellt ein Array mit {@link Dice Würfeln} und führt
+     * Methoden der Objekte aus.
      * <p>
-     * Teilweise refernzieren die Elemente des Arrays dasselbe Objekt.
+     * Teilweise referenzieren die Elemente des Arrays dasselbe Objekt.
      */
     public void objectArrayExample() {
-        // Array mit Objektreferenzen erstellen
-        Wuerfel[] wuerfel = new Wuerfel[6];
-        wuerfel[4] = new Wuerfel("W4");
-        wuerfel[0] = new Wuerfel("W0");
-        wuerfel[1] = new Wuerfel("W1");
-        wuerfel[2] = wuerfel[4]; // Index 2 ist dasselbe Objekt wie Index 4
-        wuerfel[3] = wuerfel[1]; // Index 3 ist dasselbe Objekt wie Index 1
+        // Array mit Objektreferenzen erstellen.
+        Dice[] dice = new Dice[6];
+        dice[4] = new Dice("W4");
+        dice[0] = new Dice("W0");
+        dice[1] = new Dice("W1");
+        dice[2] = dice[4]; // Index 2 ist dasselbe Objekt wie Index 4.
+        dice[3] = dice[1]; // Index 3 ist dasselbe Objekt wie Index 1.
 
-        // Ausgabe der Elemente im Array
-        printArray(wuerfel);
+        // Ausgabe der Elemente im Array auf der Konsole.
+        printArray(dice);
 
-        // wuerfel[2] und wuerfel[4] zeigen auf dasselbe Objekt
-        wuerfel[2].werfen();
-        System.out.printf("Index 2: %s\n", wuerfel[2].toString());
-        System.out.printf("Index 4: %s\n", wuerfel[4].toString());
-        if( wuerfel[2] == wuerfel[4] ) {
+        // dice[2] und dice[4] zeigen auf dasselbe Objekt.
+        dice[2].roll();
+        System.out.printf("Index 2: %s\n", dice[2].toString());
+        System.out.printf("Index 4: %s\n", dice[4].toString());
+        if( dice[2] == dice[4] ) {
             System.out.println("Index 2 und Index 4 sind dasselbe Objekt.");
         }
         System.out.println();
 
-        // Die Referenz in wuerfel[2] kann auf ein neues Objekt gesetzt werden
-        wuerfel[2] = new Wuerfel("W2");
-        System.out.printf("Index 2: %s\n", wuerfel[2].toString());
-        System.out.printf("Index 4: %s\n", wuerfel[4].toString());
-        if( wuerfel[2] != wuerfel[4] ) {
+        // Die Referenz in dice[2] kann auf ein neues Objekt gesetzt werden.
+        dice[2] = new Dice("W2");
+        System.out.printf("Index 2: %s\n", dice[2].toString());
+        System.out.printf("Index 4: %s\n", dice[4].toString());
+        if( dice[2] != dice[4] ) {
             System.out.println("Index 2 und Index 4 sind unterschiedliche Objekt.");
         }
         System.out.println();
 
-        // Eine Objektreferenz im Array kann auch gelöscht werden
+        // Eine Objektreferenz im Array kann auch gelöscht werden.
         // Das zugehörige Objekt bleibt erhalten, solange noch eine andere
-        // Referenz vorhanden ist (hier wuerfel[1]).
-        System.out.printf("Index 1: %s\n", wuerfel[1].toString());
-        System.out.printf("Index 3: %s\n", wuerfel[3].toString());
-        wuerfel[3] = null;
-        System.out.printf("Index 1: %s\n", wuerfel[1].toString());
-        System.out.printf("Index 3: %s\n", wuerfel[3]);
+        // Referenz vorhanden ist (hier dice[1]).
+        System.out.printf("Index 1: %s\n", dice[1].toString());
+        System.out.printf("Index 3: %s\n", dice[3].toString());
+        dice[3] = null;
+        System.out.printf("Index 1: %s\n", dice[1].toString());
+        System.out.printf("Index 3: %s\n", dice[3]);
         System.out.println();
 
-        // Referenzen können beliebig neu gesetzt werden
-        Wuerfel w5 = new Wuerfel("W5");
-        wuerfel[5] = w5;
-        wuerfel[0] = w5;
+        // Referenzen können beliebig neu gesetzt werden.
+        Dice w5 = new Dice("W5");
+        dice[5] = w5;
+        dice[0] = w5;
 
-        // Ausgabe der Elemente im Array
-        printArray(wuerfel);
+        // Ausgabe der Elemente im Array auf der Konsole.
+        printArray(dice);
     }
 
     /**
-     * Wirft alle Würfel in einem <code>Wuerfel</code>-Array neu.
+     * Wirft alle Würfel in einem {@link Dice}-Array neu.
      * <p>
-     * Indizes ohne Referenz auf einen <code>Wuerfel</code> (also mit Inhalt
-     * <code>null</code>) werden übersprungen.
+     * Indizes ohne Referenz auf einen Würfel (also mit Inhalt {@code null})
+     * werden übersprungen.
      *
-     * @param pArray Ein eindimensionales Array mit <code>Wuerfel</code>-Objekten.
-     * @see Wuerfel#werfen()
+     * @param pArray Ein eindimensionales Array mit {@code Dice}-Objekten.
+     * @see Dice#roll()
      */
-    public void rollAll( Wuerfel[] pArray ) {
+    public void rollAll( Dice[] pArray ) {
         //ml*
         for( int i = 0; i < pArray.length; i += 1 ) {
             if( pArray[i] != null ) {
-                pArray[i].werfen();
+                pArray[i].roll();
             }
         }
         //*ml
     }
 
     /**
-     * Berechnet die Summe aller Augenzahlen, die die Würfel in einem
-     * <code>Wuerfel</code>-Array gerade anzeigen.
+     * Berechnet die Summe aller Augenzahlen, die die Würfel in einem {@code
+     * Dice}-Array gerade anzeigen.
      * <p>
-     * Indizes ohne Referenz auf einen <code>Wuerfel</code> (also mit Inhalt
-     * <code>null</code>) werden übersprungen.
+     * Indizes ohne Referenz auf einen Würfel (also mit Inhalt {@code null})
+     * werden übersprungen.
      * <p>
-     * Für ein leeres Array wird <code>0</code> zurückgegeben.
+     * Für ein leeres Array wird {@code 0} zurückgegeben.
      *
-     * @param pArray Ein eindimensionales Array mit <code>Wuerfel</code>-Objekten.
-     * @see Wuerfel#getAugenzahl()
+     * @param pArray Ein eindimensionales Array mit {@code Dice}-Objekten.
+     * @see Dice#getValue()
      */
-    public int diceSum( Wuerfel[] pArray ) {
+    public int diceSum( Dice[] pArray ) {
         /*aufg*
         return 0;
         *aufg*/
@@ -121,7 +120,7 @@ public class ArrayDojo {
         int sum = 0;
         for( int m = 0; m < pArray.length; m += 1 ) {
             if( pArray[m] != null ) {
-                sum += pArray[m].getAugenzahl();
+                sum += pArray[m].getValue();
             }
         }
         return sum;
@@ -129,25 +128,24 @@ public class ArrayDojo {
     }
 
     /**
-     * Wirft alle Würfel in einem zweidimensionalen <code>Wuerfel</code>-Array
-     * neu.
+     * Wirft alle Würfel in einem zweidimensionalen {@code Dice}-Array neu.
      * <p>
-     * Indizes ohne Referenz auf einen Würfel (also mit Inhalt <code>null</code>)
+     * Indizes ohne Referenz auf einen Würfel (also mit Inhalt {@code null})
      * werden übersprungen.
-     *
-     * <b>Hinweis:</b> Achte darauf, dass du nun zweimal auf <code>null</code>
+     * <p>
+     * <b>Hinweis:</b> Achte darauf, dass du nun zweimal auf {@code null}
      * prüfen musst.
      *
-     * @param pArray Ein zweidimensionales Array mit <code>Wuerfel</code>-Objekten.
-     * @see Wuerfel#werfen()
+     * @param pArray Ein zweidimensionales Array mit {@code Dice}-Objekten.
+     * @see Dice#roll()
      */
-    public void twoDimRoll( Wuerfel[][] pArray ) {
+    public void twoDimRoll( Dice[][] pArray ) {
         //ml*
         for( int i = 0; i < pArray.length; i += 1 ) {
             if( pArray[i] != null ) {
                 for( int j = 0; j < pArray[i].length; j += 1 ) {
                     if( pArray[i][j] != null ) {
-                        pArray[i][j].werfen();
+                        pArray[i][j].roll();
                     }
                 }
             }
@@ -157,17 +155,17 @@ public class ArrayDojo {
 
     /**
      * Berechnet die Summe aller Augenzahlen, die die Würfel in einem
-     * zweidimensionalen <code>Wuerfel</code>-Array gerade anzeigen.
+     * zweidimensionalen {@code Dice}-Array gerade anzeigen.
      * <p>
-     * Indizes ohne Referenz auf einen Würfel (also mit Inhalt <code>null</code>)
+     * Indizes ohne Referenz auf einen Würfel (also mit Inhalt {@code null})
      * werden übersprungen.
      * <p>
-     * Für ein leeres Array wird <code>0</code> zurückgegeben.
+     * Für ein leeres Array wird {@code 0} zurückgegeben.
      *
-     * @param pArray Ein zweidimensionales Array mit <code>Wuerfel</code>-Objekten.
-     * @see Wuerfel#getAugenzahl()
+     * @param pArray Ein zweidimensionales Array mit {@code Dice}-Objekten.
+     * @see Dice#getValue()
      */
-    public int twoDimSum( Wuerfel[][] pArray ) {
+    public int twoDimSum( Dice[][] pArray ) {
         /*aufg*
         return 0;
         *aufg*/
@@ -175,10 +173,10 @@ public class ArrayDojo {
         int sum = 0;
         for( int i = 0; i < pArray.length; i += 1 ) {
             if( pArray[i] != null ) {
-                Wuerfel[] innerArray = pArray[i];
+                Dice[] innerArray = pArray[i];
                 for( int j = 0; j < innerArray.length; j += 1 ) {
                     if( innerArray[j] != null ) {
-                        sum += innerArray[j].getAugenzahl();
+                        sum += innerArray[j].getValue();
                     }
                 }
             }
@@ -188,49 +186,49 @@ public class ArrayDojo {
     }
 
     /**
-     * Berechnet in einem zweidimensionalen <code>Wuerfel</code>-Array die
-     * Zeilensummen der gezeigten Augenzahlen.
+     * Berechnet in einem zweidimensionalen {@code Dice}-Array die
+     * <em>Zeilensummen</em> der gezeigten Augenzahlen.
      * <p>
-     * Das bedeutet für jeden Index <code>i</code> in <var>pArray</var> wird die
-     * Summe der Elemente im Array <code>pArray[i]</code> berechnet. Die Summe
-     * wird im Ergebnisarray wieder im Index <code>i</code> gespeichert.
+     * Das bedeutet für jeden Index {@code i} in <var>pArray</var> wird die
+     * Summe der Elemente im Array {@code pArray[i]} berechnet. Die Summe wird
+     * im Ergebnisarray wieder im Index {@code i} gespeichert.
      * <p>
-     * Zeigen die <code>Wuerfel</code> in Array zum Beispiel diese Augenzahlen:
+     * Zeigen die {@code Dice} in Array zum Beispiel diese Augenzahlen:
      * <pre>
-     *     {
-     *         {1,2,3},
-     *         {4,5,6},
-     *         {-3,5,-2}
-     *     }
+     * {
+     *     {1,2,3},
+     *     {4,5,6},
+     *     {-3,5,-2}
+     * }
      * </pre>
-     * dann ist das Ergebnis-Array:
+     * dann ist das Ergebnis:
      * <pre>
-     *     {
-     *         6,
-     *         15,
-     *         0
-     *     }
+     * {
+     *     6,
+     *     15,
+     *     0
+     * }
      * </pre>
      * <p>
-     * Es darf angenommen werden, dass <var>pArray</var> keine
-     * <code>null</code>-Referenzen enthält.
+     * Es darf angenommen werden, dass <var>pArray</var> keine {@code
+     * null}-Referenzen enthält.
+     * <p>
+     * <b>Hinweis:</b> Die Eingabe ist ein Array mit {@code Dice}-Objekten,
+     * die Ausgabe ein Array mit Zahlen ({@code Integer}).
      *
-     * <b>Hinweis:</b> Die Eingabe ist ein Array mit <code>Wuerfel</code>-Objekten,
-     * die Ausgabe ein Array mit Zahlen (Integer).
-     *
-     * @param pArray Ein zweidimensionales Array mit <code>Wuerfel</code>-Objekten.
-     * @return Ein eindimensionales Array mit den Zeilensummen
+     * @param pArray Ein zweidimensionales Array mit {@code Dice}-Objekten.
+     * @return Ein eindimensionales Array mit den Zeilensummen.
      */
-    public int[] rowSum( Wuerfel[][] pArray ) {
+    public int[] rowSum( Dice[][] pArray ) {
         /*aufg*
         return null;
         *aufg*/
         //ml*
         int[] sums = new int[pArray.length];
         for( int i = 0; i < pArray.length; i += 1 ) {
-            Wuerfel[] innerArray = pArray[i];
+            Dice[] innerArray = pArray[i];
             for( int j = 0; j < innerArray.length; j += 1 ) {
-                sums[i] += innerArray[j].getAugenzahl();
+                sums[i] += innerArray[j].getValue();
             }
         }
         return sums;
@@ -238,8 +236,9 @@ public class ArrayDojo {
     }
 
     /**
-     * Erzeugt aus einem zweidimensionalen Array mit Zahlen ein eindimensionales,
-     * dass alle Zahlen des Ursprungsarrays hintereinander enthält.
+     * Erzeugt aus einem zweidimensionalen Array mit Zahlen ein
+     * eindimensionales, dass alle Zahlen des Ursprungsarrays hintereinander
+     * enthält.
      * <p>
      * Aus dem Array
      * <pre>
@@ -292,8 +291,8 @@ public class ArrayDojo {
     }
 
     /**
-     * Gibt die das zweidimensionalen Array mit Zahlen auf
-     * der Konsole ({@link System#out}) aus.
+     * Gibt die das zweidimensionalen Array mit Zahlen auf der Konsole ({@link
+     * System#out}) aus.
      *
      * @param pArray Ein zweidimensionales Array mit Wuerfel-Referenzen
      */
@@ -311,12 +310,12 @@ public class ArrayDojo {
     }
 
     /**
-     * Gibt die Augenzahlen der Würfel im Array auf
-     * der Konsole ({@link System#out}) aus.
+     * Gibt die Augenzahlen der Würfel im Array auf der Konsole ({@link
+     * System#out}) aus.
      *
      * @param pArray Ein Array mit Wuerfel-Referenzen
      */
-    public void printArray( Wuerfel[] pArray ) {
+    public void printArray( Dice[] pArray ) {
         for( int i = 0; i < pArray.length; i++ ) {
             if( pArray[i] != null ) { // prüfen, ob es ein Objekt gibt
                 System.out.printf("Index %d: %s\n", i, pArray[i].toString());
@@ -329,15 +328,15 @@ public class ArrayDojo {
 
 
     /**
-     * Gibt die Augenzahlen der Würfel im zweidimensionalen Array auf
-     * der Konsole ({@link System#out}) aus.
+     * Gibt die Augenzahlen der Würfel im zweidimensionalen Array auf der
+     * Konsole ({@link System#out}) aus.
      *
      * @param pArray Ein zweidimensionales Array mit Wuerfel-Referenzen
      */
-    public void printArray( Wuerfel[][] pArray ) {
+    public void printArray( Dice[][] pArray ) {
         for( int i = 0; i < pArray.length; i++ ) {
             if( pArray[i] != null ) { // prüfen, ob es ein Objekt gibt
-                Wuerfel[] innerArray = pArray[i];
+                Dice[] innerArray = pArray[i];
                 for( int j = 0; j < innerArray.length; j++ ) {
                     if( innerArray[j] != null ) {
                         System.out.printf("Index %d,%d: %d\n", i, j, pArray[i][j].toString());
@@ -354,29 +353,29 @@ public class ArrayDojo {
 
     /**
      * Erstellt ein eindimensionales Array mit <var>pNumberOfElements</var>
-     * {@link Wuerfel}n.
+     * {@link Dice}n.
      *
      * @param pNumberOfElements Anzahl an Elementen im Array.
      * @return Ein Array mit Wuerfeln.
      */
-    public Wuerfel[] generateArray( int pNumberOfElements ) {
-        Wuerfel[] dice = new Wuerfel[pNumberOfElements];
+    public Dice[] generateArray( int pNumberOfElements ) {
+        Dice[] dice = new Dice[pNumberOfElements];
         for( int i = 0; i < dice.length; i++ ) {
-            dice[i] = new Wuerfel("W" + i);
+            dice[i] = new Dice("W" + i);
         }
         return dice;
     }
 
     /**
      * Erstellt ein Array das wiederum <var>pNumberOfRows</var> Arrays enthält,
-     * die jeweils <var>pNumberOfCols</var> {@link Wuerfel} enthalten.
+     * die jeweils <var>pNumberOfCols</var> {@link Dice} enthalten.
      *
      * @param pNumberOfCols Anzahl an Elementen (Arrays).
      * @param pNumberOfRows Anzahl Elemente der inneren Arrays.
      * @return Das zweidimensionale Array mit Würflen.
      */
-    public Wuerfel[][] generateArray( int pNumberOfRows, int pNumberOfCols ) {
-        Wuerfel[][] dice = new Wuerfel[pNumberOfRows][pNumberOfCols];
+    public Dice[][] generateArray( int pNumberOfRows, int pNumberOfCols ) {
+        Dice[][] dice = new Dice[pNumberOfRows][pNumberOfCols];
         for( int i = 0; i < dice.length; i++ ) {
             dice[i] = generateArray(pNumberOfCols);
         }

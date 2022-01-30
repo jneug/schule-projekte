@@ -8,15 +8,14 @@ import static org.junit.Assert.*;
 /**
  * Test-Klasse für das ArrayDojo.
  * <p>
- * Starte die Tests mit einem Rechtsklick auf die Klasse im
- * BlueJ Projektfenster und durch Auswahl der passenden
- * Testmethode. Du kannst alle Tests in der linken Seitenleiste
- * starten, indem du auf den kleinen Pfeil klickst und "Tests
- * starten" wählst.
+ * Starte die Tests mit einem Rechtsklick auf die Klasse im BlueJ Projektfenster
+ * und durch Auswahl der passenden Testmethode. Du kannst alle Tests in der
+ * linken Seitenleiste starten, indem du auf den kleinen Pfeil klickst und
+ * "Tests starten" wählst.
  *
  * <b>Achtung:</b> Verändere diese Klasse nicht! Du brauchst dir
- * diesen Quelltext auch nicht ansehen. Es reicht, die Tests zur
- * Überprüfung deiner Lösungen zu nutzen.
+ * diesen Quelltext auch nicht ansehen. Es reicht, die Tests zur Überprüfung
+ * deiner Lösungen zu nutzen.
  */
 public class ArrayDojoTest {
 
@@ -28,9 +27,9 @@ public class ArrayDojoTest {
 
     private int numbersLen;
 
-    private MockupWuerfel[] dice;
+    private MockupDice[] dice;
 
-    private MockupWuerfel[][] dice2dim;
+    private MockupDice[][] dice2dim;
 
     @Before
     public void setUp() {
@@ -46,16 +45,16 @@ public class ArrayDojoTest {
             numbersLen += i.length;
         }
 
-        dice = new MockupWuerfel[numbers[0].length];
+        dice = new MockupDice[numbers[0].length];
         for( int i = 0; i < dice.length; i++ ) {
-            dice[i] = new MockupWuerfel(numbers[0][i]);
+            dice[i] = new MockupDice(numbers[0][i]);
         }
 
-        dice2dim = new MockupWuerfel[numbers.length][];
+        dice2dim = new MockupDice[numbers.length][];
         for( int i = 0; i < numbers.length; i++ ) {
-            dice2dim[i] = new MockupWuerfel[numbers[i].length];
+            dice2dim[i] = new MockupDice[numbers[i].length];
             for( int j = 0; j < numbers[i].length; j++ ) {
-                dice2dim[i][j] = new MockupWuerfel(numbers[i][j]);
+                dice2dim[i][j] = new MockupDice(numbers[i][j]);
             }
         }
     }
@@ -92,18 +91,18 @@ public class ArrayDojoTest {
         try {
             Random rand = new Random();
 
-            Wuerfel[] dice;
+            Dice[] dice;
 
-            dice = new Wuerfel[]{
-                new MockupWuerfel(1),
-                new MockupWuerfel(6),
-                new MockupWuerfel(4),
+            dice = new Dice[]{
+                new MockupDice(1),
+                new MockupDice(6),
+                new MockupDice(4),
             };
             assertEquals("diceSum({W1<1>,W2<6>,W3<4>}).", 11, ad.diceSum(dice));
 
             for( int i = 0; i < 10; i++ ) {
                 int sum = 0;
-                dice = new Wuerfel[rand.nextInt(18) + 2];
+                dice = new Dice[rand.nextInt(18) + 2];
                 String[] values = new String[dice.length];
                 for( int j = 0; j < dice.length; j++ ) {
                     int w = rand.nextInt(7) + 1;
@@ -111,7 +110,7 @@ public class ArrayDojoTest {
                         dice[j] = null;
                         values[j] = "null";
                     } else {
-                        dice[j] = new MockupWuerfel(w);
+                        dice[j] = new MockupDice(w);
                         values[j] = Integer.toString(w);
                         sum += w;
                     }
@@ -132,7 +131,7 @@ public class ArrayDojoTest {
             // Check for number of rolls (needs to be 1)
             for( int i = 0; i < dice2dim.length; i++ ) {
                 for( int j = 0; j < dice2dim[i].length; j++ ) {
-                    MockupWuerfel die = dice2dim[i][j];
+                    MockupDice die = dice2dim[i][j];
                     assertTrue("Der Würfel [" + i + "][" + j + "] wurde nicht geworfen (Array ohne null).", die.rolls == 1);
                 }
             }
@@ -148,7 +147,7 @@ public class ArrayDojoTest {
             // Check for number of rolls (needs to be 2 now)
             for( int i = 0; i < dice2dim.length; i++ ) {
                 for( int j = 0; j < dice2dim[i].length; j++ ) {
-                    MockupWuerfel die = dice2dim[i][j];
+                    MockupDice die = dice2dim[i][j];
                     if( die != null ) {
                         assertTrue("Der Würfel [" + i + "][" + j + "] wurde nicht geworfen (Array mit null).", die.rolls == 2);
                     }
@@ -164,40 +163,40 @@ public class ArrayDojoTest {
         try {
             Random rand = new Random();
 
-            Wuerfel[][] dice;
+            Dice[][] dice;
 
-            dice = new Wuerfel[][]{
-                new Wuerfel[]{
-                    new MockupWuerfel(1),
-                    new MockupWuerfel(6),
-                    new MockupWuerfel(4)
+            dice = new Dice[][]{
+                new Dice[]{
+                    new MockupDice(1),
+                    new MockupDice(6),
+                    new MockupDice(4)
                 },
-                new Wuerfel[]{
-                    new MockupWuerfel(5),
-                    new MockupWuerfel(5),
-                    new MockupWuerfel(5)
+                new Dice[]{
+                    new MockupDice(5),
+                    new MockupDice(5),
+                    new MockupDice(5)
                 },
-                new Wuerfel[]{
-                    new MockupWuerfel(1),
-                    new MockupWuerfel(1),
-                    new MockupWuerfel(0)
+                new Dice[]{
+                    new MockupDice(1),
+                    new MockupDice(1),
+                    new MockupDice(0)
                 },
-                new Wuerfel[]{
-                    new MockupWuerfel(-3),
-                    new MockupWuerfel(-2),
-                    new MockupWuerfel(-4)
+                new Dice[]{
+                    new MockupDice(-3),
+                    new MockupDice(-2),
+                    new MockupDice(-4)
                 }
             };
             assertEquals("twoDimSum({{1,6,4},{5,5,5},{1,1,0},{-3,-2,-4}})", 19, ad.twoDimSum(dice));
 
             for( int i = 0; i < 10; i++ ) {
                 int sum = 0;
-                dice = new Wuerfel[rand.nextInt(18) + 2][rand.nextInt(18) + 2];
+                dice = new Dice[rand.nextInt(18) + 2][rand.nextInt(18) + 2];
                 for( int j = 0; j < dice.length; j++ ) {
                     for( int k = 0; k < dice[j].length; k++ ) {
                         int w = rand.nextInt(7) + 1;
                         if( w < 7 ) {
-                            dice[j][k] = new MockupWuerfel(w);
+                            dice[j][k] = new MockupDice(w);
                             sum += w;
                         }
                     }
@@ -212,28 +211,28 @@ public class ArrayDojoTest {
     @Test
     public void testRowSum() {
         try {
-            Wuerfel[][] dice;
+            Dice[][] dice;
 
-            dice = new Wuerfel[][]{
-                new Wuerfel[]{
-                    new MockupWuerfel(1),
-                    new MockupWuerfel(6),
-                    new MockupWuerfel(4)
+            dice = new Dice[][]{
+                new Dice[]{
+                    new MockupDice(1),
+                    new MockupDice(6),
+                    new MockupDice(4)
                 },
-                new Wuerfel[]{
-                    new MockupWuerfel(5),
-                    new MockupWuerfel(5),
-                    new MockupWuerfel(5)
+                new Dice[]{
+                    new MockupDice(5),
+                    new MockupDice(5),
+                    new MockupDice(5)
                 },
-                new Wuerfel[]{
-                    new MockupWuerfel(1),
-                    new MockupWuerfel(1),
-                    new MockupWuerfel(0)
+                new Dice[]{
+                    new MockupDice(1),
+                    new MockupDice(1),
+                    new MockupDice(0)
                 },
-                new Wuerfel[]{
-                    new MockupWuerfel(-3),
-                    new MockupWuerfel(-2),
-                    new MockupWuerfel(-4)
+                new Dice[]{
+                    new MockupDice(-3),
+                    new MockupDice(-2),
+                    new MockupDice(-4)
                 }
             };
 
@@ -287,25 +286,25 @@ public class ArrayDojoTest {
         }
     }
 
-    private class MockupWuerfel extends Wuerfel {
+    private class MockupDice extends Dice {
 
         public int mockupValue;
 
         public int rolls = 0;
 
-        public MockupWuerfel( int pValue ) {
+        public MockupDice( int pValue ) {
             super("W" + (n++));
             mockupValue = pValue;
             rolls = 0;
         }
 
         @Override
-        public int getAugenzahl() {
+        public int getValue() {
             return mockupValue;
         }
 
         @Override
-        public void werfen() {
+        public void roll() {
             rolls = rolls + 1;
         }
 
