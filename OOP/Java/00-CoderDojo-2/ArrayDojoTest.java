@@ -29,7 +29,7 @@ public class ArrayDojoTest {
     @Before
     public void setUp() {
         ad = new ArrayDojo();
-        // Einige Zahlen vorbereiten
+        // Test-Arrays vorbereiten
         numbers = new int[]{45, 64, 56, 67, 23, 7, 8, 34, 54, 2, 24, 6, 72, 334, 456};
         strings = new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
     }

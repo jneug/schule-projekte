@@ -5,7 +5,7 @@ import java.util.Random;
  * Programmierung mit Arrays.
  *
  *
- * Im Kommentar jeder Methode steht eine Beschreibung des Problems, dass in der
+ * Im Kommentar jeder Methode steht eine Beschreibung des Problems, das in der
  * Methode gelöst werden soll. Die Klasse {@link ArrayDojoTest} enthält
  * Testmethoden, die prüfen, ob die Methode korrekt implementiert wurde. Die
  * Tests können in BlueJ mit einem Rechtsklick auf die Testklasse gestartet
