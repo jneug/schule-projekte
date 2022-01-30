@@ -1,5 +1,3 @@
-import java.util.Random;
-
 /**
  * Das CoderDojo Projekt ist eine Sammlung unzusammenhängender Übungen zur
  * Objektorientierten Programmierung.
@@ -95,8 +93,20 @@ public class CoderDojo {
 
     /**
      * Prüft, ob die Zahl gerade ist, oder nicht.
-     * @param pNumber
-     * @return
+     *
+     * <b>Hinweis:</b> Mit dem Modulo-Operator (<code>%</code>) kannst du
+     * den Rest einer ganzzahligen Division bestimmen:
+     * <pre>
+     * 25 % 3 = 1
+     * 26 % 3 = 2
+     * 27 % 3 = 0
+     * </pre>
+     *
+     * Überlege, wie man diese Operation nutzen kann, um die Methode zu
+     * implementieren.
+     *
+     * @param pNumber Eine Zahl.
+     * @return <code>true</code>, wenn die Zahl gerade ist.
      */
     public boolean isEven( int pNumber ) {
         /*aufg*
@@ -108,11 +118,11 @@ public class CoderDojo {
     }
 
     /**
-     * Prüft, ob die Zahl durch drei oder durch fünf teilbar ist.
+     * Prüft, ob die Zahl durch drei <b>oder</b> durch fünf teilbar ist.
      * @param pNumber
      * @return
      */
-    public boolean threeOrfive( int pNumber ) {
+    public boolean threeOrFive( int pNumber ) {
         /*aufg*
         return false;
         *aufg*/
@@ -122,11 +132,11 @@ public class CoderDojo {
     }
 
     /**
-     * Prüft, ob die Zahl durch drei und durch fünf teilbar ist.
+     * Prüft, ob die Zahl durch drei <b>und</b> durch fünf teilbar ist.
      * @param pNumber
      * @return
      */
-    public boolean threeAndfive( int pNumber ) {
+    public boolean threeAndFive( int pNumber ) {
         /*aufg*
         return false;
         *aufg*/
@@ -136,15 +146,19 @@ public class CoderDojo {
     }
 
     /**
-     * Implementiere das Spiel "PiffPaff". Bei PiffPaff werden alle Zahlen von 1
-     * (hier bi zu einem Maximum) der Reihe nach aufgezählt. Ist die Zahl durch
-     * 3 teilbar, wird statt der Zahl "piff" ausgegeben. Ist die Zahl durch 5
-     * teilbar, dann word "paff" ausgegeben. ist die Zahl durch 3 und 5 teilbar,
-     * dann wird "piffpaff" ausgegeben.
+     * Simuliert das Spiel "PiffPaff".
      *
-     * Am Ende soll die Methode die Anzahl der "piffpaff" zurückgeben.
-     * @param pMax
-     * @return
+     * Bei PiffPaff werden alle Zahlen von 1 (hier bis zum Maximum <var>pMax</var>)
+     * der Reihe nach aufgezählt. Ist die Zahl durch 3 teilbar, wird statt der
+     * Zahl das Wort "piff" ausgegeben. Ist die Zahl durch 5 teilbar, dann wird
+     * "paff" ausgegeben. ist die Zahl durch 3 <b>und</b> 5 teilbar, dann wird
+     * "piffpaff" ausgegeben.
+     *
+     * Die Ausgabe soll auf der Konsole ({@link System#out} erscheinen und am
+     * Ende soll die Methode die Anzahl der "piffpaff" zurückgeben.
+     *
+     * @param pMax Zahl, bis zu der gespielt wird.
+     * @return Anzahl der "piffpaff"
      */
     public int piffPaff( int pMax ) {
         /*aufg*

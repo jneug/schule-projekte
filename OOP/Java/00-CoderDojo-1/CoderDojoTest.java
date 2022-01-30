@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Random;
 
 /**
  * Test-Klasse für das CoderDojo.
@@ -125,11 +124,11 @@ public class CoderDojoTest {
         CoderDojo cd = new CoderDojo();
 
         for( int i: new int[]{3,5,9,15,20,25,125,300} ) {
-            assertTrue(i+" is divisable by 3 or 5", cd.threeOrfive(i));
+            assertTrue(i+" is divisable by 3 or 5", cd.threeOrFive(i));
         }
 
         for( int i: new int[]{1,8,13,22,73} ) {
-            assertFalse(i+" is not divisable by 3 or 5", cd.threeOrfive(i));
+            assertFalse(i+" is not divisable by 3 or 5", cd.threeOrFive(i));
         }
     }
 
@@ -138,11 +137,11 @@ public class CoderDojoTest {
         CoderDojo cd = new CoderDojo();
 
         for( int i: new int[]{15,30,45,60,90,120} ) {
-            assertTrue(i+" is divisable by 3 and 5", cd.threeAndfive(i));
+            assertTrue(i+" is divisable by 3 and 5", cd.threeAndFive(i));
         }
 
         for( int i: new int[]{3,5,25,33,35,91,110,4321} ) {
-            assertFalse(i+" is not divisable by 3 and 5", cd.threeAndfive(i));
+            assertFalse(i+" is not divisable by 3 and 5", cd.threeAndFive(i));
         }
     }
 

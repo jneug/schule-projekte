@@ -76,8 +76,8 @@ public class BeginnersDojo {
     }
 
     /**
-     * Prüft, ob eine der Zahlen gleich zehn ist, oder ob die Summe der Zahlen
-     * gleich 10 ist.
+     * Prüft, ob eine der Zahlen gleich Zehn ist, oder ob die Summe der Zahlen
+     * gleich Zehn ist.
      * @param a
      * @param b
      * @return
@@ -110,7 +110,7 @@ public class BeginnersDojo {
      * @param pNumber
      * @return
      */
-    public boolean threeOrfive( int pNumber ) {
+    public boolean threeOrFive( int pNumber ) {
         /*aufg*
         return false;
         *aufg*/
@@ -124,7 +124,7 @@ public class BeginnersDojo {
      * @param pNumber
      * @return
      */
-    public boolean threeAndfive( int pNumber ) {
+    public boolean threeAndFive( int pNumber ) {
         /*aufg*
         return false;
         *aufg*/
@@ -178,7 +178,7 @@ public class BeginnersDojo {
      * Erstellt einen HTML-Tag mit dem Namen <var>pTag</var> und dem Inhalt
      * <var>pText</var>. Ein HTMl-Tag hat das Format
      *
-     * <pTag>pText</pTag>
+     * {@code <pTag>pText</pTag>}
      *
      * @param pText
      * @param pTag
