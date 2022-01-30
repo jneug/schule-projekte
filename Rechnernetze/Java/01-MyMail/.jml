@@ -1,0 +1,3 @@
+[settings]
+-exclude = *.class
++exclude = MyMailGUI.java;MyMail.class;Mail.class;List.class;Connection.class;List$ListNode.class
