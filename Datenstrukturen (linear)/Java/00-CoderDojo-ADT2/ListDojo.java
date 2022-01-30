@@ -1,5 +1,28 @@
 import java.util.Random;
 
+/**
+ * Das CoderDojo Projekt ist eine Sammlung unzusammenhängender Übungen zur
+ * Objektorientierten Programmierung.
+ * <p>
+ * Dieser Dojo befasst sich mit den grundlegenden Konzepten der dynamischen
+ * linearen Datenstruktur List aus dem Material des Zentralabitur NRW.
+ * <p>
+ * Im Kommentar jeder Methode steht eine Beschreibung des Problems, das in der
+ * Methode gelöst werden soll. Die Klasse {@link ListDojoTest} enthält
+ * Testmethoden, die prüfen, ob die Methode korrekt implementiert wurde. Die
+ * Tests können in BlueJ mit einem Rechtsklick auf die Testklasse gestartet
+ * werden.
+ * <p>
+ * Du kannst die Methoden in beliebiger Reihenfolge implementieren. Such
+ * dir also die für dich interessantesten heraus. Allerdings sind manche
+ * leichter zu implementieren, wenn du die anderen Methoden schon fertig hast
+ * und als Hilfsmethoden nutzen kannst.
+ * <p>
+ * TODO:
+ * Implementiere die Methoden nach der Beschreibung im jeweiligen
+ * Kommentar. Teste deine Umsetzungen regelmäßig mit den Test-Methoden
+ * in der Klasse {@link ListDojoTest}.
+ */
 public class ListDojo {
 
     /**
@@ -28,17 +51,33 @@ public class ListDojo {
     }
 
     /**
-     * Erstellt eine Liste mit <var>pCount</var> Zufallszahlen zwischen <code>pMin</code>
-     * und <var>pMax</var>.
+     * Erstellt eine Liste mit <var>pCount</var> Zufallszahlen zwischen
+     * <code>pMin</code> und <var>pMax</var>.
      * <p>
-     * Der Aufruf <code>randomList(10)</code> erzuegt die Liste
+     * Der Aufruf <code>randomList(10, 100, 200)</code> könnte zum Beispiel diese
+     * Liste erzeugen
      * <pre>
-     *     1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+     *     133, 200, 150, 124, 178, 199, 105, 156, 100, 144
      * </pre>
+     * <p>
+     * Die Zahlen <code>pMin</code> und <var>pMax</var> können auch Teil der
+     * erzeugten Zahlen sein!
+     * <p>
+     * Der Aufruf <code>randomList(10, 100, 101)</code> könnte zum Beispiel diese
+     * Liste erzeugen
+     * <pre>
+     *     101, 101, 100, 101, 100, 100, 100, 101, 101, 100
+     * </pre>
+     * <p>
+     * Wenn <var>pCount</var> kleiner oder gleich <code>0</code> ist, oder
+     * <var>pMin</var> größer als <var>pMax</var>, dann wird eine leere
+     * Liste zurückgegeben.
      *
-     * @param pMin Das Minimum der Zufallszahlen
-     * @param pMax Das Maximum der Zufallszahlen
+     * @param pCount Die Anzahl zu erzeugender Zufallszahlen
+     * @param pMin   Das Minimum der Zufallszahlen
+     * @param pMax   Das Maximum der Zufallszahlen
      * @return Die Liste mit Zufallszahlen
+     * @see Random#nextInt(int)
      */
     public List<Integer> randomList( int pCount, int pMin, int pMax ) {
         Random zufall = new Random();
@@ -48,6 +87,9 @@ public class ListDojo {
         *aufg*/
         //ml*
         List<Integer> list = new List<>();
+        if( pCount <= 0 || pMin > pMax ) {
+            return list;
+        }
         for( int i = 0; i < pCount; i++ ) {
             list.append(zufall.nextInt(pMax - pMin + 1) + pMin);
         }
@@ -56,7 +98,7 @@ public class ListDojo {
     }
 
     /**
-     * Gibt eine Liste mit Zahlen auf der Konsole (System.out) aus. Pro Zeile
+     * Gibt eine Liste mit Zahlen auf der Konsole ({@code System.out}) aus. Pro Zeile
      * wird ein Element der Liste ausgegeben.
      *
      * @param pList Eine Liste mit Zahlen
@@ -72,7 +114,7 @@ public class ListDojo {
     }
 
     /**
-     * Gibt die Namen aller Pokemon in der Liste auf der Konsole (System.out)
+     * Gibt die Namen aller Pokemon in der Liste auf der Konsole ({@code System.out})
      * aus. Pro Zeile ein Name.
      *
      * @param pList Eine Liste mit Pokemon
@@ -103,7 +145,7 @@ public class ListDojo {
         //ml*
         pList.toFirst();
         while( pList.hasAccess() ) {
-            if( pValue == pList.getContent().intValue() ) {
+            if( pValue == pList.getContent() ) {
                 return true;
             }
             pList.next();
@@ -113,7 +155,9 @@ public class ListDojo {
     }
 
     /**
-     * Such aus der Liste die kleineste Zahl heraus.
+     * Such aus der Liste die kleinste Zahl heraus.
+     * <p>
+     * Für eine leere Liste wird {@code Integer.MAX_VALUE} zurückgegeben.
      *
      * @param pList Eine Liste mit Zahlen
      * @return Die kleinste Zahl in der Liste
@@ -129,8 +173,8 @@ public class ListDojo {
         //ml*
         pList.toFirst();
         while( pList.hasAccess() ) {
-            if( pList.getContent().intValue() < min ) {
-                min = pList.getContent().intValue();
+            if( pList.getContent() < min ) {
+                min = pList.getContent();
             }
             pList.next();
         }
@@ -142,17 +186,18 @@ public class ListDojo {
      * Fügt den Wert <var>pValue</var> an der Stelle <var>pPosition</var> in
      * die Liste <var>pList</var> ein. Gibt es diese Position nicht, weil die
      * Liste zu kurz ist, wird der Wert hinten angehängt.
-     *
-     * Die Zählung der Positionen beginnt bei 1. Der Aufruf
+     * <p>
+     * Die Zählung der Positionen beginnt bei <code>1</code>. Der Aufruf
      * <code>insertIntoList(liste, 1000, 3)</code> auf der Liste
      * <pre>
      *     1, 2, 3, 4, 5, 6, 7, 8, 9, 10
      * </pre>
-     *
+     * <p>
      * ergibt also
      * <pre>
      *     1, 2, 1000, 3, 4, 5, 6, 7, 8, 9, 10
      * </pre>
+     *
      * @param pList     Eine Liste mit Zahlen
      * @param pValue    Die einzufügende Zahl
      * @param pPosition Die Position in der Liste
@@ -164,7 +209,11 @@ public class ListDojo {
             pList.next();
             pPosition -= 1;
         }
-        pList.insert(pValue);
+        if( pList.hasAccess() ) {
+            pList.insert(pValue);
+        } else {
+            pList.append(pValue);
+        }
         //*ml
     }
 
@@ -173,7 +222,8 @@ public class ListDojo {
      * der Wert mehrfach in der Liste vor, dann wird nur das erste Vorkommen
      * gelöscht.
      * <p>
-     * Ist die Zahl nicht in der Liste vorhanden, dann passiert nichts.
+     * Ist die Zahl nicht in der Liste vorhanden oder ist die Liste leer, dann
+     * passiert nichts.
      *
      * @param pList  Eine Liste mit Zahlen
      * @param pValue Eine Zahl, die gelöscht werden soll
@@ -182,7 +232,7 @@ public class ListDojo {
         //ml*
         pList.toFirst();
         while( pList.hasAccess() ) {
-            if( pValue == pList.getContent().intValue() ) {
+            if( pValue == pList.getContent() ) {
                 pList.remove();
                 break;
             }
@@ -194,6 +244,8 @@ public class ListDojo {
     /**
      * Löscht die kleinste Zahl aus der Liste. Kommt die kleinste Zahl mehrfach
      * vor, dann wird nur das erste Vorkommen gelöscht.
+     * <p>
+     * Ist die Liste leer, dann passiert nichts.
      *
      * @param pList Eine Liste mit Zahlen
      */
@@ -207,7 +259,8 @@ public class ListDojo {
     }
 
     /**
-     * Gibt eine Liste mit Zahlen vom kleinsten zum größten geordnet aus. Dazu
+     * Gibt eine Liste mit Zahlen vom kleinsten zum größten auf der Konsole
+     * ({@code System.out}) geordnet vom kleinsten zum größten aus. Dazu
      * wird in jedem Schritt das Minimum der Liste gesucht, ausgegeben und dann
      * aus der Liste entfernt. Die Liste ist am Ende leer.
      *
@@ -226,7 +279,7 @@ public class ListDojo {
      * Sucht in der Liste <var>pList</var> nach dem Pokemon mit dem Namen
      * <var>pName</var> und gibt das Pokemon-Objekt zurück, wenn der Wert
      * enthalten ist. Andernfalls wird <code>null</code> zurückgegeben.
-     *
+     * <p>
      * Tipp: Für den Vergleich von zwei Strings sollte equals() benutzt werden.
      *
      * @param pList Eine Liste mit Pokemon

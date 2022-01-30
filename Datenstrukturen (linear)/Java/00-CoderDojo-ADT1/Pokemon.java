@@ -24,14 +24,4 @@ public class Pokemon {
         return defense;
     }
 
-    /**
-     * Addiert <var>pValue</var> zum Angriffswert.
-     * @param pValue
-     */
-    public void addAttack( int pValue ) {
-        //ml*
-        attack += pValue;
-        //*ml
-    }
-
 }
