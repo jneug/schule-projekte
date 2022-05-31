@@ -6,7 +6,7 @@ public class Katze extends Laufend {
     }
 
     public void sagWas() {
-        System.out.println("Ich bin eine Adler.");
+        System.out.println("Ich bin eine Katze.");
         super.sagWas();
     }
 
