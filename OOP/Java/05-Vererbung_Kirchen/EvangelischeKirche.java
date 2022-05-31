@@ -1,5 +1,4 @@
 
-
 /*aufg*
 public class EvangelischeKirche {
 
