@@ -1,3 +1,8 @@
 [settings]
 -exclude = *.class
 +exclude = MyMailGUI.java;MyMail.class;Mail.class;List.class;Connection.class;List$ListNode.class
+
+[post-hook]
+action = shell
+command = jar cfe +libs/gui.jar MyMailGUI .
+dir = ${outDir}
