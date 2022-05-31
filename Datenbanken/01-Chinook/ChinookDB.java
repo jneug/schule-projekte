@@ -29,15 +29,30 @@ public class ChinookDB {
         System.out.println(this.countTracks() + " tracks in the database");
     }
 
+    /**
+     * Gibt die Anzahl Tracks in der Datenbank zurück. Gab es bei der Verbindung
+     * einen Fehler, dann wird {@code 0} zurückgegeben.
+     * @return Die Anzahl der Kunden.
+     */
     public int countTracks() {
         // Abfrage ausführen
         dbc.executeStatement("SELECT * FROM tracks");
         // Letztes Abfrageergebnis holen
         QueryResult tracks_result = dbc.getCurrentQueryResult();
-        // Anzahl an Zeilen im Ergebnis abfragen und zurückgeben.
-        return tracks_result.getRowCount();
+        // Anzahl an Zeilen im Ergebnis abfragen und zurückgeben, falls es keinen
+        // Fehler gab (dann ist das QueryResult == null).
+        if( tracks_result != null ) {
+            return tracks_result.getRowCount();
+        } else {
+            return 0;
+        }
     }
 
+    /**
+     * Gibt die Anzahl Kunden in der Datenbank zurück. Gab es bei der Verbindung
+     * einen Fehler, dann wird {@code 0} zurückgegeben.
+     * @return Die Anzahl der Kunden.
+     */
     public int countCustomers() {
         // Abfrage ausführen
         dbc.executeStatement("SELECT COUNT(*) FROM customers");
@@ -46,12 +61,84 @@ public class ChinookDB {
         // Daten des Abfrageerbenis holen (2-dim Array: [Zeile][Spalte])
         // In diesem Fall gibt es nur genau eine Zeile mit einer Spalte, also
         // data := String[1][1]
-        String[][] data = customers_result.getData();
-        // Ergebnisse sind (hier) immer Strings. Da wir eine Zahl wollen,
-        // müssen wir den Streing parsen.
-        int count = Integer.parseInt(data[0][0]);
-        // Rückgabe
-        return count;
+        // Das Ergebnis kann aber auch leer sein, oder null, falls es einen Fehler gab.
+        // Daher prüfen wir dies.
+        if( customers_result != null && customers_result.getRowCount() > 0 ) {
+            String[][] data = customers_result.getData();
+            // Ergebnisse sind (hier) immer Strings. Da wir eine Zahl wollen,
+            // müssen wir den Streing parsen.
+            int count = Integer.parseInt(data[0][0]);
+            // Rückgabe
+            return count;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * Lädt den Track mit der angegebenen {@var pTrackID} aus der Datenbank
+     * und gibt das {@link Track}-Objekt zurück. Gab es bei der Verbindung einen
+     * Fehler oder gibt es keinen Track mit der passenden ID, dann wird
+     * {@code null} zurückgegeben.
+     * @param pTrackID Die ID des Tracks in der Datenbank.
+     * @return Der geladene Track.
+     */
+    public Track loadTrack( int pTrackID ) {
+        /*aufg* <2
+        // TODO: Implementieren
+        return null
+        *aufg*/
+        //ml* =2
+        // Datenbankabfrage ausführen und Result holen
+        dbc.executeStatement("SELECT TrackId,Name,Milliseconds,Bytes,UnitPrice FROM tracks WHERE TrackId = " + pTrackID);
+        QueryResult track_result = dbc.getCurrentQueryResult();
+        // Auf Fehler prüfen
+        if( track_result != null && track_result.getRowCount() > 0 ) {
+            String[][] data = track_result.getData();
+            // Daten von String in passende Datentypen umwandeln
+            int id = Integer.parseInt(data[0][0]);
+            String name = data[0][1];
+            long milliseconds = Long.parseLong(data[0][2]);
+            long bytes = Long.parseLong(data[0][3]);
+            double unitPrice = Double.parseDouble(data[0][4]);
+            // Track-Objekt erstellen.
+            return new Track(id, name, milliseconds, bytes, unitPrice);
+        } else {
+            // Fehler! null zurückgeben.
+            return null;
+        }
+        //*ml
+    }
+
+    /**
+     * Lädt die Playlist mit der angegbeen {@var pPlaylistID} inklusive aller
+     * zugehörigen {@link Track}s aus der Datenbank und gibt das
+     * {@link Playlist}-Objekt zurück. Gab es bei der Verbindung einen
+     * Fehler oder gibt es keinen Playlist mit der passenden ID, dann wird
+     * {@code null} zurückgegeben.
+     * @param pPlaylistID Die ID der zu ladenden Playlist.
+     * @return Die geladene Playlist.
+     */
+    public Playlist loadPlaylist( int pPlaylistID ) {
+        /*aufg*
+        // TODO: Implementieren
+        return null
+        *aufg*/
+        //ml*
+        return null;
+        //*ml
+    }
+
+    /**
+     * Lädt alle vorhandenen Playlists in die Liste {@var playlists}.
+     */
+    public void loadPlaylists() {
+        /*aufg*
+        // TODO: Implementieren
+        return null
+        *aufg*/
+        //ml*
+        //*ml
     }
 
 }

@@ -1,15 +1,25 @@
 public class Track {
 
+    private int id;
+
     private String name;
+
     private long milliseconds;
+
     private long bytes;
+
     private double unitPrice;
 
-    public Track(String pName, long pMilliseconds, long pBytes, double pUnitPrice) {
+    public Track(int pID, String pName, long pMilliseconds, long pBytes, double pUnitPrice) {
+        id = pID;
         name = pName;
         milliseconds = pMilliseconds;
         bytes = pBytes;
         unitPrice = pUnitPrice;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
