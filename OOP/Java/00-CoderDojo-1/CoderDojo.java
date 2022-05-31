@@ -224,10 +224,10 @@ public class CoderDojo {
         return 0;
         *aufg*/
         //ml*
-        int j = 0;  // Zähler für die "piffpaff"
+        int anzahl = 0;  // Zähler für die "piffpaff"
         for( int i = 1; i <= pMax; i++ ) {
-            if( i % 15 == 0 ) {
-                j++;
+            if( i % 15 == 0 ) { // Oder: i%3==0 && i%5==0
+                anzahl++;
                 System.out.println("piffpaff");
             } else if( i % 3 == 0 ) {
                 System.out.println("piff");
@@ -237,7 +237,7 @@ public class CoderDojo {
                 System.out.println(i);
             }
         }
-        return j;
+        return anzahl;
         //*ml
     }
 

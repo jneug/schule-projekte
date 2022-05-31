@@ -20,3 +20,4 @@ dir also die für dich interessantesten heraus.
 
 Autor: J. Neugebauer
 Version: 1.0.0 (2022-01-30)
+Tags: #dojo #grundlagen #oop

@@ -39,15 +39,15 @@ public class CoderDojoTest {
     public void testMax2() {
         CoderDojo cd = new CoderDojo();
 
-        assertEquals(4, cd.max(4, 1));
-        assertEquals(4, cd.max(4, 3));
-        assertEquals(4, cd.max(4, 4));
-        assertEquals(5, cd.max(4, 5));
-        assertEquals(8, cd.max(4, 8));
+        assertEquals("max(4, 1)", 4, cd.max(4, 1));
+        assertEquals("max(4, 3)", 4, cd.max(4, 3));
+        assertEquals("max(4, 4)", 4, cd.max(4, 4));
+        assertEquals("max(4, 5)", 5, cd.max(4, 5));
+        assertEquals("max(4, 8)", 8, cd.max(4, 8));
 
 
-        assertEquals(4, cd.max(4, -1));
-        assertEquals(4, cd.max(-1, 4));
+        assertEquals("max(4, -1)", 4, cd.max(4, -1));
+        assertEquals("max(-1, 4)", 4, cd.max(-1, 4));
     }
 
     @Test
@@ -151,22 +151,32 @@ public class CoderDojoTest {
 
         int n, j;
         n = cd.piffPaff(20);
-        assertEquals(1, n);
+        assertEquals("piffPaff(20): Falsche Anzahl piffpaffs", 1, n);
 
         j = (outContent.toString().split("piff").length) - 1;
-        assertEquals("Falsche Anzahl piffs", 6, j);
+        assertEquals("piffPaff(20): Falsche Anzahl piffs", 6, j);
         j = (outContent.toString().split("paff").length) - 1;
-        assertEquals("Falsche Anzahl paffs", 4, j);
+        assertEquals("piffPaff(20): Falsche Anzahl paffs", 4, j);
 
         outContent.reset();
 
         n = cd.piffPaff(100);
-        assertEquals(6, n);
+        assertEquals("piffPaff(100): Falsche Anzahl piffpaffs", 6, n);
 
         j = (outContent.toString().split("piff").length) - 1;
-        assertEquals("Falsche Anzahl piffs", 33, j);
+        assertEquals("piffPaff(100): Falsche Anzahl piffs", 33, j);
         j = (outContent.toString().split("paff").length) - 1;
-        assertEquals("Falsche Anzahl paffs", 20, j);
+        assertEquals("piffPaff(100): Falsche Anzahl paffs", 20, j);
+
+        outContent.reset();
+
+        n = cd.piffPaff(68);
+        assertEquals("piffPaff(68): Falsche Anzahl piffpaffs", 4, n);
+
+        j = (outContent.toString().split("piff").length) - 1;
+        assertEquals("piffPaff(68): Falsche Anzahl piffs", 22, j);
+        j = (outContent.toString().split("paff").length) - 1;
+        assertEquals("piffPaff(68): Falsche Anzahl paffs", 13, j);
     }
 
     @Test
