@@ -1,4 +1,3 @@
-//ml*
 public class Fliegend extends Tier {
 
     public Fliegend( String pName ) {
@@ -11,4 +10,3 @@ public class Fliegend extends Tier {
     }
 
 }
-//*ml

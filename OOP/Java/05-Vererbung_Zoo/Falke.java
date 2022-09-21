@@ -1,9 +1,4 @@
-/*aufg*
-public class Falke extends Tier {
-*aufg*/
-//ml*
 public class Falke extends Fliegend {
-//*ml
 
     public Falke( String pName ) {
         super(pName);

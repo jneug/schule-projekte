@@ -1,4 +1,3 @@
-//ml*
 public class Katze extends Laufend {
 
     public Katze( String pName ) {
@@ -11,4 +10,3 @@ public class Katze extends Laufend {
     }
 
 }
-//*ml

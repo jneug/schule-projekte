@@ -1,4 +1,4 @@
-//ml*
+
 public class Adler extends Fliegend {
 
     public Adler( String pName ) {
@@ -11,4 +11,3 @@ public class Adler extends Fliegend {
     }
 
 }
-//*ml

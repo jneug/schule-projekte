@@ -1,15 +1,15 @@
 
 /**
  * Klasse für ein Medium, das vom Medienplayer abgespielt werden kann.
- * 
+ *
  * Mögliche Medien sind Audio, Video und Bild.
- * 
+ *
  * @author J. Neugebauer <schule@neugebauer.cc>
  * @version 2018-05-17
  */
-public class AbspielbareMediendatei extends Mediendatei
+public abstract class AbspielbareMediendatei extends Mediendatei
 {
-    
+
     // Länge eines Videos/einer Audiodatei in Sekunden
     protected int laenge;
 
@@ -21,7 +21,7 @@ public class AbspielbareMediendatei extends Mediendatei
         super(pDatei, pTitel);
         laenge = pLaenge;
     }
-    
+
     public int getLaenge()
     {
         return laenge;
@@ -33,5 +33,5 @@ public class AbspielbareMediendatei extends Mediendatei
     public void abspielen() {
         System.out.printf("Abspielen von Audio-/Videodatei %s.\n", datei);
     }
-    
+
 }

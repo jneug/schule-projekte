@@ -1,4 +1,3 @@
-//ml*
 public class Schwimmend extends Tier {
 
     public Schwimmend( String pName ) {
@@ -11,4 +10,3 @@ public class Schwimmend extends Tier {
     }
 
 }
-//*ml

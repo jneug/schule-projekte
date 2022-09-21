@@ -1,4 +1,3 @@
-//ml*
 public class Laufend extends Tier {
 
     public Laufend( String pName ) {
@@ -11,4 +10,3 @@ public class Laufend extends Tier {
     }
 
 }
-//*ml
