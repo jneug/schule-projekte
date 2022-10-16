@@ -1,12 +1,12 @@
-#BlueJ package file
+cBlueJ package file
 dependency1.from=ArrayDojo
-dependency1.to=Dice
+dependency1.to=Die
 dependency1.type=UsesDependency
 dependency2.from=ArrayDojoTest
 dependency2.to=ArrayDojo
 dependency2.type=UsesDependency
 dependency3.from=ArrayDojoTest
-dependency3.to=Dice
+dependency3.to=Die
 dependency3.type=UsesDependency
 editor.fx.0.height=756
 editor.fx.0.width=1242
@@ -47,7 +47,7 @@ target2.width=120
 target2.x=230
 target2.y=40
 target3.height=70
-target3.name=Dice
+target3.name=Die
 target3.showInterface=false
 target3.type=ClassTarget
 target3.width=120

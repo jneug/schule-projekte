@@ -1,12 +1,12 @@
 
 
 import static org.junit.Assert.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class QueueTest
-{
+public class QueueTest {
 
     @Test
     public void testeEnqueue() {
@@ -70,7 +70,6 @@ public class QueueTest
         assertEquals("Nach dequeue muss front das zweite Element sein.",
             new Integer(88), schlange.front()); // erwartet: 88
     }
-
 
 
     @Test

@@ -1,4 +1,9 @@
+ Stack
+=======
+
 Implementierung der push- und pop-Operationen in der Stack-Klasse (Stapel) aus
 dem Zentralabitur NRW.
 
-Version: 2020-09-09
+Autor: J.Neugebauer
+Erstellt: 2022-09-28
+Version: 1.0.2

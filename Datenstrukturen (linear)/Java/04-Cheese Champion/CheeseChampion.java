@@ -18,7 +18,7 @@ public class CheeseChampion {
     private ???<Maus> eingang;
     private ???<Maus> seitengang;
     private ???<Maus> ausgang;
-    *aufg*/
+    *aufg*/su
     /*aufg* >2
     // Deklaration der Gänge
     private Queue<Maus> eingang;

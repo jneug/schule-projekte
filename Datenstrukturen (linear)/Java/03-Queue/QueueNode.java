@@ -6,12 +6,13 @@ public class QueueNode<ContentType> {
     private QueueNode<ContentType> nextNode = null;
 
     /**
-     * Ein neues Objekt vom Typ Node<ContentType> wird erschaffen.
-     * Der Inhalt wird per Parameter gesetzt. Der Verweis ist leer.
+     * Ein neues Objekt vom Typ Node<ContentType> wird erschaffen. Der Inhalt
+     * wird per Parameter gesetzt. Der Verweis ist leer.
      *
-     * @param pContentObject das Inhaltselement des Knotens vom Typ ContentType
+     * @param pContentObject das Inhaltselement des Knotens vom Typ
+     *     ContentType
      */
-    public QueueNode(ContentType pContentObject) {
+    public QueueNode( ContentType pContentObject ) {
         contentObject = pContentObject;
         nextNode = null;
     }
@@ -22,7 +23,7 @@ public class QueueNode<ContentType> {
      *
      * @param pNext der Nachfolger des Knotens
      */
-    public void setNext(QueueNode<ContentType> pNext) {
+    public void setNext( QueueNode<ContentType> pNext ) {
         nextNode = pNext;
     }
 

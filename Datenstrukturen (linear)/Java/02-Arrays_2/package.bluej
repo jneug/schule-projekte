@@ -1,9 +1,9 @@
 #BlueJ package file
 dependency1.from=ArrayDojo
-dependency1.to=Wuerfel
+dependency1.to=Die
 dependency1.type=UsesDependency
 dependency2.from=ArraysTest
-dependency2.to=Wuerfel
+dependency2.to=Die
 dependency2.type=UsesDependency
 dependency3.from=ArraysTest
 dependency3.to=ArrayDojo
@@ -40,7 +40,7 @@ target1.width=140
 target1.x=580
 target1.y=70
 target2.height=50
-target2.name=Wuerfel
+target2.name=Die
 target2.showInterface=false
 target2.type=ClassTarget
 target2.width=80

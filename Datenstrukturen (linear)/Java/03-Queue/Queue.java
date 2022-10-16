@@ -39,9 +39,8 @@ public class Queue<ContentType> {
     }
 
     /**
-     * Liefert das Inhaltsobjekt vom ersten Knotens der Schlange
-     * vom Typ ContentType, falls die Schlange nicht leer ist,
-     * ansonsten null.
+     * Liefert das Inhaltsobjekt vom ersten Knotens der Schlange vom Typ
+     * ContentType, falls die Schlange nicht leer ist, ansonsten null.
      *
      * @return Das Inhaltsobjekt oder null.
      */

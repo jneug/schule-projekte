@@ -95,7 +95,7 @@ public class ArraysTest {
         for( int i = 0; i < dice.length; i++ ) {
             if( dice[i] != null ) {
                 MockupWuerfel die = (MockupWuerfel) dice[i];
-                assertTrue("Der Würfel " + die.getName() + " wurde nicht geworfen (Array mit null-Referenzen).", die.rolls == 1);
+                assertTrue("Der Würfel " + die.getName() + " wurde nicht geworfen (Array mit null-Referenzen).", die.rolls == 2);
             }
         }
     }
