@@ -6,6 +6,16 @@ import schule.ngb.zm.Constants;
 
 public class Player extends Constants {
 
+    /**
+     * Konfiguration: Anzahl Karten auf der Hand eines Spielers.
+     */
+    public static final int HAND_COUNT = 8;
+
+    /**
+     * Konfiguration: Anzahl an Karten, die von der Hand ausgewählt werden.
+     */
+    public static final int SELECT_COUNT = 5;
+
     private String name;
 
     private Robot robot;
@@ -23,10 +33,9 @@ public class Player extends Constants {
     public Player( String pName, Tile startTile ) {
         name = pName;
 
-        robot = new Robot(startTile.getX(), startTile.getY());
-        robot.setTile(startTile);
+        robot = new Robot(startTile);
 
-        hand = new Instruction[RoboRallye.HAND_COUNT];
+        hand = new Instruction[HAND_COUNT];
         selectedCards = new List<>();
     }
 
@@ -52,7 +61,7 @@ public class Player extends Constants {
     }
 
     public boolean canSelectCards() {
-        return cardsSelected < RoboRallye.SELECT_COUNT;
+        return cardsSelected < SELECT_COUNT;
     }
 
     /**
