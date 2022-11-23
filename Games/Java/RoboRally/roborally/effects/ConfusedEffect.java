@@ -5,8 +5,25 @@ import roborally.tiles.Tile;
 import schule.ngb.zm.Constants;
 import schule.ngb.zm.layers.DrawingLayer;
 
+/**
+ * Ein Effekt, der den Roboter verwirt und ihn eine zufällige Bewegung ausführen
+ * lässt.
+ * <p>
+ * Sobald ein Roboter diesen Effekt erhält, fährt er jedes Mal, wenn der Effekt
+ * angewandt wird, mit einer zehnprozentigen Wahrscheinlichkeit eine Kachel vor
+ * oder zurück.
+ */
 public class ConfusedEffect extends Effect {
 
+    /**
+     * Lässt den Roboter mit einer Wahrscheinlichkeit von 10% eine Kachel vor
+     * oder zurück fahren.
+     * <p>
+     * Effektiv fährt der Roboter also mit einer Wahrscheinlichkeit von 5% vor
+     * und mit einer Wahrscheinlichkeit von 5% zurück.
+     *
+     * @param robot Der Roboter, auf den der Effekt wirkt.
+     */
     @Override
     public void apply( Robot robot ) {
         if( Constants.randomBool(10) ) {

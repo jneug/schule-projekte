@@ -15,26 +15,51 @@ public class Robot extends Constants {
      */
     public static final int ROBO_SIZE = Tile.TILE_SIZE - 10;
 
+    /**
+     * Die Kachel, auf der sich der Roboter befindet.
+     */
     private Tile tile;
 
+    /**
+     * Die Richtung, in die der Roboter gedreht ist. Kann einen von vier Werten
+     * annehmen: {@link Direction#UP UP}, {@link Direction#RIGHT RIGHT},
+     * {@link Direction#DOWN DOWN} oder {@link Direction#LEFT LEFT}.
+     */
     private Direction direction;
 
+    /**
+     * Die Farbe des Roboters.
+     */
     private Color color;
 
+    /**
+     * Eine Schlange mit Anweisungen, die der Roboter in dieser Runde ausführt.
+     */
     private Queue<Instruction> instructionQueue;
 
+    /**
+     * Eine Liste mit Effekten, die auf den Roboter angewandt werden.
+     */
     private List<Effect> effects;
 
-    public Robot( Tile pTile ) {
+    /**
+     * Erstellt einen neuen Roboter auf der angegebenen Kachel.
+     *
+     * @param pStartTile Die Startkachel des Roboters.
+     */
+    public Robot( Tile pStartTile ) {
         direction = RIGHT;
         color = randomNiceColor();
 
         instructionQueue = new Queue<>();
         effects = new List<>();
 
-        setTile(pTile);
+        setTile(pStartTile);
     }
 
+    /**
+     * @return Die Kachel, auf der sich der Roboter derzeit befindet.
+     */
     public Tile getTile() {
         return tile;
     }
@@ -60,14 +85,30 @@ public class Robot extends Constants {
         this.tile.setRobot(this);
     }
 
+    /**
+     * Gibt die Richtung zurück, in die der Roboter gedreht ist.
+     * <p>
+     * Die Richtung kann einer der Wert {@link Direction#UP UP},
+     * {@link Direction#RIGHT RIGHT}, {@link Direction#DOWN DOWN} oder
+     * {@link Direction#LEFT LEFT} sein. Jede Richtung kann als Richtungvektor
+     * verstanden werden, bei dem die Komponenten -1, 0 oder 1 sind.
+     * <p>
+     * Beispielsweise gilt {@code LEFT = (-1, 0)}.
+     * <p>
+     * Die Richtung wird automatisch bei Drehungen des Roboters aktualisiert.
+     *
+     * @return Die Richtung, in die der Roboter gedreht ist.
+     */
     public Direction getDirection() {
         return direction;
     }
 
+    /**
+     * @return Die Farbe des Roboters.
+     */
     public Color getColor() {
         return color;
     }
-
 
     /**
      * Fügt eine Anweisung in die Anweisungsschlange ein.
@@ -78,6 +119,10 @@ public class Robot extends Constants {
         instructionQueue.enqueue(pInstruction);
     }
 
+    /**
+     * @return Die Schlange mit den noch ncith ausgeführten Anweisungen für
+     *     diese Runde.
+     */
     public Queue<Instruction> getInstructionQueue() {
         return instructionQueue;
     }
@@ -95,6 +140,9 @@ public class Robot extends Constants {
         effects.insert(pEffect);
     }
 
+    /**
+     * @return Die Liste der Effekte.
+     */
     public List<Effect> getEffects() {
         return effects;
     }
@@ -104,9 +152,14 @@ public class Robot extends Constants {
      * Kachel in der Richtung befahrbar ist. Die Kachel ist nicht befahrbar,
      * wenn sich in der Richtung eine Wand befindet, die Zielkachel nicht
      * befahrbar ist oder sich ein anderer Roboter auf der Zielkachel befindet.
+     * <p>
+     * Im Gegensatz zu {@link #move(Direction)} scheitert die Bewegung, falls
+     * das Zielfeld besetzt ist und ein dort befindlicher Roboter wird
+     * <strong>nicht</strong> verschoben.
      *
-     * @param pDir
-     * @return
+     * @param pDir Die Richtung, in die geschoben werden soll.
+     * @return {@code true}, wenn die Bewegung ausgeführt wurde, {@code false}
+     *     sonst.
      */
     public boolean push( Direction pDir ) {
         Factory pFactory = tile.getFactory();
@@ -132,8 +185,9 @@ public class Robot extends Constants {
      * diesen in die Fahrtrichtung zu verschieben. Wenn dies scheitert, kann
      * sich dieser Roboter nicht bewegen.
      *
-     * @param pDir
-     * @return
+     * @param pDir Die Richtung, in die gefahren werden soll.
+     * @return {@code true}, wenn die Bewegung ausgeführt wurde, {@code false}
+     *     sonst.
      */
     public boolean move( Direction pDir ) {
         Factory pFactory = tile.getFactory();
@@ -157,6 +211,10 @@ public class Robot extends Constants {
      * zurückgegeben, sonst {@code false}. Die Bewegung kann nicht ausgeführt
      * werden, wenn sich hinter dem Roboter eine Wand zwischen den Kacheln
      * befindet, oder die Zielkachel nicht befahrbar ist.
+     * <p>
+     * Befindet sich auf der Zielkachel ein anderer Roboter, wird versucht
+     * diesen in die Fahrtrichtung zu verschieben. Wenn dies scheitert, kann
+     * sich dieser Roboter nicht bewegen.
      *
      * @return {@code true}, wenn die Bewegung ausgeführt wurde, {@code false}
      *     sonst.
@@ -172,6 +230,10 @@ public class Robot extends Constants {
      * zurückgegeben, sonst {@code false}. Die Bewegung kann nicht ausgeführt
      * werden, wenn sich in Blickrichtung eine Wand zwischen den Kacheln
      * befindet, oder die nächste Kachel nicht befahrbar ist.
+     * <p>
+     * Befindet sich auf der Zielkachel ein anderer Roboter, wird versucht
+     * diesen in die Fahrtrichtung zu verschieben. Wenn dies scheitert, kann
+     * sich dieser Roboter nicht bewegen.
      *
      * @return {@code true}, wenn die Bewegung ausgeführt wurde, {@code false}
      *     sonst.
@@ -181,7 +243,7 @@ public class Robot extends Constants {
     }
 
     /**
-     * Dreht den Roboter nach links.
+     * Dreht den Roboter um 90 Grad nach links.
      */
     public void turnLeft() {
         switch( direction ) {
@@ -201,7 +263,7 @@ public class Robot extends Constants {
     }
 
     /**
-     * Dreht den Roboter nach rechts.
+     * Dreht den Roboter um 90 Grad nach rechts.
      */
     public void turnRight() {
         switch( direction ) {
@@ -223,7 +285,7 @@ public class Robot extends Constants {
     /**
      * Führt die nächste Anweisung in der Anweisungsschlange aus.
      * <p>
-     * Für die erste Anweisung in der Schlange wird
+     * Für die Anweisung im Kopf der Schlange wird
      * {@link Instruction#execute(Robot)} mit diesem Roboter als Argument
      * aufgerufen. Die Anweisung wird danach aus der Schlange entfernt.
      */
