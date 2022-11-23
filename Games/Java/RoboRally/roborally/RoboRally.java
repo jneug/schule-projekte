@@ -1,6 +1,5 @@
 package roborally;
 
-import roborally.effects.RandomMoveEffect;
 import roborally.instructions.*;
 import roborally.tiles.Tile;
 import schule.ngb.zm.Zeichenmaschine;

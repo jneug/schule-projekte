@@ -63,7 +63,7 @@ public class Factory extends Constants {
         if( b > 2 ) {
             y = random(1, 2);
         }
-        tiles[x][y] = new RandomizerTile(x, y, this);
+        tiles[x][y] = new ConfusionBeamTile(x, y, this);
 
         for( int k = 0; k < 2; k++ ) {
             x = random(9, 10);

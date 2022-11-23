@@ -5,7 +5,7 @@ import roborally.tiles.Tile;
 import schule.ngb.zm.Constants;
 import schule.ngb.zm.layers.DrawingLayer;
 
-public class RandomMoveEffect extends Effect {
+public class ConfusedEffect extends Effect {
 
     @Override
     public void apply( Robot robot ) {

@@ -1,32 +1,32 @@
 package roborally.tiles;
 
 import roborally.Factory;
-import roborally.effects.RandomMoveEffect;
+import roborally.effects.ConfusedEffect;
 import schule.ngb.zm.layers.DrawingLayer;
 
 /**
- * Eine Kachel, die Robotern den {@link RandomMoveEffect} gibt.
+ * Eine Kachel, die Robotern den {@link ConfusedEffect} gibt.
  * <p>
  * Befindet sich ein Roboter am Ende einer Anweisung auf der Kachel, wird ihm
  * der Effekt hinzugefügt, sofern er den effekt nicht schon besitzt.
  */
-public class RandomizerTile extends Tile {
+public class ConfusionBeamTile extends Tile {
 
     /**
-     * Erzeugt eine neue Randomizer-Kachel mit den angegebenen Koordinaten und
-     * der angegebenen Fabrik.
+     * Erzeugt eine neue ConfusionBeam-Kachel mit den angegebenen Koordinaten
+     * und der angegebenen Fabrik.
      *
      * @param pX Die Spaltennummer der Kachel.
      * @param pY Die Zeilennummer der Kachel.
      * @param pFactory Die Fabrikkarte, zu der diese Kachel gehört.
      */
-    public RandomizerTile( int pX, int pY, Factory pFactory ) {
+    public ConfusionBeamTile( int pX, int pY, Factory pFactory ) {
         super(pX, pY, true, pFactory);
     }
 
     /**
      * Falls sich ein Roboter auf der Kachel befindet, wird geprüft, ob er schon
-     * einen aktiven {@link RandomMoveEffect} besitzt. Falls nicht, wird ihm
+     * einen aktiven {@link ConfusedEffect} besitzt. Falls nicht, wird ihm
      * dieser hinzugefügt. Sonst passiert nichts.
      */
     @Override
@@ -35,11 +35,11 @@ public class RandomizerTile extends Tile {
             robot.getEffects().toFirst();
             while( robot.getEffects().hasAccess() ) {
                 // Wurde schon ein RandomMoveEffect hinzugefügt?
-                if( robot.getEffects().getContent().getClass().equals(RandomMoveEffect.class) ) {
+                if( robot.getEffects().getContent().getClass().equals(ConfusedEffect.class) ) {
                     return;
                 }
             }
-            robot.addEffect(new RandomMoveEffect());
+            robot.addEffect(new ConfusedEffect());
         }
     }
 
