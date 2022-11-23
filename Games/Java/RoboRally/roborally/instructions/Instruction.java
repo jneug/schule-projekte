@@ -10,7 +10,7 @@ public abstract class Instruction extends Constants {
 
     public static final int CARD_HEIGHT = 100;
 
-    public abstract void step( Robot robot );
+    public abstract void execute( Robot robot );
 
     public void draw( int x, int y, DrawingLayer drawing ) {
         drawing.setStrokeColor(DARKGRAY);

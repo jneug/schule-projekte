@@ -5,23 +5,9 @@ import schule.ngb.zm.layers.DrawingLayer;
 
 public class BackwardsInstruction extends Instruction {
 
-    protected int tiles = 1;
-
-    public BackwardsInstruction() {
-
-    }
-
-    public BackwardsInstruction( int tiles ) {
-        this.tiles = tiles;
-    }
-
     @Override
-    public void step( Robot robot ) {
-        for( int i = 0; i < tiles; i++ ) {
-            if( !robot.moveBackward() ) {
-                break;
-            }
-        }
+    public void execute( Robot robot ) {
+        robot.moveBackward();
     }
 
     @Override
@@ -30,7 +16,7 @@ public class BackwardsInstruction extends Instruction {
         drawing.setStrokeWeight(4);
         drawing.setFillColor(GREEN);
         drawing.roundedRect(x, y, 70, 100, 4, NORTHWEST);
-        drawing.image("roborally/assets/arrow-backward.png", x+35, y+50, 0.2);
+        drawing.image("roborally/assets/arrow-backward.png", x + 35, y + 50, 0.2);
     }
 
 }

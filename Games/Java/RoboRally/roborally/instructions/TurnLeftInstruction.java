@@ -6,7 +6,7 @@ import schule.ngb.zm.layers.DrawingLayer;
 public class TurnLeftInstruction extends Instruction {
 
     @Override
-    public void step( Robot robot ) {
+    public void execute( Robot robot ) {
         robot.turnLeft();
     }
 

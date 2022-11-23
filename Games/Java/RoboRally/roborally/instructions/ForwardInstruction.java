@@ -11,15 +11,15 @@ public class ForwardInstruction extends Instruction {
 
     }
 
-    public ForwardInstruction( int tiles ) {
-        this.tiles = tiles;
+    public ForwardInstruction( int pTiles ) {
+        this.tiles = pTiles;
     }
 
     @Override
-    public void step( Robot robot ) {
+    public void execute( Robot pRobot ) {
         for( int i = 0; i < tiles; i++ ) {
-            if( !robot.moveForward() ) {
-                break;
+            if( !pRobot.moveForward() ) {
+                return;
             }
         }
     }
