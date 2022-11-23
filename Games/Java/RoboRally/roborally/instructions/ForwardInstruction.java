@@ -25,17 +25,17 @@ public class ForwardInstruction extends Instruction {
     }
 
     @Override
-    public void draw( int x, int y, DrawingLayer drawing ) {
+    public void draw( int pPixelX, int pPixelY, DrawingLayer drawing ) {
         drawing.setStrokeColor(DARKGRAY);
         drawing.setStrokeWeight(4);
         drawing.setFillColor(GREEN);
-        drawing.roundedRect(x, y, 70, 100, 4, NORTHWEST);
+        drawing.roundedRect(pPixelX, pPixelY, 70, 100, 4, NORTHWEST);
         drawing.setStrokeWeight(1);
         drawing.setFillColor(GREEN.darker());
-        drawing.circle(x+70, y, 15, NORTHEAST);
+        drawing.circle(pPixelX +70, pPixelY, 15, NORTHEAST);
         drawing.setFontSize(16);
-        drawing.text(tiles+"", x+55, y+15);
-        drawing.image("roborally/assets/arrow-forward.png", x+35, y+50, 0.2);
+        drawing.text(tiles+"", pPixelX +55, pPixelY +15);
+        drawing.image("roborally/assets/arrow-forward.png", pPixelX +35, pPixelY +50, 0.2);
     }
 
 }

@@ -12,12 +12,12 @@ public class TurnRightInstruction extends Instruction {
     }
 
     @Override
-    public void draw( int x, int y, DrawingLayer drawing ) {
+    public void draw( int pPixelX, int pPixelY, DrawingLayer drawing ) {
         drawing.setStrokeColor(DARKGRAY);
         drawing.setStrokeWeight(4);
         drawing.setFillColor(YELLOW);
-        drawing.roundedRect(x, y, 70, 100, 4, NORTHWEST);
-        drawing.image("roborally/assets/arrow-right.png", x+35, y+50, 0.2);
+        drawing.roundedRect(pPixelX, pPixelY, 70, 100, 4, NORTHWEST);
+        drawing.image("roborally/assets/arrow-right.png", pPixelX +35, pPixelY +50, 0.2);
     }
 
 }
