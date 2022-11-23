@@ -71,7 +71,7 @@ public class RoboRally extends Zeichenmaschine {
         // Spieler erstellen
         players = new List<>();
         for( int i = 0; i < 2; i++ ) {
-            players.append(new Player("Player " + (i + 1), factory.getTile(2, i * 2 + 3)));
+            players.append(new Player("Spieler " + (i + 1), factory.getTile(2, i * 2 + 3)));
         }
 
         // Datenstrukturen anlegen
@@ -206,6 +206,14 @@ public class RoboRally extends Zeichenmaschine {
 
         // Karte anzeigen
         factory.draw(drawing);
+
+        // Name des SPieler anzeigen
+        drawing.setFontSize(30);
+        drawing.setFillColor(WHITE);
+        drawing.text(playerOrder.front().getName(), 100, 50);
+        drawing.setFontSize(28);
+        drawing.setFillColor(BLACK);
+        drawing.text(playerOrder.front().getName(), 100, 50);
 
         // Nummer der Runde anzeigen
         drawing.setFontSize(30);
