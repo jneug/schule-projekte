@@ -31,7 +31,7 @@ public abstract class Instruction extends Constants {
     /**
      * Führt die Anweisung für den angegebenen Roboter aus.
      *
-     * @param robot Der Roboter, der die ANweisung ausführt.
+     * @param robot Der Roboter, der die Anweisung ausführt.
      */
     public abstract void execute( Robot robot );
 
