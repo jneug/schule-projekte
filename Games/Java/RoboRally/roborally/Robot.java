@@ -316,7 +316,8 @@ public class Robot extends Constants {
      * @param drawing Die Zeichenfläche.
      */
     public void draw( DrawingLayer drawing ) {
-        int halfSize = Tile.TILE_SIZE / 2;
+        int halfTileSize = Tile.TILE_SIZE / 2;
+        int halfRoboSize = ROBO_SIZE / 2;
 
         // x- und y-Nummer der Kachel
         int x = tile.getX();
@@ -325,16 +326,16 @@ public class Robot extends Constants {
         // Körper zeichnen
         drawing.noStroke();
         drawing.setFillColor(color);
-        drawing.circle(halfSize + x * Tile.TILE_SIZE, halfSize + y * Tile.TILE_SIZE, ROBO_SIZE / 2);
+        drawing.circle(halfTileSize + x * Tile.TILE_SIZE, halfTileSize + y * Tile.TILE_SIZE, halfRoboSize);
         drawing.setFillColor(color.darker(50));
-        drawing.circle(halfSize + Tile.TILE_SIZE * (x + direction.x * .2), halfSize + Tile.TILE_SIZE * (y + direction.y * .2), ROBO_SIZE / 6);
+        drawing.circle(halfTileSize + Tile.TILE_SIZE * (x + direction.x * .2), halfTileSize + Tile.TILE_SIZE * (y + direction.y * .2), halfRoboSize / 3);
         // Kettenräder zeichnen
         if( direction == UP || direction == DOWN ) {
-            drawing.rect(halfSize + x * Tile.TILE_SIZE - ROBO_SIZE / 2, halfSize + y * Tile.TILE_SIZE, ROBO_SIZE / 4, ROBO_SIZE, EAST);
-            drawing.rect(halfSize + x * Tile.TILE_SIZE + ROBO_SIZE / 2, halfSize + y * Tile.TILE_SIZE, ROBO_SIZE / 4, ROBO_SIZE, WEST);
+            drawing.rect(halfTileSize + x * Tile.TILE_SIZE - halfRoboSize, halfTileSize + y * Tile.TILE_SIZE, halfRoboSize / 2, ROBO_SIZE, WEST);
+            drawing.rect(halfTileSize + x * Tile.TILE_SIZE + halfRoboSize, halfTileSize + y * Tile.TILE_SIZE, halfRoboSize / 2, ROBO_SIZE, EAST);
         } else {
-            drawing.rect(halfSize + x * Tile.TILE_SIZE, halfSize + y * Tile.TILE_SIZE - ROBO_SIZE / 2, ROBO_SIZE, ROBO_SIZE / 4, NORTH);
-            drawing.rect(halfSize + x * Tile.TILE_SIZE, halfSize + y * Tile.TILE_SIZE + ROBO_SIZE / 2, ROBO_SIZE, ROBO_SIZE / 4, SOUTH);
+            drawing.rect(halfTileSize + x * Tile.TILE_SIZE, halfTileSize + y * Tile.TILE_SIZE - halfRoboSize, ROBO_SIZE, halfRoboSize / 2, NORTH);
+            drawing.rect(halfTileSize + x * Tile.TILE_SIZE, halfTileSize + y * Tile.TILE_SIZE + halfRoboSize, ROBO_SIZE, halfRoboSize / 2, SOUTH);
         }
 
         // Effekte zeichnen
