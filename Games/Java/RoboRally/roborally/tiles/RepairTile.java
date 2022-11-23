@@ -37,7 +37,7 @@ public class RepairTile extends Tile {
 
     @Override
     public void draw( DrawingLayer drawing ) {
-        drawing.image("roborally/assets/tile-repair.png", x * TILE_SIZE, y * TILE_SIZE, NORTHWEST);
+        drawing.image("roborally/assets/tile-repair.png", getPixelX(), getPixelY(), NORTHWEST);
     }
 
 }

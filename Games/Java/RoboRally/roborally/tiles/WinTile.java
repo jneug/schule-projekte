@@ -35,10 +35,10 @@ public class WinTile extends Tile {
 
     @Override
     public void draw( DrawingLayer drawing ) {
-        drawing.image("roborally/assets/tile-floor.png", x * TILE_SIZE, y * TILE_SIZE, NORTHWEST);
+        drawing.image("roborally/assets/tile-floor.png", getPixelX(), getPixelY(), NORTHWEST);
         drawing.setFillColor(GREEN, 100);
         drawing.noStroke();
-        drawing.square(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, NORTHWEST);
+        drawing.square(getPixelX(), getPixelY(), TILE_SIZE, NORTHWEST);
     }
 
 }

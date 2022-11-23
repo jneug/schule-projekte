@@ -198,7 +198,7 @@ public abstract class Tile extends Constants {
         drawing.setStrokeColor(DARKGRAY);
         drawing.setStrokeWeight(1);
         drawing.setFillColor(LIGHTGRAY);
-        drawing.square(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, NORTHWEST);
+        drawing.square(getPixelX(), getPixelY(), TILE_SIZE, NORTHWEST);
     }
 
 }
