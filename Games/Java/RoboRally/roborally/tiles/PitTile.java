@@ -4,19 +4,19 @@ import roborally.Factory;
 import schule.ngb.zm.layers.DrawingLayer;
 
 /**
- * Eine normale Fußbodenkachel ohne besondere Funktion.
+ * Eine nicht befahrbare Kachel mit einem Abgrund.
  */
-public class FloorTile extends Tile {
+public class PitTile extends Tile {
 
     /**
-     * Erzeugt eine neue Fußbodenkachel mit den angegebenen Koordinaten und der
+     * Erzeugt einen neuen Abgrunf mit den angegebenen Koordinaten und der
      * angegebenen Fabrik.
      *
      * @param pX Die Spaltennummer der Kachel.
      * @param pY Die Zeilennummer der Kachel.
      * @param pFactory Die Fabrikkarte, zu der diese Kachel gehört.
      */
-    public FloorTile( int pX, int pY, Factory pFactory ) {
+    public PitTile( int pX, int pY, Factory pFactory ) {
         super(pX, pY, true, pFactory);
     }
 
@@ -30,7 +30,7 @@ public class FloorTile extends Tile {
 
     @Override
     public void draw( DrawingLayer drawing ) {
-        drawing.image("roborally/assets/tile-floor.png", x * TILE_SIZE, y * TILE_SIZE, NORTHWEST);
+        drawing.image("roborally/assets/tile-pit.png", x * TILE_SIZE, y * TILE_SIZE, NORTHWEST);
     }
 
 }
