@@ -1,45 +1,22 @@
 package roborally;
 
+import roborally.effects.RandomMoveEffect;
 import roborally.instructions.*;
 import roborally.tiles.Tile;
 import schule.ngb.zm.Zeichenmaschine;
+import schule.ngb.zm.util.io.FontLoader;
 
 import java.awt.Font;
 
 /**
  * Hauptklasse des Robo Rally Spiels.
  */
-public class RoboRallye extends Zeichenmaschine {
+public class RoboRally extends Zeichenmaschine {
 
     /**
-     * Konfiguration: Breite der Fabrikkarte (Anzahl Kacheln).
+     * Verzögerung nach jeder Ausführung von Instruktionen.
      */
-    public static final int MAP_WIDTH = 20;
-
-    /**
-     * Konfiguration: Höhe der Fabrikkarte (Anzahl Kacheln).
-     */
-    public static final int MAP_HEIGHT = 15;
-
-    /**
-     * Konfiguration: Kantenlänge einer Kachel.
-     */
-    public static final int TILE_SIZE = 40;
-
-    /**
-     * Konfiguration:Größe eines Roboters.
-     */
-    public static final int ROBO_SIZE = TILE_SIZE - 10;
-
-    /**
-     * Konfiguration: Anzahl Karten auf der Hand eines Spielers.
-     */
-    public static final int HAND_COUNT = 8;
-
-    /**
-     * Konfiguration: Anzahl an Karten, die von der Hand ausgewählt werden.
-     */
-    public static final int SELECT_COUNT = 5;
+    public static final int INSTRUCTION_DELAY = 800;
 
     /**
      * Liste der Spieler, die Teilnehmen.
@@ -60,7 +37,7 @@ public class RoboRallye extends Zeichenmaschine {
     /**
      * Die Karte des Spiels.
      */
-    private Map map;
+    private Factory factory;
 
     /**
      * Zustand des Spiels.
@@ -75,50 +52,90 @@ public class RoboRallye extends Zeichenmaschine {
     /**
      * Konstruktor der Spiel-Klasse.
      */
-    public RoboRallye() {
-        super(MAP_WIDTH * TILE_SIZE, MAP_HEIGHT * TILE_SIZE, "RoboRallye");
+    public RoboRally() {
+        super(Factory.MAP_WIDTH * Tile.TILE_SIZE, Factory.MAP_HEIGHT * Tile.TILE_SIZE + Instruction.CARD_HEIGHT + 20, "Robo Rally");
     }
 
     @Override
     public void setup() {
+        // Spielzustand "startend"
         gameState = "starting";
 
-        map = new Map();
-        map.createMap();
+        // Vorbereiten der Schriftart
+        FontLoader.loadFonts("roborally", "Comic Sans MS", "Arial");
+        drawing.setFont("roborally", 16, Font.BOLD);
 
+        // Fabrik erstellen
+        factory = new Factory();
+        factory.createMap();
+
+        // Spieler erstellen
         players = new List<>();
         for( int i = 0; i < 2; i++ ) {
-            players.append(new Player("Player " + (i + 1), map.getTile(2, i * 2 + 3)));
+            players.append(new Player("Player " + (i + 1), factory.getTile(2, i * 2 + 3)));
         }
 
+        // Datenstrukturen anlegen
         playerOrder = new Queue<>();
         deck = new Stack<>();
 
+        // Erste Runde starten
         round = 0;
         startNextRound();
-
-        drawing.setFont("Comic Sans MS", 16, Font.BOLD);
     }
 
+    /**
+     * Mischt den Kartenstapel.
+     *
+     * Nach dem Ablauf der Methode enthält der Kartenstapel alle
+     * {@link Instruction Anweisungs-Karten}, die sich im Spiel befinden,
+     * in zufälliger Reihenfolge.
+     *
+     * @see #shuffle(Object[])
+     */
     public void shuffleDeck() {
         Instruction[] cards = new Instruction[84];
-        for( int i = 0; i < 84; i += 7 ) {
+
+        int i = 0;
+        for( ; i < 20; i++ ) {
             cards[i] = new ForwardInstruction();
-            cards[i + 1] = new ForwardInstruction(2);
-            cards[i + 2] = new ForwardInstruction(3);
-            cards[i + 3] = new BackwardsInstruction(2);
-            cards[i + 4] = new TurnLeftInstruction();
-            cards[i + 5] = new TurnRightInstruction();
-            cards[i + 6] = new TurnAroundInstruction();
         }
+        for( ; i < 32; i++ ) {
+            cards[i] = new ForwardInstruction(2);
+        }
+        for( ; i < 40; i++ ) {
+            cards[i] = new ForwardInstruction(3);
+        }
+        for( ; i < 52; i++ ) {
+            cards[i] = new BackwardsInstruction();
+        }
+        for( ; i < 63; i++ ) {
+            cards[i] = new TurnLeftInstruction();
+        }
+        for( ; i < 74; i++ ) {
+            cards[i] = new TurnRightInstruction();
+        }
+        for( ; i < 84; i++ ) {
+            cards[i] = new TurnAroundInstruction();
+        }
+
         cards = shuffle(cards);
 
         deck = new Stack<>();
-        for( int i = 0; i < cards.length; i++ ) {
+        for( i = 0; i < cards.length; i++ ) {
             deck.push(cards[i]);
         }
     }
 
+    /**
+     * Startet die nächste Spielrunde.
+     *
+     * Zu Beginn einer SPielrunde wird die {@link #round Rundenzahl} erhöht,
+     * der Kartenstapel {@link #shuffleDeck() gemischt} und jeder Spieler
+     * {@link Player#drawHand(Stack)} zieht aus dem Kartenstapel seine Handkarten.
+     * Außerdem wird die Zugreihenfolge in der {@code Queue} {@link #playerOrder}
+     * abgelegt.
+     */
     public void startNextRound() {
         round += 1;
 
@@ -134,43 +151,70 @@ public class RoboRallye extends Zeichenmaschine {
         gameState = "next turn";
     }
 
+    /**
+     * Führt nacheinander die Anweisungen der Roboter und der Fabrik aus.
+     */
     public void executeInstructions() {
         gameState = "executing";
-        Tile winTile = map.getWinTile();
+        Tile winTile = factory.getWinTile();
 
-        for( int i = 0; i < SELECT_COUNT; i++ ) {
+        for( int i = 0; i < Player.SELECT_COUNT; i++ ) {
             players.toFirst();
             while( players.hasAccess() ) {
                 Player currentPlayer = players.getContent();
                 Robot robot = currentPlayer.getRobot();
                 robot.executeNextInstruction();
 
-                if( winTile.hasRobot() && winTile.getRobot().equals(robot) ) {
+                if( checkWinTile(currentPlayer) ) {
                     gameState = "game ended";
-
-                    redraw();
                     drawWinScreen(currentPlayer);
-                    render();
                     return;
                 }
 
                 players.next();
             }
 
-            map.executeTiles();
+            factory.executeTiles();
             redraw();
-            delay(500);
+            delay(INSTRUCTION_DELAY);
+        }
+
+        // Effekte anwenden
+        players.toFirst();
+        while( players.hasAccess() ) {
+            Player currentPlayer = players.getContent();
+            players.next();
+
+            currentPlayer.getRobot().applyEffects();
         }
 
         startNextRound();
         redraw();
     }
 
+    public boolean checkWinTile( Player pCurrentPlayer ) {
+        Tile winTile = factory.getWinTile();
+        return winTile.hasRobot() && winTile.getRobot().equals(pCurrentPlayer.getRobot());
+    }
+
     @Override
     public void draw() {
-        drawing.clear();
+        if( playerOrder.isEmpty() ) {
+            drawing.clear();
+        } else {
+            drawing.clear(playerOrder.front().getRobot().getColor());
+        }
 
-        map.draw(drawing);
+        // Karte anzeigen
+        factory.draw(drawing);
+
+        // Nummer der Runde anzeigen
+        drawing.setFontSize(30);
+        drawing.setFillColor(WHITE);
+        drawing.text("Runde " + round, canvasWidth-100, 50);
+        drawing.setFontSize(28);
+        drawing.setFillColor(BLACK);
+        drawing.text("Runde " + round, canvasWidth-100, 50);
 
         players.toFirst();
         while( players.hasAccess() ) {
@@ -187,35 +231,42 @@ public class RoboRallye extends Zeichenmaschine {
         }
     }
 
-    public void drawNextButton() {
+    private void drawNextButton() {
         drawing.noStroke();
         drawing.setFillColor(33, 200);
         drawing.rect(0, 0, canvasWidth, canvasHeight, NORTHWEST);
         drawing.setStrokeColor(33);
         drawing.setFillColor(playerOrder.front().getRobot().getColor());
-        drawing.roundedRect(canvasWidth / 2, canvasHeight / 2, TILE_SIZE * 6, TILE_SIZE * 2, 8);
+        drawing.roundedRect(canvasWidth / 2, canvasHeight / 2, Tile.TILE_SIZE * 6, Tile.TILE_SIZE * 2, 8);
         drawing.setFontSize(32);
         drawing.text(playerOrder.front().getName(), canvasWidth / 2, canvasHeight / 2);
     }
 
     private void drawWinScreen( Player player ) {
+        // Einmal neu zeichnen, damit die Karte im finalen Zustand angezeigt wird
+        // (ggf. wurde die Karte nach der letzten Anweisung noch nicht gezeichnet).
+        redraw();
+
         drawing.noStroke();
         drawing.setFillColor(33, 200);
         drawing.rect(0, 0, canvasWidth, canvasHeight, NORTHWEST);
         drawing.setStrokeColor(33);
         drawing.setFillColor(player.getRobot().getColor());
-        drawing.roundedRect(canvasWidth / 2, canvasHeight / 2, TILE_SIZE * 10, TILE_SIZE * 2, 8);
+        drawing.roundedRect(canvasWidth / 2, canvasHeight / 2, Tile.TILE_SIZE * 10, Tile.TILE_SIZE * 2, 8);
         drawing.setFontSize(32);
         drawing.text(player.getName() + " gewinnt", canvasWidth / 2, canvasHeight / 2);
+
+        // Nicht noch einmal draw aufrufen, sondern nur die neuen Inhalte zeichnen
+        render();
     }
 
-    public void drawCards() {
+    private void drawCards() {
         Player currentPlayer = playerOrder.front();
 
         for( int i = 0; i < currentPlayer.getHand().length; i++ ) {
             currentPlayer.getHand()[i].draw(
-                50 + i * (Instruction.CARD_WIDTH + 20),
-                canvasHeight - (Instruction.CARD_HEIGHT + 20),
+                240 + i * (Instruction.CARD_WIDTH + 20),
+                canvasHeight - (Instruction.CARD_HEIGHT + 10),
                 drawing
             );
         }
@@ -226,22 +277,22 @@ public class RoboRallye extends Zeichenmaschine {
             int i = currentPlayer.getSelectedCards().getContent();
             currentPlayer.getSelectedCards().next();
 
-            int cardX1 = 50 + i * (Instruction.CARD_WIDTH + 20);
-            int cardY1 = canvasHeight - (Instruction.CARD_HEIGHT + 20);
+            int cardX1 = 240 + i * (Instruction.CARD_WIDTH + 20);
+            int cardY1 = canvasHeight - 10;
 
             drawing.setStrokeColor(BLACK);
             drawing.setStrokeWeight(2);
             drawing.setFillColor(RED);
             drawing.circle(
-                cardX1 + Instruction.CARD_WIDTH / 2,
-                cardY1 + Instruction.CARD_HEIGHT / 2,
+                cardX1 + 25,
+                cardY1 - 25,
                 20
             );
             drawing.setFontSize(16);
             drawing.text(
                 "" + prio,
-                cardX1 + Instruction.CARD_WIDTH / 2,
-                cardY1 + Instruction.CARD_HEIGHT / 2
+                cardX1 + 25,
+                cardY1 - 25
             );
 
             prio += 1;
@@ -251,10 +302,10 @@ public class RoboRallye extends Zeichenmaschine {
     @Override
     public void mouseClicked() {
         if( gameState == "next turn" ) {
-            int buttonX1 = canvasWidth / 2 - TILE_SIZE * 3;
-            int buttonX2 = canvasWidth / 2 + TILE_SIZE * 3;
-            int buttonY1 = canvasHeight / 2 - TILE_SIZE;
-            int buttonY2 = canvasHeight / 2 + TILE_SIZE;
+            int buttonX1 = canvasWidth / 2 - Tile.TILE_SIZE * 3;
+            int buttonX2 = canvasWidth / 2 + Tile.TILE_SIZE * 3;
+            int buttonY1 = canvasHeight / 2 - Tile.TILE_SIZE;
+            int buttonY2 = canvasHeight / 2 + Tile.TILE_SIZE;
 
             if( cmouseX > buttonX1 && cmouseX < buttonX2
                 && cmouseY > buttonY1 && cmouseY < buttonY2 ) {
@@ -265,8 +316,8 @@ public class RoboRallye extends Zeichenmaschine {
             Player currentPlayer = playerOrder.front();
 
             // Prüfen, ob eine Karte angeklickt wurde.
-            for( int i = 0; i < HAND_COUNT; i++ ) {
-                int cardX1 = 50 + i * (Instruction.CARD_WIDTH + 20);
+            for( int i = 0; i < Player.HAND_COUNT; i++ ) {
+                int cardX1 = 240 + i * (Instruction.CARD_WIDTH + 20);
                 int cardX2 = cardX1 + Instruction.CARD_WIDTH;
                 int cardY1 = canvasHeight - (Instruction.CARD_HEIGHT + 20);
                 int cardY2 = cardY1 + Instruction.CARD_HEIGHT;
@@ -296,8 +347,10 @@ public class RoboRallye extends Zeichenmaschine {
         }
     }
 
+
+
     public static void main( String[] args ) {
-        new RoboRallye();
+        new RoboRally();
     }
 
 }
