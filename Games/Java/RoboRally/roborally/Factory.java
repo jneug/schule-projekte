@@ -91,15 +91,15 @@ public class Factory extends Constants {
         }
 
         // Eine Reihe mit Abgründen als Hindernis erstellen.
-        int a = random(5, 8);
-        int b = random(1, 4);
+        int a = MAP_WIDTH/2;
+        int b = random(1, MAP_HEIGHT-12);
         for( int i = 0; i < 10; i++ ) {
             tiles[a][b + i] = new PitTile(a, b + i, this);
         }
 
         // Zielkachel platzieren.
-        int i = random(15, 19);
-        int j = random(1, 14);
+        int i = random(MAP_WIDTH-10, MAP_WIDTH-3);
+        int j = random(2, MAP_HEIGHT-3);
         winTile = new WinTile(i, j, this);
         tiles[i][j] = winTile;
 
@@ -110,10 +110,11 @@ public class Factory extends Constants {
             y = random(1, 2);
         }
         tiles[x][y] = new ConfusionBeamTile(x, y, this);
+        walls[x][y] = 0;
 
         for( int k = 0; k < 2; k++ ) {
-            x = random(9, 10);
-            y = random(3, 12);
+            x = random(a+2, i-2);
+            y = random(3, MAP_HEIGHT-4);
             tiles[x][y] = new RepairTile(x, y, this);
         }
     }
