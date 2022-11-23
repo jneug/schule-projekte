@@ -334,9 +334,12 @@ public class RoboRally extends Zeichenmaschine {
         } else if( gameState == "card select" ) {
             Player currentPlayer = playerOrder.front();
 
+            // Abstand zum linken Bildrand berechnen, damit die Karten zentriert sind
+            int offset = (int) ((canvasWidth - (Player.HAND_COUNT * (Instruction.CARD_WIDTH + 20))) / 2);
+
             // Prüfen, ob eine Karte angeklickt wurde.
             for( int i = 0; i < Player.HAND_COUNT; i++ ) {
-                int cardX1 = 240 + i * (Instruction.CARD_WIDTH + 20);
+                int cardX1 = offset + i * (Instruction.CARD_WIDTH + 20);
                 int cardX2 = cardX1 + Instruction.CARD_WIDTH;
                 int cardY1 = canvasHeight - (Instruction.CARD_HEIGHT + 20);
                 int cardY2 = cardY1 + Instruction.CARD_HEIGHT;
