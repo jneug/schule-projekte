@@ -85,10 +85,10 @@ public class RoboRally extends Zeichenmaschine {
 
     /**
      * Mischt den Kartenstapel.
-     *
+     * <p>
      * Nach dem Ablauf der Methode enthält der Kartenstapel alle
-     * {@link Instruction Anweisungs-Karten}, die sich im Spiel befinden,
-     * in zufälliger Reihenfolge.
+     * {@link Instruction Anweisungs-Karten}, die sich im Spiel befinden, in
+     * zufälliger Reihenfolge.
      *
      * @see #shuffle(Object[])
      */
@@ -128,12 +128,12 @@ public class RoboRally extends Zeichenmaschine {
 
     /**
      * Startet die nächste Spielrunde.
-     *
-     * Zu Beginn einer SPielrunde wird die {@link #round Rundenzahl} erhöht,
-     * der Kartenstapel {@link #shuffleDeck() gemischt} und jeder Spieler
-     * {@link Player#drawHand(Stack)} zieht aus dem Kartenstapel seine Handkarten.
-     * Außerdem wird die Zugreihenfolge in der {@code Queue} {@link #playerOrder}
-     * abgelegt.
+     * <p>
+     * Zu Beginn einer SPielrunde wird die {@link #round Rundenzahl} erhöht, der
+     * Kartenstapel {@link #shuffleDeck() gemischt} und jeder Spieler
+     * {@link Player#drawHand(Stack)} zieht aus dem Kartenstapel seine
+     * Handkarten. Außerdem wird die Zugreihenfolge in der {@code Queue}
+     * {@link #playerOrder} abgelegt.
      */
     public void startNextRound() {
         round += 1;
@@ -210,10 +210,10 @@ public class RoboRally extends Zeichenmaschine {
         // Nummer der Runde anzeigen
         drawing.setFontSize(30);
         drawing.setFillColor(WHITE);
-        drawing.text("Runde " + round, canvasWidth-100, 50);
+        drawing.text("Runde " + round, canvasWidth - 100, 50);
         drawing.setFontSize(28);
         drawing.setFillColor(BLACK);
-        drawing.text("Runde " + round, canvasWidth-100, 50);
+        drawing.text("Runde " + round, canvasWidth - 100, 50);
 
         players.toFirst();
         while( players.hasAccess() ) {
@@ -262,23 +262,34 @@ public class RoboRally extends Zeichenmaschine {
     private void drawCards() {
         Player currentPlayer = playerOrder.front();
 
-        for( int i = 0; i < currentPlayer.getHand().length; i++ ) {
-            currentPlayer.getHand()[i].draw(
-                240 + i * (Instruction.CARD_WIDTH + 20),
+        // Abstand zum linken Bildrand berechnen, damit die Karten zentriert sind
+        int offset = (int) ((canvasWidth - (Player.HAND_COUNT * (Instruction.CARD_WIDTH + 20))) / 2);
+
+        // Die Karten von der Hand einzeichnen
+        for( int i = 0; i < Player.HAND_COUNT; i++ ) {
+            // Alle Handkarten sollten zu diesem Zeitpunkt ungleich null sein
+            currentPlayer.getHandCard(i).draw(
+                offset + i * (Instruction.CARD_WIDTH + 20),
                 canvasHeight - (Instruction.CARD_HEIGHT + 10),
                 drawing
             );
         }
 
+        // Die Reihenfolge für alle ausgewählten Karten einzeichnen
         int prio = 1;
-        currentPlayer.getSelectedCards().toFirst();
-        while( currentPlayer.getSelectedCards().hasAccess() ) {
-            int i = currentPlayer.getSelectedCards().getContent();
-            currentPlayer.getSelectedCards().next();
+        // Referenz auf die Liste der ausgewählten Kartennummern holen
+        List<Integer> selectedCards = currentPlayer.getSelectedCards();
+        selectedCards.toFirst();
+        // Ausgewählte Kartennummern durchlaufen und einzeichnen
+        while( selectedCards.hasAccess() ) {
+            int i = selectedCards.getContent();
+            selectedCards.next();
 
-            int cardX1 = 240 + i * (Instruction.CARD_WIDTH + 20);
+            // Koordinaten bestimmen
+            int cardX1 = offset + i * (Instruction.CARD_WIDTH + 20);
             int cardY1 = canvasHeight - 10;
 
+            // Zeichnen
             drawing.setStrokeColor(BLACK);
             drawing.setStrokeWeight(2);
             drawing.setFillColor(RED);
@@ -294,6 +305,7 @@ public class RoboRally extends Zeichenmaschine {
                 cardY1 - 25
             );
 
+            // Nächste Nummer der Reihenfolge
             prio += 1;
         }
     }
@@ -345,7 +357,6 @@ public class RoboRally extends Zeichenmaschine {
             }
         }
     }
-
 
 
     public static void main( String[] args ) {

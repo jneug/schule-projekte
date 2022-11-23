@@ -4,12 +4,22 @@ import roborally.instructions.*;
 import roborally.tiles.Tile;
 import schule.ngb.zm.Constants;
 
+/**
+ * Ein Spieler im Robo Rally Spiel.
+ * <p>
+ * Ein Spieler besitzt genau einen {@link Robot Roboter} und hält eine Anzahl
+ * von {@link Instruction Anweisungen} auf der Hand, aus denen er eine Anzahl
+ * auswählt, um sie dem Roboter einzuprogrammieren.
+ * <p>
+ * Der Spieler enthält vor allem Methoden, um das Ziehen und die Auswahl der
+ * Anweisungen zu verwalten.
+ */
 public class Player extends Constants {
 
     /**
      * Konfiguration: Anzahl Karten auf der Hand eines Spielers.
      */
-    public static final int HAND_COUNT = 8;
+    public static final int HAND_COUNT = 9;
 
     /**
      * Konfiguration: Anzahl an Karten, die von der Hand ausgewählt werden.
@@ -23,11 +33,18 @@ public class Player extends Constants {
     private Instruction[] hand;
 
     /**
-     * Anzahl Karten, die der Spieler in der aktuellen Runde bisher gezogen
-     * hat.
+     * Anzahl Karten, die der Spieler in der aktuellen Runde bisher gezogen hat.
+     * Wird zu Beginn einer Runde auf 0 gesetzt.
      */
-    private int cardsSelected = 0;
+    private int cardsSelectedCount = 0;
 
+    /**
+     * Liste an Integern, die den Index und die Reihenfolge der bisher
+     * ausgewählten Karten festlegen. Ausgewählte Karten werden an die Liste
+     * angehängt. Die Reihenfolge der Nummern in der Liste ist die Reihenfolge,
+     * in der die Anweisungen in den Roboter einprogrammiert werden. Die Nummern
+     * in der Liste sind jeweils der Index der Karte im Hand-Array.
+     */
     private List<Integer> selectedCards;
 
     public Player( String pName, Tile startTile ) {
@@ -53,15 +70,18 @@ public class Player extends Constants {
 
         // Wenn eine neue Hand gezogen wurde, wurden noch keine Karten
         // ausgewählt.
-        cardsSelected = 0;
+        cardsSelectedCount = 0;
     }
 
-    public int getCardsSelected() {
-        return cardsSelected;
+    //ml*
+    @SuppressWarnings( "unused" )
+    //*ml
+    public int getCardsSelectedCount() {
+        return cardsSelectedCount;
     }
 
     public boolean canSelectCards() {
-        return cardsSelected < SELECT_COUNT;
+        return cardsSelectedCount < SELECT_COUNT;
     }
 
     /**
@@ -71,7 +91,7 @@ public class Player extends Constants {
      */
     public void selectCard( int i ) {
         if( !isCardSelected(i) ) {
-            cardsSelected += 1;
+            cardsSelectedCount += 1;
             selectedCards.append(i);
         }
     }
@@ -79,7 +99,7 @@ public class Player extends Constants {
     public void unselectCard( int i ) {
         if( isCardSelected(i) ) {
             selectedCards.remove();
-            cardsSelected -= 1;
+            cardsSelectedCount -= 1;
         }
     }
 
@@ -93,7 +113,7 @@ public class Player extends Constants {
     public boolean isCardSelected( int i ) {
         selectedCards.toFirst();
         while( selectedCards.hasAccess() ) {
-            if( selectedCards.getContent().intValue() == i ) {
+            if( selectedCards.getContent() == i ) {
                 return true;
             }
             selectedCards.next();
@@ -105,7 +125,7 @@ public class Player extends Constants {
         return hand;
     }
 
-    public Instruction getHand( int i ) {
+    public Instruction getHandCard( int i ) {
         return hand[i];
     }
 
