@@ -6,7 +6,7 @@ import schule.ngb.zm.Constants;
 import schule.ngb.zm.layers.DrawingLayer;
 
 /**
- * Ein {@code Tile} ist eine Kachel auf dem Spielfeld.
+ * Basisklasse für eine Kachel auf dem Spielfeld.
  * <p>
  * Kacheln gehören zu genau einer {@link Factory}, die beim Erstellen eines
  * Instanz angegeben werden muss.
@@ -119,6 +119,20 @@ public abstract class Tile extends Constants {
      */
     public int getY() {
         return y;
+    }
+
+    /**
+     * @return Die pixelgenaue x-Koordinate auf der Zeichenfläche.
+     */
+    public int getPixelX() {
+        return x * TILE_SIZE;
+    }
+
+    /**
+     * @return Die pixelgenaue y-Koordinate auf der Zeichenfläche.
+     */
+    public int getPixelY() {
+        return y * TILE_SIZE;
     }
 
     /**
