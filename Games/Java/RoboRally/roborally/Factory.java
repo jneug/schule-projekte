@@ -157,12 +157,84 @@ public class Factory extends Constants {
                 case RIGHT:
                     return pX == MAP_WIDTH - 1 || (walls[pX][pY] & 2) == 2;
                 case UP:
-                    return (pY == 0) || (walls[pX][pY - 1] & 1) == 1;
+                    if( pY - 1 >= 0 ) {
+                        return (pY == 0) || (walls[pX][pY - 1] & 1) == 1;
+                    }
                 case LEFT:
-                    return (pX == 0) || (walls[pX - 1][pY] & 2) == 2;
+                    if( pX - 1 >= 0 ) {
+                        return (pX == 0) || (walls[pX - 1][pY] & 2) == 2;
+                    }
             }
         }
         return false;
+    }
+
+    /**
+     * Fügt eine Wand an der angegebenen Kachel in der angegebenen Richtung
+     * ein.
+     *
+     * @param pX Die Spaltennummer der Kachel.
+     * @param pY Die Zeilennummer der Kachel.
+     * @param pDir Die Richtung, in die eine Wand eingefügt werden soll.
+     */
+    public void addWall( int pX, int pY, Direction pDir ) {
+        if( isValidTile(pX, pY) ) {
+            switch( pDir ) {
+                case DOWN:
+                    walls[pX][pY] |= 1;
+                    break;
+                case RIGHT:
+                    walls[pX][pY] |= 2;
+                    break;
+                case UP:
+                    if( pY - 1 >= 0 ) {
+                        walls[pX][pY - 1] |= 1;
+                    }
+                    break;
+                case LEFT:
+                    if( pX - 1 >= 0 ) {
+                        walls[pX - 1][pY] |= 2;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Entfernt eine Wand von der angegebenen Kachel in der angegebenen
+     * Richtung.
+     * <p>
+     * Wände am Rand des Feldes können nicht entfernt werden.
+     *
+     * @param pX Die Spaltennummer der Kachel.
+     * @param pY Die Zeilennummer der Kachel.
+     * @param pDir Die Richtung, in die eine Wand entfernt werden soll.
+     */
+    public void removeWall( int pX, int pY, Direction pDir ) {
+        if( isValidTile(pX, pY) ) {
+            switch( pDir ) {
+                case DOWN:
+                    walls[pX][pY] &= 2;
+                    break;
+                case RIGHT:
+                    walls[pX][pY] &= 1;
+                    break;
+                case UP:
+                    if( pY - 1 >= 0 ) {
+                        walls[pX][pY - 1] &= 2;
+                    }
+                    break;
+                case LEFT:
+                    if( pX - 1 >= 0 ) {
+                        walls[pX - 1][pY] &= 1;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     /**
