@@ -1,10 +1,10 @@
-public class ListCompiler1 {
+public class ListCompiler {
 
     private String sourcecode;
 
     private List<Token> tokenlist;
 
-    public ListCompiler1( String pSourceFile ) {
+    public ListCompiler( String pSourceFile ) {
         sourcecode = "";
 
         List<String> lines = FileSystem.getFileContents(pSourceFile);
@@ -27,6 +27,7 @@ public class ListCompiler1 {
         // Run lexer
         for (String word : words) {
             switch( state ) {
+                //ml*
                 case 0:
                     if( word.equals("list") || word.equals("from") ) {
                         tokenlist.append(new Token("KEYWORD", word));
@@ -58,6 +59,7 @@ public class ListCompiler1 {
                     }
                 break;
 
+                //*ml
                 default:
                 return false;
             }
@@ -74,6 +76,7 @@ public class ListCompiler1 {
             Token t = tokenlist.getContent();
 
             switch( state ) {
+                //ml*
                 case 0:
                     if( t.getToken().equals("list") ) {
                         state = 1;
@@ -124,6 +127,7 @@ public class ListCompiler1 {
                     }
                 break;
 
+                //*ml
                 default:
                     return false;
             }
@@ -135,6 +139,7 @@ public class ListCompiler1 {
     }
 
     public void interpret() {
+        //ml*
         int from = 0, to = -1;
         List<Token> out = new List<>();
 
@@ -168,6 +173,7 @@ public class ListCompiler1 {
             }
             System.out.println();
         }
+        //*ml
     }
 
     public void printTokens() {
@@ -200,7 +206,7 @@ public class ListCompiler1 {
     }
 
     public static void main(String[] args) {
-        ListCompiler1 lc = new ListCompiler1("programs/example1.list");
+        ListCompiler lc = new ListCompiler("programs/example1.list");
         lc.scan();
         lc.parse();
         lc.interpret();
