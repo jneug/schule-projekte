@@ -33,7 +33,7 @@ public class ChinookDB {
 
     /**
      * Gibt die Anzahl Tracks in der Datenbank zurück. Gab es bei der Verbindung
-     * einen Fehler, dann wird {@code 0} zurückgegeben.
+     * einen Fehler, dann wird {@code -1} zurückgegeben.
      * @return Die Anzahl der Kunden.
      */
     public int countTracks() {
@@ -46,13 +46,13 @@ public class ChinookDB {
         if( tracks_result != null ) {
             return tracks_result.getRowCount();
         } else {
-            return 0;
+            return -1;
         }
     }
 
     /**
      * Gibt die Anzahl Kunden in der Datenbank zurück. Gab es bei der Verbindung
-     * einen Fehler, dann wird {@code 0} zurückgegeben.
+     * einen Fehler, dann wird {@code -1} zurückgegeben.
      * @return Die Anzahl der Kunden.
      */
     public int countCustomers() {
@@ -62,19 +62,50 @@ public class ChinookDB {
         QueryResult customers_result = dbc.getCurrentQueryResult();
         // Daten des Abfrageerbenis holen (2-dim Array: [Zeile][Spalte])
         // In diesem Fall gibt es nur genau eine Zeile mit einer Spalte, also
-        // data := String[1][1]
+        // data -> String[1][1]
         // Das Ergebnis kann aber auch leer sein, oder null, falls es einen Fehler gab.
         // Daher prüfen wir dies.
         if( customers_result != null && customers_result.getRowCount() > 0 ) {
             String[][] data = customers_result.getData();
             // Ergebnisse sind (hier) immer Strings. Da wir eine Zahl wollen,
-            // müssen wir den Streing parsen.
+            // müssen wir den String parsen.
             int count = Integer.parseInt(data[0][0]);
             // Rückgabe
             return count;
         } else {
-            return 0;
+            return -1;
         }
+    }
+
+    /**
+     * Zählt die Anzahl an Tracks in einer Playlist.
+     *
+     * Falls es zur angegebenen ID keine Playlist in der Datenbank gibt oder falls
+     * bei der Verbindung ein Fehler auftritt, wird {@code -1} zurückgegeben.
+     * @param pPlaylistId Die ID der Playlist.
+     * @return Die Anzahl der Tracks in der Plalyist.
+     */
+    public int countPlaylistSize( int pPlaylistId ) {
+        /*aufg*
+        // TODO: Implementieren
+        return -1;
+        *aufg*/
+        //ml*
+        // Abfrage ausführen
+        dbc.executeStatement("SELECT COUNT(*) FROM playlist_track WHERE PlaylistId = " + pPlaylistId);
+        // Letztes Abfrageergebnis holen
+        QueryResult result = dbc.getCurrentQueryResult();
+        // Abfrageergebnis prüfen
+        if( result != null && result.getRowCount() > 0 ) {
+            String[][] data = result.getData();
+            // String -> int umwandeln
+            int count = Integer.parseInt(data[0][0]);
+            // Rückgabe
+            return count;
+        } else {
+            return -1;
+        }
+        //*ml
     }
 
     /**
