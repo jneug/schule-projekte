@@ -1,7 +1,7 @@
 
 /**
- * Implementierung der Tiefensuche auf einem ungereichteten,
- * gewichteten Graphen.
+ * Implementierung der Tiefensuche auf einem ungereichteten, gewichteten
+ * Graphen.
  */
 public class Breitensuche {
 
@@ -37,6 +37,7 @@ public class Breitensuche {
 
     /**
      * Suche nach einem Vertex mit der angegebenen ID mittels der Breitensuche.
+     *
      * @param pVertexID
      * @return
      */
@@ -54,7 +55,7 @@ public class Breitensuche {
         //       deutlich wird.
         // TODO: Wenn dein Algorithmus funnktioniert, kopiere die Methode und
         //       Erstelle Varianten, bei denen die Reihenfolge der Nachbarknoten
-        //       modifiziert ist. Dazu
+        //       modifiziert ist.
         *aufg*/
         //ml*
         // Ersten Knoten markieren und in die Schlange enqueuen
@@ -87,7 +88,6 @@ public class Breitensuche {
     }
 
     /**
-     *
      * @param pVertexID
      * @return
      */
@@ -101,7 +101,7 @@ public class Breitensuche {
         //       besucht werden.
         //       Nutze dazu die Hilfsmethode getVertexFromListByID, um aus
         //       Liste der Nachbarknoten denjenigen, der alphabetisch als
-        //       erstes kommt herauszusuchen.
+        //       erstes kommt, herauszusuchen.
         *aufg*/
         //ml*
         // Ersten Knoten markieren und in die Schlange enqueuen
@@ -173,22 +173,23 @@ public class Breitensuche {
 
 
     /**
-     * Sucht aus einer Liste von Knoten denjenigen, dessen ID alphabetisch ale
-     * erstes kommt. Der Knoten wird aus der Liste gelöscht und dann zurück
-     * gegeben.
-     * @param pVertices
+     * Sucht aus einer Liste von Knoten denjenigen, dessen ID alphabetisch als
+     * erstes kommt. Der Knoten wird aus der Liste gelöscht und dann
+     * zurückgegeben.
+     *
+     * @param pVertices Liste mit Knotenobjekten.
      * @return
      */
     private Vertex getVertexFromListByID( List<Vertex> pVertices ) {
         pVertices.toFirst();
         Vertex v = pVertices.getContent();
         do {
-          pVertices.next();
+            pVertices.next();
 
-          if( pVertices.hasAccess() &&
-              pVertices.getContent().getID().compareToIgnoreCase(v.getID()) < 0 ) {
-              v = pVertices.getContent();
-          }
+            if( pVertices.hasAccess() &&
+                pVertices.getContent().getID().compareToIgnoreCase(v.getID()) < 0 ) {
+                v = pVertices.getContent();
+            }
         } while( pVertices.hasAccess() );
 
         pVertices.toFirst();
@@ -204,11 +205,13 @@ public class Breitensuche {
 
     /**
      * Sucht aus einer Liste von Knoten denjenigen, dessen Kantengewicht zum
-     * Konten <code>pCurrentVertex</code> am geringsten ist. Der Knoten wird
-     * aus der Liste gelöscht und dann zurück
-     * gegeben.
-     * @param pVertices
-     * @return
+     * Konten {code pCurrentVertex} am geringsten ist. Der Knoten wird aus der
+     * Liste gelöscht und dann zurückgegeben. Haben zwei Kanten das gleiche
+     * Gewicht, wird der erste in der Liste zurückgegeben.
+     *
+     * @param pCurrentVertex Der aktuelle Knoten.
+     * @param pVertices Liste mit Knotenobjekten.
+     * @return Der Knoten mit dem geringsten Kantengewicht zum aktuellen Knoten.
      */
     private Vertex getVertexFromListByWeight( Vertex pCurrentVertex, List<Vertex> pVertices ) {
         pVertices.toFirst();
@@ -233,4 +236,5 @@ public class Breitensuche {
         pVertices.remove();
         return v;
     }
+
 }

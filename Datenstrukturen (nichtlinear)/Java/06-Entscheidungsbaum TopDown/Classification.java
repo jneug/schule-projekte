@@ -1,8 +1,8 @@
 /**
- * Blattknoten eines Entscheidungsbaums. Klassifiziert einen Datensatz,
- * nachdem alle Entscheidungen des Pfades getroffen wurden.
+ * Blattknoten eines Entscheidungsbaums. Klassifiziert einen Datensatz, nachdem
+ * alle Entscheidungen des Pfades getroffen wurden.
  */
-public class Classification extends DecisionNode {
+public class Classification implements DecisionNode {
 
     // Die Klassifikation als String
     private String classification;

@@ -31,7 +31,7 @@ public class Dataset {
      * Setzt den Wert eines Attributs in diesem Datensatz.
      *
      * @param pAttribute Name des Attributs.
-     * @param pValue     Neuer Wert des Attributs.
+     * @param pValue Neuer Wert des Attributs.
      */
     public void set( String pAttribute, String pValue ) {
         data.put(pAttribute, pValue);

@@ -1,8 +1,6 @@
-import java.util.Random;
-
 /**
- * Implementierungen der drei Traversierungsarten auf
- * Binärbäumen mit Zahl-Inhalten.
+ * Implementierungen der drei Traversierungsarten auf Binärbäumen mit
+ * Zahl-Inhalten.
  */
 public class Traversierungen {
 
@@ -29,13 +27,14 @@ public class Traversierungen {
      * @see #preorder(BinaryTree)
      */
     public void preorder() {
-	    System.out.print("Preorder: ");
+        System.out.print("Preorder: ");
         preorder(root);
         System.out.println();
     }
 
     /**
      * Rekursive Methode für die Preorder-Traversierung.
+     *
      * @param pRoot Der Wurzelknoten des aktuellen Teilbaumes.
      */
     public void preorder( BinaryTree<Integer> pRoot ) {
@@ -54,13 +53,14 @@ public class Traversierungen {
      * @see #postorder(BinaryTree)
      */
     public void postorder() {
-		System.out.print("Postorder: ");
+        System.out.print("Postorder: ");
         postorder(root);
-		System.out.println();
+        System.out.println();
     }
 
     /**
      * Rekursive Methode für die Postorder-Traversierung.
+     *
      * @param pRoot Der Wurzelknoten des aktuellen Teilbaumes.
      */
     public void postorder( BinaryTree<Integer> pRoot ) {
@@ -79,13 +79,14 @@ public class Traversierungen {
      * @see #inorder(BinaryTree)
      */
     public void inorder() {
-		System.out.print("Inorder: ");
+        System.out.print("Inorder: ");
         inorder(root);
-		System.out.println();
+        System.out.println();
     }
 
     /**
      * Rekursive Methode für die Inorder-Traversierung.
+     *
      * @param pRoot Der Wurzelknoten des aktuellen Teilbaumes.
      */
     public void inorder( BinaryTree<Integer> pRoot ) {
@@ -99,8 +100,9 @@ public class Traversierungen {
     }
 
     /**
-     * Hilfsmethode, um den Inhalt eines Wurzelknotens auf der
-     * Kommandozeile auszugeben.
+     * Hilfsmethode, um den Inhalt eines Wurzelknotens auf der Kommandozeile
+     * auszugeben.
+     *
      * @param pRoot Der Wurzelknoten
      */
     private void printContent( BinaryTree<Integer> pRoot ) {

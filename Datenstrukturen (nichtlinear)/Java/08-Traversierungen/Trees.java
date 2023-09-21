@@ -3,10 +3,11 @@ import java.util.Random;
 import java.util.concurrent.Callable;
 
 /**
- * Eine Sammlung von Klassenmethoden, um wiederkehrende
- * Aufgaben mit binären Bäumen zu vereinfachen.
- * @version 0.3 (2020-12-09)
+ * Eine Sammlung von Klassenmethoden, um wiederkehrende Aufgaben mit binären
+ * Bäumen zu vereinfachen.
+ *
  * @author J. Neugebauer <schule@neugebauer.cc>
+ * @version 0.3 (2020-12-09)
  */
 public class Trees {
 
@@ -15,8 +16,8 @@ public class Trees {
             return 0;
         }
         return 1 + Math.max(
-            getMaxDepth( pRoot.getLeftTree() ),
-            getMaxDepth( pRoot.getRightTree() )
+            getMaxDepth(pRoot.getLeftTree()),
+            getMaxDepth(pRoot.getRightTree())
         );
     }
 
@@ -24,7 +25,7 @@ public class Trees {
         if( pRoot.isEmpty() ) {
             return 0;
         }
-        return 1 + countNodes( pRoot.getLeftTree() ) + countNodes( pRoot.getRightTree() );
+        return 1 + countNodes(pRoot.getLeftTree()) + countNodes(pRoot.getRightTree());
     }
 
     public static <T> int countLeaves( BinaryTree<T> pRoot ) {
@@ -33,7 +34,7 @@ public class Trees {
         } else if( pRoot.getLeftTree().isEmpty() && pRoot.getRightTree().isEmpty() ) {
             return 1;
         }
-        return countLeaves( pRoot.getLeftTree() ) + countLeaves( pRoot.getRightTree() );
+        return countLeaves(pRoot.getLeftTree()) + countLeaves(pRoot.getRightTree());
     }
 
     public static <T> void printPretty( BinaryTree<T> pRoot ) {
@@ -45,7 +46,7 @@ public class Trees {
     }
 
     // Adapted from https://stackoverflow.com/a/27153988/10921408
-    private static <T> StringBuilder printPretty( BinaryTree<T> pRoot, StringBuilder prefix, boolean isTail, StringBuilder sb) {
+    private static <T> StringBuilder printPretty( BinaryTree<T> pRoot, StringBuilder prefix, boolean isTail, StringBuilder sb ) {
         if( !pRoot.getRightTree().isEmpty() ) {
             printPretty(pRoot.getRightTree(), new StringBuilder().append(prefix).append(isTail ? "│   " : "    "), false, sb);
         }
@@ -97,7 +98,7 @@ public class Trees {
     }
 
     public static BinaryTree<Integer> generateCompleteIntegerTree( int pDepth, int pMinValue, int pMaxValue ) {
-        return generateBalancedIntegerTree((int)Math.pow(2,pDepth)-1, pMinValue, pMaxValue);
+        return generateBalancedIntegerTree((int) Math.pow(2, pDepth) - 1, pMinValue, pMaxValue);
     }
 
     public static BinaryTree<Integer> generateIntegerTree( int pNodeCount, double pWeight, double pUncertainty ) {
@@ -109,7 +110,7 @@ public class Trees {
         return generateTree(pNodeCount, new Callable<Integer>() {
             @Override
             public Integer call() throws Exception {
-                return new Integer(rand.nextInt(pMaxValue-pMinValue)+pMinValue);
+                return rand.nextInt(pMaxValue - pMinValue) + pMinValue;
             }
         }, pWeight, pUncertainty);
     }

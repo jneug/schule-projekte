@@ -74,8 +74,8 @@ public class DecisionTreeBuilder {
     }
 
     /**
-     * Schickt einen Datensatz durch den Entscheidungsbaum und gibt die
-     * Klasse als String zurück.
+     * Schickt einen Datensatz durch den Entscheidungsbaum und gibt die Klasse
+     * als String zurück.
      *
      * @param pDataset Der zu testende Datensatz.
      * @return Die Klasse, der der Datensatz zugeordnet wurde.

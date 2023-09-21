@@ -1,7 +1,7 @@
 
 /**
- * Implementierung der Tiefensuche auf einem ungereichteten,
- * gewichteten Graphen.
+ * Implementierung der Tiefensuche auf einem ungerichteten, gewichteten
+ * Graphen.
  */
 public class Tiefensuche {
 
@@ -45,22 +45,44 @@ public class Tiefensuche {
 
     /**
      * Suche nach einem Vertex mit der angegebenen ID mittels der Tiefensuche.
-     * @param pVertexID
-     * @return
+     *
+     * @param pVertexID Die gesuchte Knoten-ID.
+     * @return {@code true}, wenn ein Knoten mit der gesuchten ID im Graphen
+     *     exisitert, {@code false} sonst.
      */
     public boolean findVertex( String pVertexID ) {
+        /*aufg* 1
+        // Setze alle Markierungen zurück
+        // Starte die Rekursion
+        return false;
+        *aufg*/
+        /*aufg* 2
+        *aufg*/
+        //ml* 2
         g.setAllVertexMarks(false); // Markierungen zurücksetzen
         return findVertex(pVertexID, g.getVertices().getContent());
+        //*ml
     }
 
     /**
-     * Hilfsmethode für die rekursive Tiefensuche.
-     * Sucht nach einem Vertex mit der angegebenen ID mittels der Tiefensuche,
-     * ausgehend vom angegebenen Startknoten.
-     * @param pVertexID
-     * @return
+     * Hilfsmethode für die rekursive Tiefensuche. Sucht nach einem Vertex mit
+     * der angegebenen ID mittels der Tiefensuche, ausgehend vom angegebenen
+     * Startknoten.
+     *
+     * @param pVertexID Die gesuchte Knoten-ID.
+     * @return {@code true}, wenn ein Knoten mit der gesuchten ID im Graphen
+     *     exisitert, {@code false} sonst.
      */
-    private boolean findVertex( String  pVertexID, Vertex pCurrent ) {
+    private boolean findVertex( String pVertexID, Vertex pCurrent ) {
+        /*aufg*
+        // Ist der aktuelle Knoten der Gesuchte?
+        // Sonst
+        //  Markiere aktuellen Knoten als besucht
+        //  Wiederhole für jeden Nachbarknoten
+        //    Wenn Nachbar nicht markiert
+        //      rufe findVertex rekursiv auf
+        *aufg*/
+        //ml*
         if( pCurrent.getID().equals(pVertexID) ) {
             return true;
         } else {
@@ -78,6 +100,7 @@ public class Tiefensuche {
                 neighbours.next();
             }
         }
+        //*ml
         return false;
     }
 

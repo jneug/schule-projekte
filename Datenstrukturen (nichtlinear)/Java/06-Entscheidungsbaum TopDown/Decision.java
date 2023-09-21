@@ -1,14 +1,14 @@
 /**
- * Innerer Knoten eines Entscheidungsbaums. Entscheidet basierend auf
- * dem Wert eines Attributs eines {@link Dataset Datensatzes}, ob im linken oder
- * rechten Teilbaum weitergesucht werden muss.
+ * Innerer Knoten eines Entscheidungsbaums. Entscheidet basierend auf dem Wert
+ * eines Attributs eines {@link Dataset Datensatzes}, ob im linken oder rechten
+ * Teilbaum weitergesucht werden muss.
  * <p>
  * Da es sich um <em>binäre Entscheidungen</em> handelt wird immer nur der Wert
  * für den linken Teilbaum angegeben und für alle anderen Werte der rechte
  * Teilbaum gewählt.
  * </p>
  */
-public class Decision extends DecisionNode {
+public class Decision implements DecisionNode {
 
     // Name des Attributs
     private String attribute;
@@ -20,7 +20,8 @@ public class Decision extends DecisionNode {
      * Erstellt eine binäre Entscheidung.
      *
      * @param pAttribute Name des Attributs.
-     * @param pValueLeft Wert, wann im linken Teilbaum weitergesucht werden muss.
+     * @param pValueLeft Wert, wann im linken Teilbaum weitergesucht werden
+     * muss.
      */
     public Decision( String pAttribute, String pValueLeft ) {
         attribute = pAttribute;
