@@ -10,28 +10,37 @@ public class Sun {
     y = 0.0;
   }
 
-  //ml* >=1
+  /*aufg* >=1
   // Ein zweiter Konstruktor mit Parametern
   public Sun( float pX, float pY) {
     x = pX;
     y = pY;
   }
-  //*ml
+  *aufg*/
 
   // Methode der Klasse
   public void draw() {
     noStroke();
     fill(255, 252, 64);
-    ellipse(x, y, 50, 50);
+    ellipse(x-25.0, y-25.0, 50, 50);
   }
 
-  //ml* >=1
+  /*aufg* >=1
   public float getX() {
-    return x;
+    return 0.0;
   }
 
   public float getY() {
-    return y;
+    return 0.0;
+  }
+  *aufg*/
+  //ml*
+  public float getX() {
+    return 0.0;
+  }
+
+  public float getY() {
+    return 0.0;
   }
   //*ml
 

@@ -1,0 +1,4 @@
+[settings]
++include = *.pde
+keep empty files = no
+delete solution = yes

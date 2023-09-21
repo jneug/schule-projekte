@@ -1,4 +1,3 @@
-//ml* >=3
 class SpaceElevator {
   
   private Planet planet;
@@ -32,4 +31,3 @@ class SpaceElevator {
     pos += .01;
   }
 }
-//*ml

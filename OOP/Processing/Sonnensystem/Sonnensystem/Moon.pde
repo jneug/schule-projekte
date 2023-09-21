@@ -1,52 +1,57 @@
-class Moon {
-
+//ml* >=1
+public class Moon {
+  // Deklaration von Objektvariablen
   private String name;
-
-  private float x;
-  
-  private float y;
-  
-  private float distance;
-  
-  private float angle;
-
-  private float speed;
-  
-  private float size;
 
   private Planet planet;
 
-  public Moon( String pName, Planet pPlanet, float pSize, float pDist, float pSpeed ) {
+  private float distance;
+  private float angle;
+
+  private float x;
+  private float y;
+
+  private float speed;
+
+  private float size;
+
+
+  // Konstruktor
+  public Moon( String pName, Planet pPlanet, float pDistance, float pAngle,
+    float pSpeed, float pSize ) {
     name = pName;
     planet = pPlanet;
-    distance = pDist;
-    size = pSize;
+    
+    distance = pDistance;
+    angle = pAngle;
+    
+    x = distance * cos(angle) + planet.getX();
+    y = distance * sin(angle) + planet.getY();
     
     speed = pSpeed;
-    angle = 0.0;
-    x = 0.0;
-    y = 0.0;
-  }
-  
-  public float getX() {
-    return planet.getX()+x;
+    size = pSize;
   }
 
-  public float getY() {
-    return planet.getY()+y;
+  // Getter für x
+  public float getX() {
+    return x;
   }
-  
+
+  // Getter für y
+  public float getY() {
+    return y;
+  }
+
   public void draw() {
     noStroke();
-    fill(178);
-    ellipseMode(CENTER);
-    ellipse(getX(),getY(),size,size);
-  }
-  
-  public void update() {
-    angle += speed;
-    x = distance * cos(angle);
-    y = distance * sin(angle);
+    fill((size*12) % 200 + 55);
+    ellipse(x, y, size, size);
   }
 
+  public void update() {
+    angle += speed;
+    x = distance * cos(angle) + planet.getX();
+    y = distance * sin(angle) + planet.getY();
+  }
 }
+//*ml

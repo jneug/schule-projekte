@@ -1,4 +1,4 @@
-//ml* >=3
+//ml*
 public class ISS {
 
   private float x;
