@@ -60,6 +60,9 @@ public class StackDojo {
      * @return Ein neuer Stapel mit den "starken" Pokemon.
      */
     public Stack<Pokemon> getStrongPokemon( Stack<Pokemon> pStack ) {
+        /*aufg*
+        return null;
+        *aufg*/
         //ml*
         Stack<Pokemon> r = new Stack<>();
         if( pStack != null ) {

@@ -1,0 +1,35 @@
+version 400
+# ALT CTRL META SHIFT SHORT KEYCODE ACTION
+UP UP UP UP DOWN S save
+UP UP UP UP DOWN P print
+UP UP UP UP DOWN W close
+UP UP UP UP DOWN Z undo
+UP UP UP UP DOWN Y redo
+UP UP UP UP UP F8 comment-block
+UP UP UP UP UP F7 uncomment-block
+UP UP UP UP UP F6 indent-block
+UP UP UP UP UP F5 deindent-block
+UP UP UP UP DOWN M insert-method
+UP UP UP UP UP TAB indent
+UP UP UP DOWN UP TAB de-indent
+UP UP UP UP UP ENTER new-line
+UP UP UP UP DOWN F find
+UP UP UP UP DOWN G find-next
+UP UP UP DOWN DOWN G find-next-backward
+UP UP UP UP DOWN R replace
+UP UP UP UP DOWN L go-to-line
+UP UP UP UP DOWN K compile
+UP UP UP UP DOWN J toggle-interface-view
+UP UP UP UP DOWN B toggle-breakpoint
+UP UP UP UP DOWN COMMA preferences
+UP UP UP UP DOWN C copy-to-clipboard
+UP UP UP UP DOWN X cut-to-clipboard
+UP UP UP UP DOWN V paste-from-clipboard
+UP UP UP UP UP F2 copy-line
+UP UP UP UP UP F3 paste-from-clipboard
+UP UP UP UP UP F4 cut-line
+UP UP UP UP DOWN EQUALS increase-font
+UP UP UP UP DOWN MINUS decrease-font
+UP UP UP UP DOWN DIGIT0 reset-font
+UP DOWN UP UP UP SPACE code-completion
+UP UP UP DOWN DOWN I autoindent

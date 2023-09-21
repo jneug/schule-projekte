@@ -4,7 +4,6 @@ public class List<ContentType> {
 
     ContentType content;
 
-    // näcshtes Element der Liste
     List<ContentType> next;
 
     /**
@@ -14,18 +13,12 @@ public class List<ContentType> {
         content = null;
         next = null;
     }
-
     /**
      * Eine Liste wird erzeugt.
      */
     public List( ContentType pContent ) {
         content = pContent;
         next = null;
-    }
-
-    public List( ContentType pContent, List<ContentType> pTail ) {
-        content = pContent;
-        next = pTail;
     }
 
     /**
@@ -38,8 +31,12 @@ public class List<ContentType> {
         if( next == null ) {
             return content == null;
         } else {
-            return content == null && next.isEmpty();
+            return next.isEmpty();
         }
+    }
+
+    public boolean hasAccess() {
+        return content != null;
     }
 
     /**
@@ -73,10 +70,7 @@ public class List<ContentType> {
      * @param pContent das zu schreibende Objekt vom Typ ContentType
      */
     public void setContent( ContentType pContent ) {
-        // Nichts tun, wenn es keinen Inhalt oder kein aktuelles Element gibt.
-        if( pContent != null ) {
-            content = pContent;
-        }
+        content = pContent;
     }
 
     /**
@@ -91,8 +85,11 @@ public class List<ContentType> {
      * @param pContent das einzufuegende Objekt vom Typ ContentType
      */
     public void insert( ContentType pContent ) {
-        next = new List<>(content, next);
-        content = pContent;
+        if( pContent != null ) {
+            List<ContentType> newList = new List<>(pContent);
+            newList.next = next;
+            next = newList;
+        }
     }
 
     /**
@@ -105,10 +102,16 @@ public class List<ContentType> {
      * @param pContent das anzuhaengende Objekt vom Typ ContentType
      */
     public void append( ContentType pContent ) {
-        if( next == null ) {
-            next = new List<>(pContent);
-        } else {
-            next.append(pContent);
+        if( pContent != null ) {
+            if( next == null ) {
+                if( content == null ) {
+                    content = pContent;
+                } else {
+                    next = new List<>(pContent);
+                }
+            } else {
+                next.append(pContent);
+            }
         }
     }
 
@@ -141,7 +144,6 @@ public class List<ContentType> {
      * aktuelles Objekt mehr.
      */
     public void remove() {
-        content = next.getContent();
         next = next.next();
     }
 

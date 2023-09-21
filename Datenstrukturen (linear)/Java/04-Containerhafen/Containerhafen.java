@@ -3,6 +3,11 @@ public class Containerhafen {
     private Containerlager lager;
     private Kran kran;
 
+    public static void main( String[] args ) {
+        Containerhafen cf = new Containerhafen(new Containerlager(), new Kran());
+        new ContainerhafenAnzeige(cf);
+    }
+
     public Containerhafen( Containerlager pLager, Kran pKran ) {
         lager = pLager;
         kran = pKran;

@@ -1,0 +1,236 @@
+BlueJ run started: Mon Sep 07 08:56:28 CEST 2020
+BlueJ version 4.2.2
+Java version 11.0.2
+JavaFX version 11.0.2+1
+Virtual machine: OpenJDK 64-Bit Server VM 11.0.2+9 (Oracle Corporation)
+Running on: Windows 7 6.1 (amd64)
+Java Home: C:\Program Files\BlueJ\jdk
+----
+getExtensionsClass: jarFile=._CleanProjectExtension.jar Exception=zip END header not found
+java.util.zip.ZipException: zip END header not found
+	at java.base/java.util.zip.ZipFile$Source.zerror(ZipFile.java:1529)
+	at java.base/java.util.zip.ZipFile$Source.findEND(ZipFile.java:1430)
+	at java.base/java.util.zip.ZipFile$Source.initCEN(ZipFile.java:1437)
+	at java.base/java.util.zip.ZipFile$Source.<init>(ZipFile.java:1268)
+	at java.base/java.util.zip.ZipFile$Source.get(ZipFile.java:1231)
+	at java.base/java.util.zip.ZipFile$CleanableResource.<init>(ZipFile.java:726)
+	at java.base/java.util.zip.ZipFile$CleanableResource.get(ZipFile.java:843)
+	at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:246)
+	at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:176)
+	at java.base/java.util.jar.JarFile.<init>(JarFile.java:346)
+	at java.base/java.util.jar.JarFile.<init>(JarFile.java:317)
+	at java.base/java.util.jar.JarFile.<init>(JarFile.java:283)
+	at bluej.extmgr.ExtensionWrapper.getExtensionClass(ExtensionWrapper.java:128)
+	at bluej.extmgr.ExtensionWrapper.<init>(ExtensionWrapper.java:94)
+	at bluej.extmgr.ExtensionsManager.loadDirectoryExtensions(ExtensionsManager.java:155)
+	at bluej.extmgr.ExtensionsManager.loadExtensions(ExtensionsManager.java:105)
+	at bluej.extmgr.ExtensionsManager.getInstance(ExtensionsManager.java:66)
+	at bluej.Main.lambda$new$2(Main.java:152)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:313)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:770)
+	at java.desktop/java.awt.EventQueue$4$1.run(EventQueue.java:727)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:428)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:427)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:174)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+getExtensionsClass: jarFile=._GUI_Extension.jar Exception=zip END header not found
+java.util.zip.ZipException: zip END header not found
+	at java.base/java.util.zip.ZipFile$Source.zerror(ZipFile.java:1529)
+	at java.base/java.util.zip.ZipFile$Source.findEND(ZipFile.java:1430)
+	at java.base/java.util.zip.ZipFile$Source.initCEN(ZipFile.java:1437)
+	at java.base/java.util.zip.ZipFile$Source.<init>(ZipFile.java:1268)
+	at java.base/java.util.zip.ZipFile$Source.get(ZipFile.java:1231)
+	at java.base/java.util.zip.ZipFile$CleanableResource.<init>(ZipFile.java:726)
+	at java.base/java.util.zip.ZipFile$CleanableResource.get(ZipFile.java:843)
+	at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:246)
+	at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:176)
+	at java.base/java.util.jar.JarFile.<init>(JarFile.java:346)
+	at java.base/java.util.jar.JarFile.<init>(JarFile.java:317)
+	at java.base/java.util.jar.JarFile.<init>(JarFile.java:283)
+	at bluej.extmgr.ExtensionWrapper.getExtensionClass(ExtensionWrapper.java:128)
+	at bluej.extmgr.ExtensionWrapper.<init>(ExtensionWrapper.java:94)
+	at bluej.extmgr.ExtensionsManager.loadDirectoryExtensions(ExtensionsManager.java:155)
+	at bluej.extmgr.ExtensionsManager.loadExtensions(ExtensionsManager.java:105)
+	at bluej.extmgr.ExtensionsManager.getInstance(ExtensionsManager.java:66)
+	at bluej.Main.lambda$new$2(Main.java:152)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:313)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:770)
+	at java.desktop/java.awt.EventQueue$4$1.run(EventQueue.java:727)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:428)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:427)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:174)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Opening project: H:\Dokumente\01-Informatik\BlueJ\01-Arzt und Bahnhof
+1599461798997: Listening for JDWP connection on address: javadebug
+Connected to debug VM via dt_shmem transport...
+Communication with debug VM fully established.
+java.io.FileNotFoundException while reading import cache: H:Dokumente\bluej\import-cache.xml (Das System kann die angegebene Datei nicht finden)
+Sep. 07, 2020 8:57:02 VORM. javafx.scene.control.Menu$6 onChanged
+WARNING: Adding MenuItem Teamarbeit that has already been added to Werkzeuge
+Sep. 07, 2020 9:24:40 VORM. javafx.scene.CssStyleHelper calculateValue
+WARNING: Could not resolve '-fx-text-background-color' while resolving lookups for '-fx-text-fill' from rule '*.label' in stylesheet jar:file:/C:/Program%20Files/BlueJ/lib/javafx/lib/javafx.controls.jar!/com/sun/javafx/scene/control/skin/modena/modena.bss
+Simple GUI Extension terminates
+====
+
+====
+BlueJ run started: Mon Sep 07 09:25:39 CEST 2020
+BlueJ version 4.2.2
+Java version 11.0.2
+JavaFX version 11.0.2+1
+Virtual machine: OpenJDK 64-Bit Server VM 11.0.2+9 (Oracle Corporation)
+Running on: Windows 7 6.1 (amd64)
+Java Home: C:\Program Files\BlueJ\jdk
+----
+getExtensionsClass: jarFile=._CleanProjectExtension.jar Exception=zip END header not found
+java.util.zip.ZipException: zip END header not found
+	at java.base/java.util.zip.ZipFile$Source.zerror(ZipFile.java:1529)
+	at java.base/java.util.zip.ZipFile$Source.findEND(ZipFile.java:1430)
+	at java.base/java.util.zip.ZipFile$Source.initCEN(ZipFile.java:1437)
+	at java.base/java.util.zip.ZipFile$Source.<init>(ZipFile.java:1268)
+	at java.base/java.util.zip.ZipFile$Source.get(ZipFile.java:1231)
+	at java.base/java.util.zip.ZipFile$CleanableResource.<init>(ZipFile.java:726)
+	at java.base/java.util.zip.ZipFile$CleanableResource.get(ZipFile.java:843)
+	at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:246)
+	at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:176)
+	at java.base/java.util.jar.JarFile.<init>(JarFile.java:346)
+	at java.base/java.util.jar.JarFile.<init>(JarFile.java:317)
+	at java.base/java.util.jar.JarFile.<init>(JarFile.java:283)
+	at bluej.extmgr.ExtensionWrapper.getExtensionClass(ExtensionWrapper.java:128)
+	at bluej.extmgr.ExtensionWrapper.<init>(ExtensionWrapper.java:94)
+	at bluej.extmgr.ExtensionsManager.loadDirectoryExtensions(ExtensionsManager.java:155)
+	at bluej.extmgr.ExtensionsManager.loadExtensions(ExtensionsManager.java:105)
+	at bluej.extmgr.ExtensionsManager.getInstance(ExtensionsManager.java:66)
+	at bluej.Main.lambda$new$2(Main.java:152)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:313)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:770)
+	at java.desktop/java.awt.EventQueue$4$1.run(EventQueue.java:727)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:428)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:427)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:174)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+getExtensionsClass: jarFile=._GUI_Extension.jar Exception=zip END header not found
+java.util.zip.ZipException: zip END header not found
+	at java.base/java.util.zip.ZipFile$Source.zerror(ZipFile.java:1529)
+	at java.base/java.util.zip.ZipFile$Source.findEND(ZipFile.java:1430)
+	at java.base/java.util.zip.ZipFile$Source.initCEN(ZipFile.java:1437)
+	at java.base/java.util.zip.ZipFile$Source.<init>(ZipFile.java:1268)
+	at java.base/java.util.zip.ZipFile$Source.get(ZipFile.java:1231)
+	at java.base/java.util.zip.ZipFile$CleanableResource.<init>(ZipFile.java:726)
+	at java.base/java.util.zip.ZipFile$CleanableResource.get(ZipFile.java:843)
+	at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:246)
+	at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:176)
+	at java.base/java.util.jar.JarFile.<init>(JarFile.java:346)
+	at java.base/java.util.jar.JarFile.<init>(JarFile.java:317)
+	at java.base/java.util.jar.JarFile.<init>(JarFile.java:283)
+	at bluej.extmgr.ExtensionWrapper.getExtensionClass(ExtensionWrapper.java:128)
+	at bluej.extmgr.ExtensionWrapper.<init>(ExtensionWrapper.java:94)
+	at bluej.extmgr.ExtensionsManager.loadDirectoryExtensions(ExtensionsManager.java:155)
+	at bluej.extmgr.ExtensionsManager.loadExtensions(ExtensionsManager.java:105)
+	at bluej.extmgr.ExtensionsManager.getInstance(ExtensionsManager.java:66)
+	at bluej.Main.lambda$new$2(Main.java:152)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:313)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:770)
+	at java.desktop/java.awt.EventQueue$4$1.run(EventQueue.java:727)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:428)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:427)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:174)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Opening project: H:\Dokumente\01-Informatik\BlueJ\01-Arzt und Bahnhof ML
+1599463542126: Listening for JDWP connection on address: javadebug
+Connected to debug VM via dt_shmem transport...
+Communication with debug VM fully established.
+ExtensionWrapper.safePostGenGetMenuItem: Class=org.bluej.UMLextension.UMLExtension Exception=component must be showing on the screen to determine its location
+java.awt.IllegalComponentStateException: component must be showing on the screen to determine its location
+	at java.desktop/java.awt.Component.getLocationOnScreen_NoTreeLock(Component.java:2101)
+	at java.desktop/java.awt.Component.getLocationOnScreen(Component.java:2075)
+	at org.bluej.UMLextension.MenuBuilder.notifyPostClassMenu(MenuBuilder.java:48)
+	at bluej.extmgr.ClassExtensionMenu.postMenuItem(ClassExtensionMenu.java:66)
+	at bluej.extensions.BlueJ.postMenuItem(BlueJ.java:964)
+	at bluej.extensions.ExtensionBridge.postMenuItem(ExtensionBridge.java:142)
+	at bluej.extmgr.ExtensionWrapper.safePostMenuItem(ExtensionWrapper.java:673)
+	at bluej.extmgr.FXMenuManager.lambda$menuWillBecomeVisible$5(FXMenuManager.java:196)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:313)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:770)
+	at java.desktop/java.awt.EventQueue$4$1.run(EventQueue.java:727)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:428)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:427)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:174)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+ExtensionWrapper.safePostGenGetMenuItem: Class=org.bluej.UMLextension.UMLExtension Exception=component must be showing on the screen to determine its location
+java.awt.IllegalComponentStateException: component must be showing on the screen to determine its location
+	at java.desktop/java.awt.Component.getLocationOnScreen_NoTreeLock(Component.java:2101)
+	at java.desktop/java.awt.Component.getLocationOnScreen(Component.java:2075)
+	at org.bluej.UMLextension.MenuBuilder.notifyPostClassMenu(MenuBuilder.java:48)
+	at bluej.extmgr.ClassExtensionMenu.postMenuItem(ClassExtensionMenu.java:66)
+	at bluej.extensions.BlueJ.postMenuItem(BlueJ.java:964)
+	at bluej.extensions.ExtensionBridge.postMenuItem(ExtensionBridge.java:142)
+	at bluej.extmgr.ExtensionWrapper.safePostMenuItem(ExtensionWrapper.java:673)
+	at bluej.extmgr.FXMenuManager.lambda$menuWillBecomeVisible$5(FXMenuManager.java:196)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:313)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:770)
+	at java.desktop/java.awt.EventQueue$4$1.run(EventQueue.java:727)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:428)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:427)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:174)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+ExtensionWrapper.safePostGenGetMenuItem: Class=org.bluej.UMLextension.UMLExtension Exception=component must be showing on the screen to determine its location
+java.awt.IllegalComponentStateException: component must be showing on the screen to determine its location
+	at java.desktop/java.awt.Component.getLocationOnScreen_NoTreeLock(Component.java:2101)
+	at java.desktop/java.awt.Component.getLocationOnScreen(Component.java:2075)
+	at org.bluej.UMLextension.MenuBuilder.notifyPostClassMenu(MenuBuilder.java:48)
+	at bluej.extmgr.ClassExtensionMenu.postMenuItem(ClassExtensionMenu.java:66)
+	at bluej.extensions.BlueJ.postMenuItem(BlueJ.java:964)
+	at bluej.extensions.ExtensionBridge.postMenuItem(ExtensionBridge.java:142)
+	at bluej.extmgr.ExtensionWrapper.safePostMenuItem(ExtensionWrapper.java:673)
+	at bluej.extmgr.FXMenuManager.lambda$menuWillBecomeVisible$5(FXMenuManager.java:196)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:313)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:770)
+	at java.desktop/java.awt.EventQueue$4$1.run(EventQueue.java:727)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:428)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:427)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:174)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+ExtensionWrapper.safePostGenGetMenuItem: Class=org.bluej.UMLextension.UMLExtension Exception=component must be showing on the screen to determine its location
+java.awt.IllegalComponentStateException: component must be showing on the screen to determine its location
+	at java.desktop/java.awt.Component.getLocationOnScreen_NoTreeLock(Component.java:2101)
+	at java.desktop/java.awt.Component.getLocationOnScreen(Component.java:2075)
+	at org.bluej.UMLextension.MenuBuilder.notifyPostClassMenu(MenuBuilder.java:48)
+	at bluej.extmgr.ClassExtensionMenu.postMenuItem(ClassExtensionMenu.java:66)
+	at bluej.extensions.BlueJ.postMenuItem(BlueJ.java:964)
+	at bluej.extensions.ExtensionBridge.postMenuItem(ExtensionBridge.java:142)
+	at bluej.extmgr.ExtensionWrapper.safePostMenuItem(ExtensionWrapper.java:673)
+	at bluej.extmgr.FXMenuManager.lambda$menuWillBecomeVisible$5(FXMenuManager.java:196)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:313)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:770)
+	at java.desktop/java.awt.EventQueue$4$1.run(EventQueue.java:727)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:428)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:427)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:174)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Sep. 07, 2020 9:32:19 VORM. javafx.scene.CssStyleHelper calculateValue
+WARNING: Could not resolve '-fx-text-background-color' while resolving lookups for '-fx-text-fill' from rule '*.label' in stylesheet jar:file:/C:/Program%20Files/BlueJ/lib/javafx/lib/javafx.controls.jar!/com/sun/javafx/scene/control/skin/modena/modena.bss
+Simple GUI Extension terminates

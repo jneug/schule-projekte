@@ -31,6 +31,7 @@ public class Wordbox {
 
     /**
      * Startet eine Abfrage der Vokabeln.
+     * @see Scanner#next()
      */
     public void starteAbfrage() {
         Scanner konsole = new Scanner(System.in);

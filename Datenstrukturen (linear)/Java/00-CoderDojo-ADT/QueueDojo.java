@@ -59,6 +59,9 @@ public class QueueDojo {
      * @return Eine Schlange mit den Werten des Arrays
      */
     public Queue<Double> arrayToQueue( double[] pValues ) {
+        /*aufg*
+        return null;
+        *aufg*/
         //ml*
         Queue<Double> result = new Queue<>();
         for( int i = 0; i < pValues.length; i++ ) {

@@ -63,12 +63,17 @@ public class AdtDojo {
      * @return Eine {@link Queue} mit den {@code Die}-Objekten.
      */
     public Queue<Die> stackToQueue( Stack<Die> pStack ) {
+        /*aufg*
+        return null;
+        *aufg*/
+        //ml*
         Queue<Die> q = new Queue<>();
         while( !pStack.isEmpty() ) {
             q.enqueue(pStack.top());
             pStack.pop();
         }
         return q;
+        //*ml
     }
 
     /**
@@ -154,6 +159,9 @@ public class AdtDojo {
      * @return
      */
     public Pokemon[] createPokemon( int pCount, Stack<Die> pAttackRolls, Queue<Die> pDefenseRolls ) {
+        /*aufg*
+        return null;
+        *aufg*/
         //ml*
         if( pCount <= 0 ) {
             return new Pokemon[0];

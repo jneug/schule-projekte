@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<packages javaHome="C:\Program Files\BlueJ\jdk" version="4.2.2">
+    <package name="java">
+        <package name="io"/>
+        <package name="rmi">
+            <package name="dgc"/>
+            <package name="registry"/>
+            <package name="server"/>
+            <package name="activation"/>
+        </package>
+        <package name="sql"/>
+        <package name="security">
+            <package name="interfaces"/>
+            <package name="cert"/>
+            <package name="acl"/>
+            <package name="spec"/>
+        </package>
+        <package name="util">
+            <package name="zip"/>
+            <package name="regex"/>
+            <package name="stream"/>
+            <package name="function"/>
+            <package name="concurrent">
+                <package name="atomic"/>
+                <package name="locks"/>
+            </package>
+            <package name="logging"/>
+            <package name="jar"/>
+            <package name="spi"/>
+            <package name="prefs"/>
+        </package>
+        <package name="nio">
+            <package name="charset">
+                <package name="spi"/>
+            </package>
+            <package name="file">
+                <package name="attribute"/>
+                <package name="spi"/>
+            </package>
+            <package name="channels">
+                <package name="spi"/>
+            </package>
+        </package>
+        <package name="beans">
+            <package name="beancontext"/>
+        </package>
+        <package name="math"/>
+        <package name="text">
+            <package name="spi"/>
+        </package>
+        <package name="time">
+            <package name="zone"/>
+            <package name="format"/>
+            <package name="chrono"/>
+            <package name="temporal"/>
+        </package>
+        <package name="lang">
+            <package name="annotation"/>
+            <package name="ref"/>
+            <package name="reflect"/>
+            <package name="management"/>
+            <package name="module"/>
+            <package name="instrument"/>
+            <package name="invoke"/>
+        </package>
+        <package name="net">
+            <package name="http"/>
+            <package name="spi"/>
+        </package>
+        <package name="applet"/>
+        <package name="awt">
+            <package name="image">
+                <package name="renderable"/>
+            </package>
+            <package name="print"/>
+            <package name="desktop"/>
+            <package name="color"/>
+            <package name="im">
+                <package name="spi"/>
+            </package>
+            <package name="peer"/>
+            <package name="dnd">
+                <package name="peer"/>
+            </package>
+            <package name="event"/>
+            <package name="geom"/>
+            <package name="datatransfer"/>
+            <package name="font"/>
+        </package>
+    </package>
+</packages>

@@ -1,6 +1,6 @@
 /**
- * Eine Maus, die am Mäusekampf (Cheese Champion) teilnimmt, hat eine Nummer
- * und eine Stärke (beide ganze Zahlen) als Attribute.
+ * Eine Maus, die am Mäusekampf (Cheese Champion) teilnimmt, hat eine Nummer und
+ * eine Stärke (beide ganze Zahlen) als Attribute.
  */
 public class Maus {
 

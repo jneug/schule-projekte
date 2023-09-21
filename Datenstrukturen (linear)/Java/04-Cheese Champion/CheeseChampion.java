@@ -2,6 +2,7 @@
 import java.util.Random;
 *aufg*/
 //ml*
+
 import java.util.Random;
 //*ml
 
@@ -18,7 +19,7 @@ public class CheeseChampion {
     private ???<Maus> eingang;
     private ???<Maus> seitengang;
     private ???<Maus> ausgang;
-    *aufg*/su
+    *aufg*/
     /*aufg* >2
     // Deklaration der Gänge
     private Queue<Maus> eingang;
@@ -27,7 +28,9 @@ public class CheeseChampion {
     *aufg*/
     //ml*
     private Queue<Maus> eingang;
+
     private Stack<Maus> seitengang;
+
     private Queue<Maus> ausgang;
     //*ml
 
@@ -48,7 +51,9 @@ public class CheeseChampion {
 
     /**
      * Erzeugt <var>anzahl</var> fortlaufend nummerierte Mäuse (von 1 bis
-     * <var>anzahl</var>) mit zufälliger Stärke.
+     * <var>anzahl</var>) mit zufälliger Stärke und speichert sir im
+     * {@link #eingang}.
+     *
      * @param anzahl
      * @see java.util.Random
      */
@@ -64,10 +69,10 @@ public class CheeseChampion {
 
         System.out.println("Erzeuge Mäuse:");
         for( int i = 0; i < anzahl; i++ ) {
-            int nummer = i+1;
-            int staerke = r.nextInt(100)+1;
+            int nummer = i + 1;
+            int staerke = r.nextInt(100) + 1;
 
-            eingang.enqueue( new Maus(nummer, staerke) );
+            eingang.enqueue(new Maus(nummer, staerke));
             System.out.printf("Maus #%d (Stärke %d)\n", nummer, staerke);
         }
         //*ml
@@ -75,7 +80,7 @@ public class CheeseChampion {
 
     /**
      * Führt den Mäusekampf nach den bekannten Regeln durch.
-     *
+     * <p>
      * Siehe im Buch auf Seite 88 für eine Beschreibung des Kampfes.
      */
     public void kampf() {
@@ -159,16 +164,16 @@ public class CheeseChampion {
      * </pre>
      */
     public void erzeugeTestMaeuse() {
-        eingang.enqueue( new Maus(1, 8) );
-        eingang.enqueue( new Maus(2, 75) );
-        eingang.enqueue( new Maus(3, 33) );
-        eingang.enqueue( new Maus(4, 23) );
-        eingang.enqueue( new Maus(5, 73) );
-        eingang.enqueue( new Maus(6, 71) );
-        eingang.enqueue( new Maus(7, 6) );
-        eingang.enqueue( new Maus(8, 86) );
-        eingang.enqueue( new Maus(9, 63) );
-        eingang.enqueue( new Maus(10, 38) );
+        eingang.enqueue(new Maus(1, 8));
+        eingang.enqueue(new Maus(2, 75));
+        eingang.enqueue(new Maus(3, 33));
+        eingang.enqueue(new Maus(4, 23));
+        eingang.enqueue(new Maus(5, 73));
+        eingang.enqueue(new Maus(6, 71));
+        eingang.enqueue(new Maus(7, 6));
+        eingang.enqueue(new Maus(8, 86));
+        eingang.enqueue(new Maus(9, 63));
+        eingang.enqueue(new Maus(10, 38));
     }
 
     //ml*
@@ -176,8 +181,8 @@ public class CheeseChampion {
         Random r = new Random();
         Queue<Maus> mause = new Queue<Maus>();
         String[] z = zahlen.split(",");
-        for( String i: z ) {
-            mause.enqueue( new Maus(Integer.parseInt(i), r.nextInt()) );
+        for( String i : z ) {
+            mause.enqueue(new Maus(Integer.parseInt(i), r.nextInt()));
         }
         return mause;
     }

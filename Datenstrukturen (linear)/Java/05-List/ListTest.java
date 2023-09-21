@@ -104,8 +104,15 @@ public class ListTest {
         liste.remove();
         assertFalse("Nach remove() auf \"Drittes\" sollte es kein aktuelles Element geben.",
             liste.hasAccess());
-        assertFalse("Nach remove() ohne aktuellem Element, sollte nichts passieren.",
+        assertFalse("Nach remove() auf \"Drittes\" sollte die Liste leer sein.",
             liste.isEmpty());
+
+        liste.toFirst();
+        assertFalse("Nach remove() auf \"Drittes\" sollte es kein Erstes geben.",
+            liste.hasAccess());
+        liste.toLast();
+        assertFalse("Nach remove() auf \"Drittes\" sollte es kein Letztes geben.",
+            liste.hasAccess());
 
         liste.remove();
         assertFalse("Nach remove() ohne aktuellem Element, sollte nichts passieren.",

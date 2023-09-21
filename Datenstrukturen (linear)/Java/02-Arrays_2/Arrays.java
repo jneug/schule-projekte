@@ -6,7 +6,7 @@ public class Arrays {
      * Ein Beispiel zu Objekt-Arrays.
      */
     public void objectArrayExample() {
-        // Array mit Objektreferenzen erstellen
+        // Array mit Objektreferenzen erstellen.
         Wuerfel[] wuerfel = new Wuerfel[6];
         wuerfel[4] = new Wuerfel("W4");
         wuerfel[0] = new Wuerfel("W0");
@@ -14,10 +14,10 @@ public class Arrays {
         wuerfel[2] = wuerfel[4];
         wuerfel[3] = wuerfel[1];
 
-        // Ausgabe der Elemente im Array
+        // Ausgabe der Elemente im Array.
         printArray(wuerfel);
 
-        // wuerfel[2] und wuerfel[4] zeigen auf dasselbe Objekt
+        // wuerfel[2] und wuerfel[4] zeigen auf dasselbe Objekt.
         wuerfel[2].werfen();
         System.out.printf("Index %s: %s\n", 4, wuerfel[4].toString());
         if( wuerfel[2] == wuerfel[4] ) {
@@ -25,15 +25,15 @@ public class Arrays {
         }
         System.out.println();
 
-        // Die Referenz in wuerfel[2] kann auf ein neues Objekt gesetzt werden
+        // Die Referenz in wuerfel[2] kann auf ein neues Objekt gesetzt werden.
         wuerfel[2] = new Wuerfel("W2");
 
-        // Eine Objektreferenz im Array kann auch gelöscht werden
+        // Eine Objektreferenz im Array kann auch gelöscht werden.
         // Das zugehörige Objekt bleibt erhalten, solange noch eine andere
         // Referenz vorhanden ist (hier wuerfel[1]).
         wuerfel[3] = null;
 
-        // Referenzen können beliebig neu gesetzt werden
+        // Referenzen können beliebig neu gesetzt werden.
         Wuerfel w5 = new Wuerfel("W5");
         wuerfel[5] = w5;
         wuerfel[0] = w5;
