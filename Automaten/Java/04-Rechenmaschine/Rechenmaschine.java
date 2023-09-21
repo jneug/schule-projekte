@@ -16,35 +16,41 @@ public class Rechenmaschine {
     private int result;
 
     public Rechenmaschine() {
-        tokenlist = new List<>();
-
         Scanner input = new Scanner(System.in);
-        /*aufg* 1
-        System.out.println("Gib einen Plusterm ein und bestätige mit ENTER: ");
-        *aufg*/
-        /*aufg* 2
-        System.out.println("Gib einen Minusterm ein und bestätige mit ENTER: ");
-        *aufg*/
-        //ml*
-        System.out.println("Gib einen Term ein und bestätige mit ENTER: ");
-        //*ml
-        String eingabe = input.nextLine();
+
+        while( true ) {
+            tokenlist = new List<>();
+            /*aufg* 1
+            System.out.println("Gib einen Plusterm ein und bestätige mit ENTER (quit zum Beenden): ");
+            *aufg*/
+            /*aufg* 2
+            System.out.println("Gib einen Minusterm ein und bestätige mit ENTER (quit zum Beenden): ");
+            *aufg*/
+            //ml*
+            System.out.println("Gib einen Term ein und bestätige mit ENTER (quit zum Beenden): ");
+            //*ml
+            String eingabe = input.nextLine();
+
+            if( eingabe.equalsIgnoreCase("quit") ) {
+                break;
+            }
+
+            if( !scanne(eingabe) ) {
+                System.out.println("Fehler bei der lexikalischen Analyse:");
+                System.out.println(fehler);
+                return;
+            }
+
+            if( !parse() ) {
+                System.out.println("Fehler bei der syntaktischen Analyse:");
+                System.out.println(fehler);
+                return;
+            }
+
+            run();
+            System.out.println("Ergebnis der Ausführung: " + result);
+        }
         input.close();
-
-        if( !scanne(eingabe) ) {
-            System.out.println("Fehler bei der lexikalischen Analyse:");
-            System.out.println(fehler);
-            return;
-        }
-
-        if( !parse() ) {
-            System.out.println("Fehler bei der syntaktischen Analyse:");
-            System.out.println(fehler);
-            return;
-        }
-
-        run();
-        System.out.println("Ergebnis der Ausführung: " + result);
     }
 
     public boolean scanne( String pEingabe ) {
