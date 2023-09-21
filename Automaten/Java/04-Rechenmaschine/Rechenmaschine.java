@@ -19,7 +19,15 @@ public class Rechenmaschine {
         tokenlist = new List<>();
 
         Scanner input = new Scanner(System.in);
+        /*aufg* 1
         System.out.println("Gib einen Plusterm ein und bestätige mit ENTER: ");
+        *aufg*/
+        /*aufg* 2
+        System.out.println("Gib einen Minusterm ein und bestätige mit ENTER: ");
+        *aufg*/
+        //ml*
+        System.out.println("Gib einen Term ein und bestätige mit ENTER: ");
+        //*ml
         String eingabe = input.nextLine();
         input.close();
 
@@ -67,8 +75,19 @@ public class Rechenmaschine {
                             state = 1;
                             break;
 
+                        /*aufg* 1
                         case '+':
                             fehler = "Fehler im Wort " +pEingabe+ ":\nDas Wort darf nicht mit + beginnen!";
+                        *aufg*/
+                        /*aufg* 2
+                        case '-':
+                            fehler = "Fehler im Wort " +pEingabe+ ":\nDas Wort darf nicht mit - beginnen!";
+                        *aufg*/
+                        //ml*
+                        case '+':
+                        case '-':
+                            fehler = "Fehler im Wort " +pEingabe+ ":\nDas Wort darf nicht mit + oder - beginnen!";
+                        //*ml
                             return false;
 
                         default:
@@ -80,10 +99,24 @@ public class Rechenmaschine {
 
                 case 1:
                     switch( buchstabe ) {
+                        /*aufg* 1
                         case '+':
+                        *aufg*/
+                        /*aufg* 2
+                        case '-':
+                        *aufg*/
+                        //ml*
+                        case '+':
+                        case '-':
+                        //*ml
                             tokenlist.append(new Token("OPERAND", currentToken));
                             currentToken = "";
+                            /*aufg*
                             tokenlist.append(new Token("OPERATOR"));
+                            *aufg*/
+                            //ml*
+                            tokenlist.append(new Token("OPERATOR", Character.toString(buchstabe)));
+                            //*ml
                             state = 0;
                             break;
 
@@ -110,13 +143,31 @@ public class Rechenmaschine {
 
                 case 2:
                     switch( buchstabe ) {
+                        //ml* 1
                         case '+':
+                        //*ml
+                        //ml* 2
+                        case '-':
+                        //*ml
+                            /*aufg*
                             tokenlist.append(new Token("OPERATOR"));
+                            *aufg*/
+                            //ml*
+                            tokenlist.append(new Token("OPERATOR", Character.toString(buchstabe)));
+                            //*ml
                             state = 0;
                             break;
 
                         default:
+                            /*aufg* 1
                             fehler = "Fehler im Wort " +pEingabe+ ":\nNach 0 am Anfang muss ein + folgen!";
+                            *aufg*/
+                            /*aufg* 2
+                            fehler = "Fehler im Wort " +pEingabe+ ":\nNach 0 am Anfang muss ein - folgen!";
+                            *aufg*/
+                            //ml*
+                            fehler = "Fehler im Wort " +pEingabe+ ":\nNach 0 am Anfang muss ein + oder - folgen!";
+                            //*ml
                             return false;
                     }
                     break;
@@ -124,16 +175,27 @@ public class Rechenmaschine {
         }
 
         if( state == 0 ) {
+            /*aufg* 1
             fehler = "Fehler im Wort " +pEingabe+ ":\nDas Wort darf nicht auf + enden!";
+            *aufg*/
+            /*aufg* 2
+            fehler = "Fehler im Wort " +pEingabe+ ":\nDas Wort darf nicht auf - enden!";
+            *aufg*/
+            //ml*
+            fehler = "Fehler im Wort " +pEingabe+ ":\nDas Wort darf nicht auf + oder - enden!";
+            //*ml
             return false;
         } else {
-            tokenlist.append(new Token("OPERAND", currentToken));
+            // Fall noch eine Zahl im "Puffer" ist, wird diese
+            // noch als neues Token eingefügt
+            if( currentToken.length() > 0 ) {
+                tokenlist.append(new Token("OPERAND", currentToken));
+            }
             return true;
         }
     }
 
     public boolean parse() {
-
         int state = 0;
 
         tokenlist.toFirst();
@@ -181,14 +243,39 @@ public class Rechenmaschine {
     public void run() {
         result = 0;
 
+        //ml*
+        String currentOp = "+";
+        //*ml
         tokenlist.toFirst();
+        /*aufg* 2
+        result = Integer.parseInt(tokenlist.getContent().getToken());
+        tokenlist.next();
+        *aufg*/
         while( tokenlist.hasAccess() ) {
             Token currentToken = tokenlist.getContent();
 
             if( currentToken.getType().equals("OPERAND") ) {
+                /*aufg* 1
                 result += Integer.parseInt(currentToken.getToken());
+                *aufg*/
+                /*aufg* 2
+                result -= Integer.parseInt(currentToken.getToken());
+                *aufg*/
+                //ml*
+                if( currentOp.equals("+") ) {
+                    result += Integer.parseInt(currentToken.getToken());
+                } else if( currentOp.equals("-") )  {
+                    result -= Integer.parseInt(currentToken.getToken());
+                }
+                //*ml
+            } else if ( currentToken.getType().equals("OPERATOR") ) {
+                /*aufg*
+                // Nichts, da es nur einen Operator gibt ...
+                *aufg*/
+                //ml*
+                currentOp = currentToken.getToken();
+                //*ml
             }
-
             tokenlist.next();
         }
     }
