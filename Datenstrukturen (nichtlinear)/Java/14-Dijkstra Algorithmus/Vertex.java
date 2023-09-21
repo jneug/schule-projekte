@@ -19,20 +19,12 @@ public class Vertex{
   private String id;
   private boolean mark;
 
-  // Ergänzugnen für Dijkstra
-  // Speicher für den kürzesten Weg
-  private double value;
-  // Vorgängenknoten im kürzesten Weg
-  private Vertex predecessor;
-
-    /**
+ /**
   * Ein neues Objekt vom Typ Vertex wird erstellt. Seine Markierung hat den Wert false.
   */
   public Vertex(String pID){
     id = pID;
     mark = false;
-    value = Integer.MAX_VALUE;
-    predecessor = null;
   }
 
   /**
@@ -55,23 +47,5 @@ public class Vertex{
   public boolean isMarked(){
     return mark;
   }
-
-
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    public Vertex getPredecessor() {
-        return predecessor;
-    }
-
-    public void setPredecessor(Vertex predecessor) {
-        this.predecessor = predecessor;
-    }
-
 
 }

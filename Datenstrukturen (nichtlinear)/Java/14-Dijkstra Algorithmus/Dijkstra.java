@@ -5,8 +5,8 @@ public class Dijkstra {
     private boolean verbose;
 
     /**
-     * Implementierung des Dijkstra-Algorithmus auf ungerichteten,
-     * gewichteten Grapen.
+     * Implementierung des Dijkstra-Algorithmus auf ungerichteten, gewichteten
+     * Grapen.
      */
     public Dijkstra() {
         graph = new Graph();
@@ -38,18 +38,19 @@ public class Dijkstra {
     /**
      * Führt den Dijkstra-Algorithmus von einem Startknoten aus und bricht ab,
      * sobald der kürzeste Weg zum Zielknoten gefunden wurde.
-     *
+     * <p>
      * Der kürzeste Weg wird als Liste von Knoten zurückgegeben. Der kürzeste
-     * Weg zu den Knoten (auf dem Weg) wird im Attribut {@link Vertex#getValue() value}
-     * der Knoten gespeichert.
+     * Weg zu den Knoten (auf dem Weg) wird im Attribut
+     * {@link DijkstraVertex#getValue() value} der Knoten gespeichert.
      *
      * @param from Startknoten
      * @param to Endknoten
      */
     public List<Vertex> findShortestPath( String from, String to ) {
-        Vertex start = graph.getVertex(from);
-        Vertex end = graph.getVertex(to);
+        DijkstraVertex start = (DijkstraVertex) graph.getVertex(from);
+        DijkstraVertex end = (DijkstraVertex) graph.getVertex(to);
 
+        //ml*
         // Markierungen zeigen an, ob ein Knoten schon in die
         // Liste einsortiert wurde
         graph.setAllEdgeMarks(false);
@@ -62,7 +63,7 @@ public class Dijkstra {
         vList.append(start);
 
         while( !vList.isEmpty() ) {
-            Vertex current = findMinVertex(vList);
+            DijkstraVertex current = findMinVertex(vList);
             if( verbose )
                 System.out.println("Current node: " + current.getID());
             if( current.equals(end) ) {
@@ -76,7 +77,7 @@ public class Dijkstra {
             List<Vertex> neighbours = graph.getNeighbours(current);
             neighbours.toFirst();
             while( neighbours.hasAccess() ) {
-                Vertex v = neighbours.getContent();
+                DijkstraVertex v = (DijkstraVertex) neighbours.getContent();
                 Edge e = graph.getEdge(current, v);
 
                 if( verbose )
@@ -86,7 +87,7 @@ public class Dijkstra {
                     // Es wurde ein kürzerer Weg gefunden
                     // Der Knoten wird aktualisiert
                     if( verbose ) {
-                        if (v.getValue() == Integer.MAX_VALUE) {
+                        if( v.getValue() == Integer.MAX_VALUE ) {
                             System.out.printf("      Shorter path found: %.2f < Infinity\n", current.getValue() + e.getWeight(), v.getValue());
                         } else {
                             System.out.printf("      Shorter path found: %.2f < %.2f\n", current.getValue() + e.getWeight(), v.getValue());
@@ -111,24 +112,28 @@ public class Dijkstra {
                 neighbours.next();
             }
         }
+        //*ml
 
         return generatePath(end);
     }
 
     /**
-     * Sucht den Vertex mit dem geringsten Wert aus der Liste, entfernt ihn
-     * und gibt den Vertex zurück.
+     * Sucht den Vertex mit dem geringsten Wert aus der Liste, entfernt ihn und
+     * gibt den Vertex zurück.
+     *
      * @param pList
      * @return
      */
-    private Vertex findMinVertex( List<Vertex> pList ) {
+    private DijkstraVertex findMinVertex( List<Vertex> pList ) {
         // Knoten mit kleinstem Wert suchen
         pList.toFirst();
-        Vertex min = pList.getContent();
+        DijkstraVertex min = (DijkstraVertex) pList.getContent();
         pList.next();
+        //ml*
         while( pList.hasAccess() ) {
-            if (pList.getContent().getValue() < min.getValue() ) {
-                min = pList.getContent();
+            DijkstraVertex node = (DijkstraVertex) pList.getContent();
+            if( node.getValue() < min.getValue() ) {
+                min = node;
             }
             pList.next();
         }
@@ -138,45 +143,50 @@ public class Dijkstra {
             pList.next();
         }
         pList.remove();
+        //*ml
         // Fertig
         return min;
     }
 
     /**
      * Erzeugt <strong>nach</strong> Ablauf des Algorithmus den Weg zu einem
-     * Knoten aus den {@link Vertex#getPredecessor() predecessor} Attributen
-     * der Knoten.
+     * Knoten aus den {@link DijkstraVertex#getPredecessor() predecessor}
+     * Attributen der Knoten.
      *
      * @param pVertex
      * @return
      */
     public List<Vertex> generatePath( Vertex pVertex ) {
         List<Vertex> shortestpath = new List<>();
+        //ml*
         double length = 0.0;
-        Vertex current = pVertex;
+        DijkstraVertex current = (DijkstraVertex) pVertex;
         while( current != null ) {
             shortestpath.insert(current);
             shortestpath.toFirst();
             current = current.getPredecessor();
         }
+        //*ml
 
         return shortestpath;
     }
 
     /**
-     * Gibt einen Pfad aus, der in Form einer Liste von Knoten vorliegt. Es
-     * wird davon ausgegangen, dass die Knoten einen zusammenhängenden Pfad
+     * Gibt einen Pfad aus, der in Form einer Liste von Knoten vorliegt. Es wird
+     * davon ausgegangen, dass die Knoten einen zusammenhängenden Pfad
      * darstellen. Ob jeweils Kanten zwischen den Folgeknoten vorliegen wird
      * nicht geprüft.
+     *
      * @param pPath
      */
     public void printPath( List<Vertex> pPath ) {
         double length = 0.0;
 
         pPath.toFirst();
-        while(pPath.hasAccess()) {
+        while( pPath.hasAccess() ) {
             System.out.println("- " + pPath.getContent().getID());
-            length = pPath.getContent().getValue();
+            DijkstraVertex node = (DijkstraVertex) pPath.getContent();
+            length = node.getValue();
             pPath.next();
         }
 
@@ -193,7 +203,7 @@ public class Dijkstra {
         };
         Vertex[] v = new Vertex[ids.length];
         for( int i = 0; i < ids.length; i++ ) {
-            v[i] = new Vertex(ids[i]);
+            v[i] = new DijkstraVertex(ids[i]);
             graph.addVertex(v[i]);
         }
 
@@ -228,8 +238,6 @@ public class Dijkstra {
 
         graph.addEdge(new Edge(v[11], v[12], 11.0));
     }
-
-
 
 
 }
