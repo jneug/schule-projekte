@@ -2,11 +2,14 @@ import java.util.Random;
 
 public class Arrays {
 
+    public static void main( String[] args ) {
+        new Arrays().objectArrayExample();
+    }
     /**
      * Ein Beispiel zu Objekt-Arrays.
      */
     public void objectArrayExample() {
-        // Array mit Objektreferenzen erstellen.
+        // Array mit Objektreferenzen erstellen
         Wuerfel[] wuerfel = new Wuerfel[6];
         wuerfel[4] = new Wuerfel("W4");
         wuerfel[0] = new Wuerfel("W0");
@@ -14,29 +17,39 @@ public class Arrays {
         wuerfel[2] = wuerfel[4];
         wuerfel[3] = wuerfel[1];
 
-        // Ausgabe der Elemente im Array.
+        // Ausgabe der Elemente im Array
         printArray(wuerfel);
 
-        // wuerfel[2] und wuerfel[4] zeigen auf dasselbe Objekt.
+        // wuerfel[2] und wuerfel[4] zeigen auf dasselbe Objekt
         wuerfel[2].werfen();
         System.out.printf("Index %s: %s\n", 4, wuerfel[4].toString());
         if( wuerfel[2] == wuerfel[4] ) {
             System.out.println("Index 2 und Index 4 sind gleich");
+            wuerfel[4].werfen();
         }
         System.out.println();
 
-        // Die Referenz in wuerfel[2] kann auf ein neues Objekt gesetzt werden.
+        // Die Referenz in wuerfel[2] kann auf ein neues Objekt gesetzt werden
         wuerfel[2] = new Wuerfel("W2");
+        wuerfel[2].werfen();
 
-        // Eine Objektreferenz im Array kann auch gelöscht werden.
+        // Eine Objektreferenz im Array kann auch gelöscht werden
         // Das zugehörige Objekt bleibt erhalten, solange noch eine andere
         // Referenz vorhanden ist (hier wuerfel[1]).
         wuerfel[3] = null;
 
-        // Referenzen können beliebig neu gesetzt werden.
+        // Referenzen können beliebig neu gesetzt werden
         Wuerfel w5 = new Wuerfel("W5");
         wuerfel[5] = w5;
         wuerfel[0] = w5;
+
+        // Alle Würfel neu werfen
+        for( int i = 0; i < wuerfel.length; i++ ) {
+            // Achtung: Elemente im Arrays könnten null sein!
+            if( wuerfel[i] != null ) {
+                wuerfel[i].werfen();
+            }
+        }
 
         // Ausgabe der Elemente im Array
         printArray(wuerfel);
@@ -52,10 +65,10 @@ public class Arrays {
      */
     public void rollAll( Wuerfel[] pArray ) {
         /*aufg*
-        // TODO: implementieren
+        // TODO: implementieren (in objectArrayExample() werden alle Würfel neu geworfen; achte auf null im Array!)
         *aufg*/
         //ml*
-        for( int i = 0; i < pArray.length; i += 1 ) {
+        for( int i = 0; i < pArray.length; i++ ) {
             if( pArray[i] != null ) {
                 pArray[i].werfen();
             }
@@ -74,14 +87,14 @@ public class Arrays {
      */
     public int diceSum( Wuerfel[] pArray ) {
         /*aufg*
-        // TODO: implementieren
+        // TODO: implementieren (orientiere Dich an rollAll(); verwende getAugenzahl())
         return 0;
         *aufg*/
         //ml*
         int sum = 0;
-        for( int m = 0; m < pArray.length; m += 1 ) {
-            if( pArray[m] != null ) {
-                sum += pArray[m].getAugenzahl();
+        for( int i = 0; i < pArray.length; i++ ) {
+            if( pArray[i] != null ) {
+                sum += pArray[i].getAugenzahl();
             }
         }
         return sum;
@@ -101,12 +114,11 @@ public class Arrays {
         // TODO: implementieren
         *aufg*/
         //ml*
-        for( int i = 0; i < pArray.length; i += 1 ) {
+        for( int i = 0; i < pArray.length; i++ ) {
             if( pArray[i] != null ) {
-                Wuerfel[] innerArray = pArray[i];
-                for( int j = 0; j < innerArray.length; j += 1 ) {
-                    if( innerArray[j] != null ) {
-                        innerArray[j].werfen();
+                for( int j = 0; j < pArray[i].length; j++ ) {
+                    if( pArray[i][j] != null ) {
+                        pArray[i][j].werfen();
                     }
                 }
             }
@@ -130,12 +142,11 @@ public class Arrays {
         *aufg*/
         //ml*
         int sum = 0;
-        for( int i = 0; i < pArray.length; i += 1 ) {
+        for( int i = 0; i < pArray.length; i++ ) {
             if( pArray[i] != null ) {
-                Wuerfel[] innerArray = pArray[i];
-                for( int j = 0; j < innerArray.length; j += 1 ) {
-                    if( innerArray[j] != null ) {
-                        sum += innerArray[j].getAugenzahl();
+                for( int j = 0; j < pArray[i].length; j++ ) {
+                    if( pArray[i][j] != null ) {
+                        sum += pArray[i][j].getAugenzahl();
                     }
                 }
             }
@@ -159,14 +170,19 @@ public class Arrays {
         return null;
         *aufg*/
         //ml*
-        int[] sums = new int[pArray.length];
-        for( int i = 0; i < pArray.length; i += 1 ) {
-            Wuerfel[] innerArray = pArray[i];
-            for( int j = 0; j < innerArray.length; j += 1 ) {
-                sums[i] += innerArray[j].getAugenzahl();
+        int[] rowSums = new int[pArray.length];
+        for( int i = 0; i < pArray.length; i++ ) {
+            if( pArray[i] != null ) {
+                int sum = 0;
+                for( int j = 0; j < pArray[i].length; j++ ) {
+                    if( pArray[i][j] != null ) {
+                        sum += pArray[i][j].getAugenzahl();
+                    }
+                }
+                rowSums[i] = sum;
             }
         }
-        return sums;
+        return rowSums;
         //*ml
     }
 

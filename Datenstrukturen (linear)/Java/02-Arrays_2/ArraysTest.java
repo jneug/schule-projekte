@@ -13,12 +13,9 @@ public class ArraysTest {
 
         public int mockupValue;
 
-        public int rolls = 0;
-
         public MockupWuerfel(int pValue) {
             super("W" + (n++));
             mockupValue = pValue;
-            rolls = 0;
         }
 
         @Override
@@ -26,10 +23,6 @@ public class ArraysTest {
             return mockupValue;
         }
 
-        @Override
-        public void werfen() {
-            rolls = rolls + 1;
-        }
     }
 
     private Arrays arrays;
@@ -37,6 +30,7 @@ public class ArraysTest {
     @Before
     public void setUp() {
         arrays = new Arrays();
+        n = 0;
     }
 
     @Test
@@ -83,7 +77,7 @@ public class ArraysTest {
 
         for( int i = 0; i < dice.length; i++ ) {
             MockupWuerfel die = (MockupWuerfel)dice[i];
-            assertTrue( "Der Würfel "+die.getName()+" (von 50) wurde nicht geworfen (Array ohne null-Referenzen).", die.rolls == 1);
+            assertTrue( "Der Würfel "+die.getName()+" (von 50) wurde nicht geworfen (Array ohne null-Referenzen).", die.getAnzahlWuerfe() == 1);
         }
 
         for( int i = 0; i < dice.length; i+=3 ) {
@@ -95,7 +89,7 @@ public class ArraysTest {
         for( int i = 0; i < dice.length; i++ ) {
             if( dice[i] != null ) {
                 MockupWuerfel die = (MockupWuerfel) dice[i];
-                assertTrue("Der Würfel " + die.getName() + " wurde nicht geworfen (Array mit null-Referenzen).", die.rolls == 2);
+                assertTrue("Der Würfel " + die.getName() + " wurde nicht geworfen (Array mit null-Referenzen).", die.getAnzahlWuerfe() == 2);
             }
         }
     }
@@ -161,7 +155,7 @@ public class ArraysTest {
         for( int i = 0; i < dice.length; i++ ) {
             for( int j = 0; j < dice[i].length; j++ ) {
                 MockupWuerfel die = (MockupWuerfel)dice[i][j];
-                assertTrue( "Der Würfel "+die.getName()+" wurde nicht geworfen.", die.rolls == 1);
+                assertTrue( "Der Würfel "+die.getName()+" wurde nicht geworfen.", die.getAnzahlWuerfe() == 1);
             }
         }
     }
