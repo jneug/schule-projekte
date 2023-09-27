@@ -1,19 +1,13 @@
 public class ListCompiler4 {
 
+    private String error;
+
     private String sourcecode;
 
     private List<Token> tokenlist;
 
     public ListCompiler4( String pSourceFile ) {
-        sourcecode = "";
-
-        List<String> lines = FileSystem.getFileContents(pSourceFile);
-        lines.toFirst();
-        while( lines.hasAccess() ) {
-            sourcecode += lines.getContent() + "\n";
-            lines.next();
-        }
-        sourcecode = sourcecode.trim();
+        sourcecode = FileSystem.getFileContents(pSourceFile).trim();
     }
 
     public boolean scan() {
@@ -22,48 +16,30 @@ public class ListCompiler4 {
         // Split sourcecode at whitespace
         String[] words = this.splitAtWhitespace(sourcecode);
 
+        // Create empty tokenlist
         tokenlist = new List<>();
 
         // Run lexer
-        for (String word : words) {
-            switch( state ) {
-                case 0:
-                    if( word.equals("list") || word.equals("from") || word.equals("to") ) {
-                        tokenlist.append(new Token("KEYWORD", word));
-                    } else if( word.equals("by") ) {
-                        tokenlist.append(new Token("KEYWORD", word));
-                        state = 1;
-                    } else if( this.isNumber(word) ) {
-                        tokenlist.append(new Token("NUMBER", word));
-                    } else {
-                        return false;
-                    }
-                break;
-
-                case 1:
-                    if( this.isNumber(word) ) {
-                        tokenlist.append(new Token("NUMBER", word));
-                        state = 2;
-                    }
-                break;
-
-                case 2:
-                    if( word.equals("end") ) {
-                        tokenlist.append(new Token("KEYWORD", word));
-                        state = 0;
-                    } else if( word.startsWith("{") && word.endsWith("}") ) {
-                        tokenlist.append(new Token("VARIABLE", word));
-                    } else {
-                        tokenlist.append(new Token("STRING", word));
-                    }
-                break;
-
-                default:
-                return false;
+        // Translate words into proper tokens
+        for( String word : words ) {
+            if( isNumber(word) ) {
+                tokenlist.append(new Token("NUMBER", word));
+            } else if(
+                word.equalsIgnoreCase("list") ||
+                    word.equalsIgnoreCase("from") ||
+                    word.equalsIgnoreCase("to") ||
+                    word.equalsIgnoreCase("by") ||
+                    word.equalsIgnoreCase("end")
+            ) {
+                tokenlist.append(new Token("KEYWORD", word));
+            } else if( word.startsWith("{") && word.endsWith("}") ) {
+                tokenlist.append(new Token("VARIABLE", word));
+            } else {
+                tokenlist.append(new Token("STRING", word));
             }
         }
 
-        return state == 0;
+        return true;
     }
 
     public boolean parse() {
@@ -74,56 +50,97 @@ public class ListCompiler4 {
             Token t = tokenlist.getContent();
 
             switch( state ) {
+                //ml*
                 case 0:
-                    if( t.getToken().equals("list") ) {
+                    if( t.getToken().equalsIgnoreCase("list") ) {
                         state = 1;
                     } else {
+                        error = "LIST programms need to start with \"list\".";
                         return false;
                     }
-                break;
+                    break;
 
                 case 1:
-                    if( t.getToken().equals("from") ) {
+                    if( t.getToken().equalsIgnoreCase("from") ) {
                         state = 2;
+                    } else if( t.getToken().equalsIgnoreCase("to") ) {
+                        state = 4;
                     } else {
+                        error = "LIST programms need a \"to\" statement.";
                         return false;
                     }
-                break;
+                    break;
 
                 case 2:
                     if( t.getType().equals("NUMBER") ) {
                         state = 3;
                     } else {
+                        error = "\"from\" needs to be followed by a number.";
                         return false;
                     }
-                break;
+                    break;
 
                 case 3:
-                    if( t.getToken().equals("to") ) {
+                    if( t.getToken().equalsIgnoreCase("to") ) {
                         state = 4;
                     } else {
+                        error = "LIST programms need a \"to\" statement.";
                         return false;
                     }
-                break;
+                    break;
 
                 case 4:
                     if( t.getType().equals("NUMBER") ) {
                         state = 5;
                     } else {
+                        error = "\"to\" needs to be followed by a number.";
                         return false;
                     }
-                break;
+                    break;
 
                 case 5:
-                    if( t.getType().equals("STRING") || t.getType().equals("VARIABLE") ) {
-                        state = 5;
-                    } else if( t.getToken().equals("end") ) {
+                    if( t.getToken().equalsIgnoreCase("by") ) {
                         state = 6;
+                    } else if( t.getType().equals("STRING") || t.getType().equals("VARIABLE") ) {
+                        state = 8;
                     } else {
+                        error = "\"to\" needs to be followed by \"by\" or the list body.";
                         return false;
                     }
-                break;
+                    break;
 
+                case 6:
+                    if( t.getType().equals("NUMBER") ) {
+                        state = 7;
+                    } else {
+                        error = "\"by\" needs to be followed by a number.";
+                        return false;
+                    }
+                    break;
+
+                case 7:
+                    if( t.getType().equals("STRING") || t.getType().equals("VARIABLE")) {
+                        state = 8;
+                    } else {
+                        error = "List body may not be empty.";
+                        return false;
+                    }
+                    break;
+
+                case 8:
+                    if( t.getType().equals("STRING") ) {
+                        state = 8;
+                    } else if( t.getType().equals("VARIABLE") ) {
+                        state = 8;
+                    } else if( t.getToken().equals("end") ) {
+                        state = 0;
+                    } else {
+                        error = "Wrong token in list body.";
+                        return false;
+                    }
+                    break;
+
+                //*ml
                 default:
                     return false;
             }
@@ -131,10 +148,11 @@ public class ListCompiler4 {
             tokenlist.next();
         }
 
-        return state == 6;
+        return state == 0;
     }
 
     public void interpret() {
+        //ml*
         int from = 0, to = -1, by = 1;
         List<Token> out = new List<>();
 
@@ -164,6 +182,7 @@ public class ListCompiler4 {
 
             tokenlist.next();
         }
+        //*ml
     }
 
     private void run( int from, int to, int by, List<Token> out ) {
@@ -182,6 +201,11 @@ public class ListCompiler4 {
         }
     }
 
+    private void showError() {
+        System.err.println("Fehler beim Compilieren:");
+        System.err.println(error);
+    }
+
     public void printTokens() {
         tokenlist.toFirst();
         while( tokenlist.hasAccess() ) {
@@ -192,8 +216,9 @@ public class ListCompiler4 {
     }
 
     /**
-     * Hilfsmethode, um einen String an den Leerstellen in einzelne
-     * "Wörter" zu trennen. Die Teile werden als String-Array zurückgegeben.
+     * Hilfsmethode, um einen String an den Leerstellen in einzelne "Wörter" zu
+     * trennen. Die Teile werden als String-Array zurückgegeben.
+     *
      * @param pString
      * @return
      */
@@ -202,21 +227,39 @@ public class ListCompiler4 {
     }
 
     /**
-     * Prüft, ob ein String nur aus Ziffer (0-9) besteht. Dezimalzahlen
-     * mit Nachkommastellen werden nicht erkannt.
-     * @param pString
-     * @return
+     * Prüft, ob ein String nur aus Ziffer (0-9) besteht. ezimalzahlen mit
+     * Nachkommastellen werden nicht erkannt.
+     *
+     * @param pString Ein Text, der geprüft werden soll.
+     * @return {@code true}, wenn der Text nur aus Ziffern besteht, {@code false} sonst.
      */
-    private boolean isNumber( String pString ) {
-        return pString.matches("\\d+");
+    public static boolean isNumber( String pString ) {
+        return pString.matches("(0|[1-9]\\d*)");
     }
 
-    public static void main(String[] args) {
-        ListCompiler4 lc = new ListCompiler4("programs/example3.list");
-        lc.scan();
-        lc.parse();
+    /**
+     * Formt einen Wert vom Typ String in einen Integer um.
+     *
+     * @param pString Ein Text, der nur aus Ziffern besteht.
+     * @return Der int-Wert des Textes.
+     * @see Integer#parseInt(String)
+     */
+    public static int toInt( String pString ) {
+        return Integer.parseInt(pString);
+    }
+
+    public static void main( String[] args ) {
+        ListCompiler4 lc = new ListCompiler4("programs/example4.list");
+        if( !lc.scan() ) {
+            lc.showError();
+            return;
+        }
+        if( !lc.parse() ) {
+            lc.showError();
+            lc.printTokens();
+            return;
+        }
         lc.interpret();
-        //lc.printTokens();
     }
 
 }

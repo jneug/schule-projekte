@@ -1,4 +1,4 @@
-public class ListCompiler2 {
+public class ListCompiler5 {
 
     private String error;
 
@@ -6,7 +6,7 @@ public class ListCompiler2 {
 
     private List<Token> tokenlist;
 
-    public ListCompiler2( String pSourceFile ) {
+    public ListCompiler5( String pSourceFile ) {
         sourcecode = FileSystem.getFileContents(pSourceFile).trim();
     }
 
@@ -44,6 +44,8 @@ public class ListCompiler2 {
 
     public boolean parse() {
         int state = 0;
+        Stack<Character> stack = new Stack<>();
+        stack.push('#');
 
         tokenlist.toFirst();
         while( tokenlist.hasAccess() ) {
@@ -53,9 +55,20 @@ public class ListCompiler2 {
                 //ml*
                 case 0:
                     if( t.getToken().equalsIgnoreCase("list") ) {
-                        state = 1;
+                        // stack.push('L');
+                        state = 10;
                     } else {
                         error = "LIST programms need to start with \"list\".";
+                        return false;
+                    }
+                    break;
+
+                case 10:
+                    if( t.getType().equals("VARIABLE") ) {
+                        t.setType("COUNTER");
+                        state = 1;
+                    } else {
+                        error = "LIST programms need to define a counting variable.";
                         return false;
                     }
                     break;
@@ -63,8 +76,10 @@ public class ListCompiler2 {
                 case 1:
                     if( t.getToken().equalsIgnoreCase("from") ) {
                         state = 2;
+                    } else if( t.getToken().equalsIgnoreCase("to") ) {
+                        state = 4;
                     } else {
-                        error = "LIST programms need a \"from\" statement.";
+                        error = "LIST programms need a \"to\" statement.";
                         return false;
                     }
                     break;
@@ -99,8 +114,13 @@ public class ListCompiler2 {
                 case 5:
                     if( t.getToken().equalsIgnoreCase("by") ) {
                         state = 6;
+                    } else if( t.getToken().equalsIgnoreCase("list") ) {
+                        stack.push('L');
+                        state = 10;
+                    } else if( t.getType().equals("STRING") || t.getType().equals("VARIABLE") ) {
+                        state = 8;
                     } else {
-                        error = "LIST programms need a \"by\" statement.";
+                        error = "\"to\" needs to be followed by \"by\" or the list body.";
                         return false;
                     }
                     break;
@@ -117,6 +137,9 @@ public class ListCompiler2 {
                 case 7:
                     if( t.getType().equals("STRING") || t.getType().equals("VARIABLE")) {
                         state = 8;
+                    } else if( t.getToken().equalsIgnoreCase("list") ) {
+                        stack.push('L');
+                        state = 10;
                     } else {
                         error = "List body may not be empty.";
                         return false;
@@ -128,8 +151,25 @@ public class ListCompiler2 {
                         state = 8;
                     } else if( t.getType().equals("VARIABLE") ) {
                         state = 8;
+                    } else if( t.getToken().equalsIgnoreCase("list") ) {
+                        stack.push('L');
+                        state = 10;
                     } else if( t.getToken().equals("end") ) {
-                        state = 9;
+                        char top = stack.top();
+                        stack.pop();
+
+                        switch( top ) {
+                            case 'L':
+                                state = 8;
+                                break;
+                            case '#':
+                                stack.push('#');
+                                state = 0;
+                                break;
+                            default:
+                                error = "Missing end statement.";
+                                return false;
+                        }
                     } else {
                         error = "Wrong token in list body.";
                         return false;
@@ -144,7 +184,7 @@ public class ListCompiler2 {
             tokenlist.next();
         }
 
-        return state == 9;
+        return state == 0;
     }
 
     public void interpret() {
@@ -167,12 +207,22 @@ public class ListCompiler2 {
                 by = Integer.parseInt(tokenlist.getContent().getToken());
             } else if( t.getType().equals("STRING") || t.getType().equals("VARIABLE") ) {
                 out.append(t);
+            } else if( t.getToken().equals("end") ) {
+                this.run(from, to, by, out);
+
+                from = 0;
+                to = -1;
+                by = 1;
+                out = new List<>();
             }
 
             tokenlist.next();
         }
+        //*ml
+    }
 
-        for( ; from <= to; from += by ) {
+    private void run( int from, int to, int by, List<Token> out ) {
+        for(; from <= to; from += by ) {
             out.toFirst();
             while( out.hasAccess() ) {
                 if( out.getContent().getType().equals("STRING") ) {
@@ -185,7 +235,6 @@ public class ListCompiler2 {
             }
             System.out.println();
         }
-        //*ml
     }
 
     private void showError() {
@@ -236,17 +285,17 @@ public class ListCompiler2 {
     }
 
     public static void main( String[] args ) {
-        ListCompiler2 lc = new ListCompiler2("programs/example2.list");
+        ListCompiler5 lc = new ListCompiler5("programs/example5.list");
         if( !lc.scan() ) {
             lc.showError();
             return;
         }
         if( !lc.parse() ) {
             lc.showError();
+            lc.printTokens();
             return;
         }
         lc.interpret();
-        //lc.printTokens();
     }
 
 }

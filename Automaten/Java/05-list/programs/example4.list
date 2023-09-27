@@ -1,0 +1,12 @@
+list from 6 to 12 by 2
+	Normales Programm {i}
+end
+list to 5
+	Minimales Programm {i}
+end
+list from 5 to 10
+	Mit "from" {i}
+end
+list to 10 by 2
+	Mit "by" {i}
+end

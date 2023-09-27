@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.file.FileSystemException;
 
 /**
  * Hilfsklasse um auf einfache Weise mit dem Dateisystem zu interagieren.
@@ -18,19 +19,19 @@ public class FileSystem {
      * @param pFilename
      * @return
      */
-    public static List<String> getFileContents( String pFilename ) {
+    public static String getFileContents( String pFilename ) {
         try {
             File f = new File(FileSystem.class.getResource(pFilename).toURI());
 
             if( f.isFile() ) {
                 FileSystem fs;
                 fs = new FileSystem(f.getParent());
-                return fs.readLines(f.getName());
+                return fs.readFile(f.getName());
             } else {
-                return new List<String>();
+                return "";
             }
         } catch( Exception ex ) {
-            return new List<String>();
+            throw new RuntimeException("Could not read file " + pFilename, ex);
         }
     }
 
@@ -121,6 +122,7 @@ public class FileSystem {
         lines.toFirst();
         while( lines.hasAccess() ) {
             content += lines.getContent() + "\n";
+            lines.next();
         }
 
         return content;
